@@ -4,6 +4,9 @@
 #include "shape.hpp"
 
 class Sphere : public Shape {
+public:
+	double area() override;
+	double volume() override;
 private:
 	glm::vec3 center;
 	double radius;
