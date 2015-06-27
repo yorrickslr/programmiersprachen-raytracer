@@ -2,7 +2,7 @@
 #include <glm/vec3.hpp>
 #include <cmath>
 
-Sphere::Sphere(glm::vec3 center, double radius) :
+Sphere::Sphere(glm::vec3 const& center, double const radius) :
 	center_{center},
 	radius_{radius}
 {}
