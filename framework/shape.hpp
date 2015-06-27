@@ -2,8 +2,9 @@
 #define BUW_SHAPE_HPP
 
 class Shape {
-	virtual double area() = 0;
-	virtual double volume() = 0;
+public:
+	virtual double area() const = 0;
+	virtual double volume() const = 0;
 };
 
 #endif
