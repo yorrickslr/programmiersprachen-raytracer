@@ -48,6 +48,19 @@ TEST_CASE("constructors for box", "[constructors]") {
 	REQUIRE(b2.max() == tmp);
 }
 
+TEST_CASE("get area of box", "[area]") {
+	Box box;
+	REQUIRE(box.area() == 6);
+}
+
+TEST_CASE("get volume of box", "[area]") {
+	Box box;
+	REQUIRE(box.volume() == 1);
+}
+
 int main(int argc, char *argv[]) {
   return Catch::Session().run(argc, argv);
 }
+
+
+//Tests for Box
