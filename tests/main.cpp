@@ -1,6 +1,8 @@
 #define CATCH_CONFIG_RUNNER
 #include <catch.hpp>
-#include <sphere.cpp>
+#include "sphere.cpp"
+#include "box.hpp"
+
 #include <glm/vec3.hpp>
 
 TEST_CASE("get volume of sphere", "[volume]") {
@@ -31,6 +33,19 @@ TEST_CASE("constructors of sphere", "[constructors]") {
 	REQUIRE(s1.radius() == s2.radius());
 	REQUIRE(s1.area() == s2.area());
 	REQUIRE(s1.volume() == s2.volume());
+}
+
+TEST_CASE("constructors for box", "[constructors]") {
+	Box b1;
+	glm::vec3 tmp{0,0,0};
+	REQUIRE(b1.min() == tmp);
+	tmp = {1,1,1};
+	REQUIRE(b1.max() == tmp);
+	Box b2{{1,1,3},{3,2,2}};
+	tmp = {1,1,2};
+	REQUIRE(b2.min() == tmp);
+	tmp = {3,2,3};
+	REQUIRE(b2.max() == tmp);
 }
 
 int main(int argc, char *argv[]) {
