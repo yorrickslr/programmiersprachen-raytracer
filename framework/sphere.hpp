@@ -3,12 +3,14 @@
 
 #include "shape.hpp"
 #include <glm/vec3.hpp>
+#include "color.hpp"
+#include <string>
 
 class Sphere : public Shape {
 public:
+	Sphere(std::string const& name, glm::vec3 const& center, double const radius, Color const& color);
 	Sphere(glm::vec3 const& center, double const radius);
 	Sphere();
-	~Sphere();
 	glm::vec3 center() const;
 	double radius() const;
 	double area() const override;
