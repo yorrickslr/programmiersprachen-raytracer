@@ -1,9 +1,12 @@
 #include "sphere.hpp"
 #include <glm/vec3.hpp>
 #include <cmath>
+#include "ray.hpp"
+#include <glm/glm.hpp>
+#include <glm/gtx/intersect.hpp>
 
-Sphere::Sphere(std::string const& name, glm::vec3 const& center, double const radius, Color const& color) :
-	Shape{name, color},
+Sphere::Sphere(glm::vec3 const& center, double const radius, Color const& color, std::string const& name) :
+	Shape{color, name},
 	center_{center},
 	radius_{radius}
 {}
@@ -37,12 +40,17 @@ double Sphere::radius() const {
 }
 
 std::ostream& Sphere::print(std::ostream& os) const {
-	Shape::print(os) << "center: [" << center_.x << "," << center_.y << "," << center_.z << "]\r\n" << "radius: " << radius_ << "\r\n";
+	Shape::print(os) << "center: [" << center_.x << "," << center_.y 
+		<< "," << center_.z << "]\r\n" << "radius: " << radius_ << "\r\n";
 	return os;
 }
 
 std::ostream& operator<<(std::ostream& os, Sphere const& s) {
 	return s.print(os);
+}
+
+bool Sphere::intersect(Ray const& ray, float& distance) const {
+	return glm::intersectRaySphere(ray.origin, glm::normalize(ray.direction), center_, radius_, distance);
 }
 
 // MinGW does not support M_PI, 
