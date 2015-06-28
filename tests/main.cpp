@@ -2,8 +2,9 @@
 #include <catch.hpp>
 #include "sphere.cpp"
 #include "box.hpp"
-
+#include "color.hpp"
 #include <glm/vec3.hpp>
+#include <string>
 
 TEST_CASE("get volume of sphere", "[volume]") {
 	Sphere sphere;
@@ -58,9 +59,51 @@ TEST_CASE("get volume of box", "[area]") {
 	REQUIRE(box.volume() == 1);
 }
 
+TEST_CASE("get color of sphere", "[color]") {
+	Sphere sphere;
+	Color tmp{100,100,100};
+	REQUIRE(sphere.color().r == tmp.r);
+	REQUIRE(sphere.color().g == tmp.g);
+	REQUIRE(sphere.color().b == tmp.b);
+}
+
+TEST_CASE("get name of sphere", "[name]") {
+	Sphere sphere;
+	REQUIRE(sphere.name() == "default");
+}
+
+TEST_CASE("shape constructor for sphere") {
+	Sphere sphere{"test",{1,2,3},4.2,{255,200,200}};
+	REQUIRE(sphere.name() == "test");
+	REQUIRE(sphere.color().r == 255);
+	glm::vec3 tmp{1,2,3};
+	REQUIRE(sphere.center() == tmp);
+	REQUIRE(sphere.radius() == 4.2);
+}
+
+TEST_CASE("get color of box", "[color]") {
+	Box box;
+	Color tmp{100,100,100};
+	REQUIRE(box.color().r == tmp.r);
+	REQUIRE(box.color().g == tmp.g);
+	REQUIRE(box.color().b == tmp.b);
+}
+
+TEST_CASE("get name of box", "[name]") {
+	Box box;
+	REQUIRE(box.name() == "default");
+}
+
+TEST_CASE("shape constructor for box") {
+	Box box{"test",{1,2,3},{4,5,6},{255,200,200}};
+	REQUIRE(box.name() == "test");
+	REQUIRE(box.color().r == 255);
+	glm::vec3 tmp{1,2,3};
+	REQUIRE(box.min() == tmp);
+	tmp = {4,5,6};
+	REQUIRE(box.max() == tmp);
+}
+
 int main(int argc, char *argv[]) {
   return Catch::Session().run(argc, argv);
 }
-
-
-//Tests for Box
