@@ -21,8 +21,8 @@ Box::Box(glm::vec3 const& min, glm::vec3 const& max) :
 	}
 {}
 
-Box::Box(std::string const& name, glm::vec3 const& min, glm::vec3 const& max, Color const& color) :
-	Shape{name,color},
+Box::Box(glm::vec3 const& min, glm::vec3 const& max, Color const& color, std::string const& name) :
+	Shape{color,name},
 	min_{
 		min.x<max.x ? min.x : max.x,
 		min.y<max.y ? min.y : max.y,
@@ -58,7 +58,9 @@ double Box::volume() const {
 }
 
 std::ostream& Box::print(std::ostream& os) const {
-	Shape::print(os) << "min: [" << min_.x << "," << min_.y << "," << min_.z << "]\r\n" << "max: [" << max_.x << "," << max_.y << "," << max_.z << "]" << "\r\n";
+	Shape::print(os) << "min: [" << min_.x << "," << min_.y 
+		<< "," << min_.z << "]\r\n" << "max: [" << max_.x 
+		<< "," << max_.y << "," << max_.z << "]" << "\r\n";
 	return os;
 }
 
