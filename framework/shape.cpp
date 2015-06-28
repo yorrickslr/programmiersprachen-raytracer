@@ -5,7 +5,7 @@ Shape::Shape() :
 	color_{100,100,100}
 {}
 
-Shape::Shape(std::string const& name, Color const& color) :
+Shape::Shape(Color const& color, std::string const& name) :
 	name_{name},
 	color_{color}
 {}
