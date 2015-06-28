@@ -19,7 +19,19 @@ Box::Box(glm::vec3 const& min, glm::vec3 const& max) :
 	}
 {}
 
-Box::~Box() {}
+Box::Box(std::string const& name, glm::vec3 const& min, glm::vec3 const& max, Color const& color) :
+	Shape{name,color},
+	min_{
+		min[0]<max[0] ? min[0] : max[0],
+		min[1]<max[1] ? min[1] : max[1],
+		min[2]<max[2] ? min[2] : max[2]
+	},
+	max_{
+		max[0]>min[0] ? max[0] : min [0],
+		max[1]>min[1] ? max[1] : min [1],
+		max[2]>min[2] ? max[2] : min [2]
+	}
+{}
 
 glm::vec3 Box::min() const {
 	return min_;
