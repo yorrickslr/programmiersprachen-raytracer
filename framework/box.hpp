@@ -13,9 +13,12 @@ public:
 	glm::vec3 max() const;
 	double area() const override;
 	double volume() const override;
+	std::ostream& print(std::ostream& os) const override;
 private:
 	glm::vec3 min_;
 	glm::vec3 max_;
 };
+
+std::ostream& operator<<(std::ostream& os, Box const& s);
 
 #endif
