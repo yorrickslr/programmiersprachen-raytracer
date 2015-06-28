@@ -2,34 +2,36 @@
 #include <glm/vec3.hpp>
 
 Box::Box() :
+	Shape{},
 	min_{0,0,0},
 	max_{1,1,1}
 {}
 
 Box::Box(glm::vec3 const& min, glm::vec3 const& max) :
+	Shape{},
 	min_{
-		min[0]<max[0] ? min[0] : max[0],
-		min[1]<max[1] ? min[1] : max[1],
-		min[2]<max[2] ? min[2] : max[2]
+		min.x<max.x ? min.x : max.x,
+		min.y<max.y ? min.y : max.y,
+		min.z<max.z ? min.z : max.z
 	},
 	max_{
-		max[0]>min[0] ? max[0] : min [0],
-		max[1]>min[1] ? max[1] : min [1],
-		max[2]>min[2] ? max[2] : min [2]
+		max.x>min.x ? max.x : min.x,
+		max.y>min.y ? max.y : min.y,
+		max.z>min.z ? max.z : min.z
 	}
 {}
 
 Box::Box(std::string const& name, glm::vec3 const& min, glm::vec3 const& max, Color const& color) :
 	Shape{name,color},
 	min_{
-		min[0]<max[0] ? min[0] : max[0],
-		min[1]<max[1] ? min[1] : max[1],
-		min[2]<max[2] ? min[2] : max[2]
+		min.x<max.x ? min.x : max.x,
+		min.y<max.y ? min.y : max.y,
+		min.z<max.z ? min.z : max.z
 	},
 	max_{
-		max[0]>min[0] ? max[0] : min [0],
-		max[1]>min[1] ? max[1] : min [1],
-		max[2]>min[2] ? max[2] : min [2]
+		max.x>min.x ? max.x : min.x,
+		max.y>min.y ? max.y : min.y,
+		max.z>min.z ? max.z : min.z
 	}
 {}
 
@@ -53,4 +55,13 @@ double Box::volume() const {
 	double b = max_[1] - min_[1];
 	double c = max_[2] - min_[2];
 	return a * b * c;
+}
+
+std::ostream& Box::print(std::ostream& os) const {
+	Shape::print(os) << "min: [" << min_.x << "," << min_.y << "," << min_.z << "]\r\n" << "max: [" << max_.x << "," << max_.y << "," << max_.z << "]" << "\r\n";
+	return os;
+}
+
+std::ostream& operator<<(std::ostream& os, Box const& s) {
+	return s.print(os);
 }
