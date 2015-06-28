@@ -9,6 +9,7 @@ Sphere::Sphere(std::string const& name, glm::vec3 const& center, double const ra
 {}
 
 Sphere::Sphere(glm::vec3 const& center, double const radius) :
+	Shape{},
 	center_{center},
 	radius_{radius}
 {}
@@ -33,6 +34,15 @@ glm::vec3 Sphere::center() const {
 
 double Sphere::radius() const {
 	return radius_;
+}
+
+std::ostream& Sphere::print(std::ostream& os) const {
+	Shape::print(os) << "center: [" << center_.x << "," << center_.y << "," << center_.z << "]\r\n" << "radius: " << radius_ << "\r\n";
+	return os;
+}
+
+std::ostream& operator<<(std::ostream& os, Sphere const& s) {
+	return s.print(os);
 }
 
 // MinGW does not support M_PI, 
