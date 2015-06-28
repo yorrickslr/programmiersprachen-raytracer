@@ -5,6 +5,8 @@
 #include "color.hpp"
 #include <glm/vec3.hpp>
 #include <string>
+#include <glm/glm.hpp>
+#include <glm/gtx/intersect.hpp>
 
 TEST_CASE("get volume of sphere", "[volume]") {
 	Sphere sphere;
@@ -102,6 +104,16 @@ TEST_CASE("shape constructor for box") {
 	REQUIRE(box.min() == tmp);
 	tmp = {4,5,6};
 	REQUIRE(box.max() == tmp);
+}
+
+TEST_CASE("use ostream of shape", "[ostream]") {
+	Sphere sphere;
+	std::cout << sphere << std::endl;
+}
+
+TEST_CASE("use ostream of box", "[ostream]") {
+	Box box;
+	std::cout << box << std::endl;
 }
 
 int main(int argc, char *argv[]) {
