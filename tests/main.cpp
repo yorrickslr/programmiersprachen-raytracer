@@ -7,6 +7,7 @@
 #include <string>
 #include <glm/glm.hpp>
 #include <glm/gtx/intersect.hpp>
+#include <iostream>
 
 TEST_CASE("get volume of sphere", "[volume]") {
 	Sphere sphere;
@@ -143,6 +144,26 @@ TEST_CASE("intersect ray with sphere method","[intersect]") {
 	REQUIRE(distance == Approx(4.0f));
 }
 
+TEST_CASE("virtual constructor of shape","[constructor]") {
+	std::cout << "\r\ntest-case: 'virtual constructor of shape'" << std::endl;
+	Color red(255,0,0);
+	glm::vec3 position(0,0,0);
+	Sphere* s1 = new Sphere(position,1.2,red,"sphere0");
+	Shape* s2 = new Sphere(position,1.2,red,"sphere1");
+	s1->print(std::cout);
+	s2->print(std::cout);
+	delete s1;
+	delete s2;
+}
+
+TEST_CASE("intersect ray with box method","[intersect]") {
+	Ray ray{{0.0f,0.0f,0.0f},{0.0,0.0,1.0}};
+	Box box{{-1,-1,2},{1,1,2}};
+	float distance{0.0};
+	REQUIRE(box.intersect(ray,distance) == true);
+	REQUIRE(distance == Approx(2.0f));
+}
+
 int main(int argc, char *argv[]) {
   return Catch::Session().run(argc, argv);
 }
@@ -159,4 +180,44 @@ int main(int argc, char *argv[]) {
 	Falls sphere noch eine abgeleitete Klasse haette,
 	so wuerde s1 auch insofern dynamisch sein,
 	als dass man ein Objekt der abgeleiteten Klasse zuweisen kann.
+*/
+
+/* Aufgabe 6.8
+	Output with virtual:
+		test-case: 'virtual constructor of shape'
+		Construction of sphere
+		Construction of sphere
+		name: sphere0
+		color: (255,0,0)
+		center: [0,0,0]
+		radius: 1.2
+		name: sphere1
+		color: (255,0,0)
+		center: [0,0,0]
+		radius: 1.2
+		Destruction of sphere
+		Destruction of shape
+		Destruction of sphere
+		Destruction of shape
+	Output without virtual:
+		test-case: 'virtual constructor of shape'
+		Construction of sphere
+		Construction of sphere
+		name: sphere0
+		color: (255,0,0)
+		center: [0,0,0]
+		radius: 1.2
+		name: sphere1
+		color: (255,0,0)
+		center: [0,0,0]
+		radius: 1.2
+		Destruction of sphere
+		Destruction of shape
+		Destruction of shape
+	Wenn der Destruktor von shape als virtual deklariert ist,
+	so wird beim Loeschen auch der ueberschreibende Destruktor aufgerufen,
+	da es sich um einen Pointer auf ein Objekt des abgeleiteten Typs handelt.
+	Laesst man das virtual weg, 
+	so wir nur der Destruktor der Basisklasse aufgerufen
+	(es findet ja keine Ueberschreibung statt).
 */
