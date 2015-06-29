@@ -75,7 +75,7 @@ TEST_CASE("get name of sphere", "[name]") {
 }
 
 TEST_CASE("shape constructor for sphere") {
-	Sphere sphere{"test",{1,2,3},4.2,{255,200,200}};
+	Sphere sphere{{1,2,3},4.2,{255,200,200},"test"};
 	REQUIRE(sphere.name() == "test");
 	REQUIRE(sphere.color().r == 255);
 	glm::vec3 tmp{1,2,3};
@@ -97,7 +97,7 @@ TEST_CASE("get name of box", "[name]") {
 }
 
 TEST_CASE("shape constructor for box") {
-	Box box{"test",{1,2,3},{4,5,6},{255,200,200}};
+	Box box{{1,2,3},{4,5,6},{255,200,200},"test"};
 	REQUIRE(box.name() == "test");
 	REQUIRE(box.color().r == 255);
 	glm::vec3 tmp{1,2,3};
@@ -116,6 +116,47 @@ TEST_CASE("use ostream of box", "[ostream]") {
 	std::cout << box << std::endl;
 }
 
+TEST_CASE("intersectRaySphere", "[intersect]") {
+	//Ray
+	glm :: vec3 ray_origin (0.0 ,0.0 ,0.0);
+	//ray direction has to be normalized!
+	//you can use:
+	//v = glm::normalize(some_vector)
+	glm::vec3 ray_direction(0.0,0.0,1.0);
+	// Sphere
+	glm::vec3 sphere_center(0.0,0.0,5.0);
+	float sphere_radius(1.0);
+
+	float distance (0.0);
+	auto result = glm::intersectRaySphere(
+	ray_origin, ray_direction,
+	sphere_center, sphere_radius,
+	distance);
+	REQUIRE(distance == Approx(4.0f));
+}
+
+TEST_CASE("intersect ray with sphere method","[intersect]") {
+	Ray ray{{0.0f,0.0f,0.0f},{0.0,0.0,1.0}};
+	Sphere sphere{{0.0,0.0,5.0},1.0};
+	float distance{0.0};
+	REQUIRE(sphere.intersect(ray,distance) == true);
+	REQUIRE(distance == Approx(4.0f));
+}
+
 int main(int argc, char *argv[]) {
   return Catch::Session().run(argc, argv);
 }
+
+/* Aufgabe 6.7
+	s1 ist ein shared Pointer vom Typ sphere.
+	s2 ist ein shared pointer vom Typ shape.
+	s1 ist hier statisch, 
+	da ihm nur Objekte des Typs sphere zugewiesen werden koennen.
+	s2 dagegen ist dynamisch, weil es sich um einen Typ der Basisklasse handelt:
+	Es kann ihr sowohl ein Objekt vom Typ der Basisklasse, 
+	als auch eines der abgeleiteten Klasse zugewiesen werden.
+
+	Falls sphere noch eine abgeleitete Klasse haette,
+	so wuerde s1 auch insofern dynamisch sein,
+	als dass man ein Objekt der abgeleiteten Klasse zuweisen kann.
+*/
