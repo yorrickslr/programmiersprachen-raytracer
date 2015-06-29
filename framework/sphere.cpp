@@ -4,24 +4,35 @@
 #include "ray.hpp"
 #include <glm/glm.hpp>
 #include <glm/gtx/intersect.hpp>
+#include <iostream>
 
 Sphere::Sphere(glm::vec3 const& center, double const radius, Color const& color, std::string const& name) :
 	Shape{color, name},
 	center_{center},
 	radius_{radius}
-{}
+{
+	std::cout << "Construction of sphere" << std::endl;
+}
 
 Sphere::Sphere(glm::vec3 const& center, double const radius) :
 	Shape{},
 	center_{center},
 	radius_{radius}
-{}
+{
+	std::cout << "Construction of sphere" << std::endl;
+}
 
 Sphere::Sphere() :
 	Shape{},
 	center_{0.0,0.0,0.0},
 	radius_{1}
-{}
+{
+	std::cout << "Construction of sphere" << std::endl;
+}
+
+Sphere::~Sphere() {
+	std::cout << "Destruction of sphere" << std::endl;
+}
 
 double Sphere::volume() const {
 	return (12.56636 * std::pow(radius_,3)) / 3 ;
