@@ -1,4 +1,5 @@
 #include "shape.hpp"
+#include <iostream>
 
 Shape::Shape() :
 	name_{"default"},
@@ -9,6 +10,10 @@ Shape::Shape(Color const& color, std::string const& name) :
 	name_{name},
 	color_{color}
 {}
+
+Shape::~Shape() {
+	std::cout << "Destruction of shape" << std::endl;
+}
 
 std::string Shape::name() const {
 	return name_;
