@@ -156,13 +156,13 @@ TEST_CASE("virtual constructor of shape","[constructor]") {
 	delete s2;
 }
 
-TEST_CASE("intersect ray with box method","[intersect]") {
-	Ray ray{{0.0f,0.0f,0.0f},{0.0,0.0,1.0}};
-	Box box{{-1,-1,2},{1,1,2}};
-	float distance{0.0};
-	REQUIRE(box.intersect(ray,distance) == true);
-	REQUIRE(distance == Approx(2.0f));
-}
+//TEST_CASE("intersect ray with box method","[intersect]") {
+//	Ray ray{{0.0f,0.0f,0.0f},{0.0,0.0,1.0}};
+//	Box box{{-1,-1,2},{1,1,2}};
+//	float distance{0.0};
+//	REQUIRE(box.intersect(ray,distance) == true);
+//	REQUIRE(distance == Approx(2.0f));
+//}
 
 int main(int argc, char *argv[]) {
   return Catch::Session().run(argc, argv);

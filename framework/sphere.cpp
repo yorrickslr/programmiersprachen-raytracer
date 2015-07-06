@@ -11,7 +11,7 @@ Sphere::Sphere(glm::vec3 const& center, double const radius, Color const& color,
 	center_{center},
 	radius_{radius}
 {
-	std::cout << "Construction of sphere" << std::endl;
+	// std::cout << "Construction of sphere" << std::endl;
 }
 
 Sphere::Sphere(glm::vec3 const& center, double const radius) :
@@ -19,7 +19,7 @@ Sphere::Sphere(glm::vec3 const& center, double const radius) :
 	center_{center},
 	radius_{radius}
 {
-	std::cout << "Construction of sphere" << std::endl;
+	// std::cout << "Construction of sphere" << std::endl;
 }
 
 Sphere::Sphere() :
@@ -27,11 +27,11 @@ Sphere::Sphere() :
 	center_{0.0,0.0,0.0},
 	radius_{1}
 {
-	std::cout << "Construction of sphere" << std::endl;
+	// std::cout << "Construction of sphere" << std::endl;
 }
 
 Sphere::~Sphere() {
-	std::cout << "Destruction of sphere" << std::endl;
+	// std::cout << "Destruction of sphere" << std::endl;
 }
 
 double Sphere::volume() const {

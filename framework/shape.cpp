@@ -12,7 +12,7 @@ Shape::Shape(Color const& color, std::string const& name) :
 {}
 
 Shape::~Shape() {
-	std::cout << "Destruction of shape" << std::endl;
+	// std::cout << "Destruction of shape" << std::endl;
 }
 
 std::string Shape::name() const {
