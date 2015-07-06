@@ -82,10 +82,26 @@ std::ostream& operator<<(std::ostream& os, Box const& s) {
 }
 
 bool Box::intersect(Ray const& ray, float& distance) {
-	/*glm::vec3 tmp{0,0,0};
-	float dmin{0.0}, dmax{0.0}, dtmp{0.0};
-	dmin = (min_.x - ray.origin.x) / ray.direction.x;
-	dmax = (max_.x - ray.origin.x) / ray.direction.x;
-	dtmp = dmin < dmax ? dmin : dmax;
-	tmp.*/
+	for(int i=0; i<3; i++) {
+		float dmin{0.0}, dmax{0.0}, dtmp{0.0};
+		dmin = (min_[i] - ray.origin[i]) / ray.direction[i];
+		dmax = (max_[i] - ray.origin[i]) / ray.direction[i];
+		dtmp = dmin < dmax ? dmin : dmax;
+		if(dtmp==dtmp) {
+			glm::vec3 tmp{
+				ray.origin.x + dtmp * ray.direction.x,
+				ray.origin.y + dtmp * ray.direction.y,
+				ray.origin.z + dtmp * ray.direction.z
+			};
+		} else {
+			continue;
+		}
+		if(tmp.x>=min_.x && tmp.x<=max_.x &&
+			tmp.y>=min_.y && tmp.y<=max_.y && 
+			tmp.z>=min_.z && tmp.z<=max_.z) {
+			distance = sqrt(tmp.x * tmp.x + tmp.y * tmp.y + tmp.z * tmp.z);
+			return true;
+		}
+	}
+	return false;
 }
