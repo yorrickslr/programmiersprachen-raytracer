@@ -4,6 +4,7 @@
 #include <string>
 #include "color.hpp"
 #include <ray.hpp>
+#include <material.hpp>
 
 class Shape {
 public:
@@ -11,14 +12,14 @@ public:
 	virtual double area() const = 0;
 	virtual double volume() const = 0;
 	std::string name() const;
-	Color color() const;
+	Material material() const;
 	virtual std::ostream& print(std::ostream& os) const;
 	// virtual bool intersect(Ray const& ray, float& distance) = 0;
 protected:
 	Shape();
-	Shape(Color const& color, std::string const& name);
+	Shape(Material const& material, std::string const& name);
 private:
-	Color color_;
+	Material material_;
 	std::string name_;
 };
 

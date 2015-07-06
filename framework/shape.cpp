@@ -3,12 +3,12 @@
 
 Shape::Shape() :
 	name_{"default"},
-	color_{100,100,100}
+	material_{ Material{} }
 {}
 
-Shape::Shape(Color const& color, std::string const& name) :
+Shape::Shape(Material const& material, std::string const& name) :
 	name_{name},
-	color_{color}
+	material_{material}
 {}
 
 Shape::~Shape() {
@@ -19,12 +19,12 @@ std::string Shape::name() const {
 	return name_;
 }
 
-Color Shape::color() const {
-	return color_;
+Material Shape::material() const {
+	return material_;
 }
 
 std::ostream& Shape::print(std::ostream& os) const {
-	os << "name: " << name_ << "\r\n" << "color: " << color_;
+	os << "name: " << name_ << "\r\n" << "material: " << material_;
 	return os;
 }
 
