@@ -6,7 +6,7 @@
 class Material {
 public:
 	Material();
-	Material(std::string const& name; Color ka; Color kd; Color ks; float m);
+	Material(std::string const& name, Color ka, Color kd, Color ks, float m);
 	~Material();
 
 	std::string get_name() const;
