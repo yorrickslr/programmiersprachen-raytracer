@@ -28,8 +28,8 @@ Box::Box(glm::vec3 const& min, glm::vec3 const& max) :
 	// std::cout << "Construction of box" << std::endl;
 }
 
-Box::Box(glm::vec3 const& min, glm::vec3 const& max, Color const& color, std::string const& name) :
-	Shape{color,name},
+Box::Box(glm::vec3 const& min, glm::vec3 const& max, Material const& material, std::string const& name) :
+	Shape{material,name},
 	min_{
 		min.x<max.x ? min.x : max.x,
 		min.y<max.y ? min.y : max.y,
@@ -81,29 +81,11 @@ std::ostream& operator<<(std::ostream& os, Box const& s) {
 	return s.print(os);
 }
 
-//bool Box::intersect(Ray const& ray, float& distance) {
-//	float tx1 {(min_.x - ray.origin.x) * glm::normalize(ray.direction).x};
-//	float tx2 {(max_.x - ray.origin.x) * glm::normalize(ray.direction).x};
-//	float tmin {std::min(tx1,tx2)};
-//	float tmax {std::max(tx1,tx2)};
-//	float w {tmax - tmin};
-//
-//	float ty1 {(min_.y - ray.origin.y) * glm::normalize(ray.direction).y};
-//	float ty2 {(max_.y - ray.origin.y) * glm::normalize(ray.direction).y};
-//	float tmp {abs(ty1 - ty2)};
-//	float h {tmp!=tmp ? 0.0 : tmax - tmin};
-//
-//	float tz1 {(min_.z - ray.origin.z) * glm::normalize(ray.direction).z};
-//	float tz2 {(max_.z - ray.origin.z) * glm::normalize(ray.direction).z};
-//	tmin = std::max(tmin, std::min(tz1,tz2));
-//	tmax = std::min(tmax, std::max(tz1,tz2));
-//	tmp = abs(tz1 - tz2);
-//	float l {tmp!=tmp ? 0.0 : tmax - tmin};
-//
-//	if(tmax >= std::max(0.0f, tmin)) {
-//		distance = sqrt(w * w + h * h + l * l);
-//		return true;
-//	} else {
-//		return false;
-//	}
-//}
+bool Box::intersect(Ray const& ray, float& distance) {
+	/*glm::vec3 tmp{0,0,0};
+	float dmin{0.0}, dmax{0.0}, dtmp{0.0};
+	dmin = (min_.x - ray.origin.x) / ray.direction.x;
+	dmax = (max_.x - ray.origin.x) / ray.direction.x;
+	dtmp = dmin < dmax ? dmin : dmax;
+	tmp.*/
+}
