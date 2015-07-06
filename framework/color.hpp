@@ -14,46 +14,53 @@
 
 struct Color
 {
-  Color(float red, float green, float blue) : r(red), g(green), b(blue) {}
-  float r;
-  float g;
-  float b;
+	Color() : r(0.0), g(0.0), b(0.0) {}
 
-  friend std::ostream& operator<<(std::ostream& os, Color const& c)
-  {
-    os << "(" << c.r << "," << c.g << "," << c.b << ")\n";
-    return os;
-  }
+	Color(float red, float green, float blue) : r(red), g(green), b(blue) {}
 
-  Color& operator+=(Color const& other)
-  {
-    r += other.r;
-    g += other.g;
-    b += other.b;
-    return *this;
-  }
+	float r;
+	float g;
+	float b;
 
-  Color& operator-=(Color const& other)
-  {
-    r -= other.r;
-    g -= other.g;
-    b -= other.b;
-    return *this;
-  }
+	friend std::ostream& operator<<(std::ostream& os, Color const& c)
+	{
+		os << "(" << c.r << "," << c.g << "," << c.b << ")\n";
+		return os;
+	}
 
-  friend Color operator+(Color const& a, Color const& b)
-  {
-    auto tmp(a);
-    tmp += b;
-    return tmp;
-  }
+	Color& operator+=(Color const& other)
+	{
+		r += other.r;
+		g += other.g;
+		b += other.b;
+		return *this;
+	}
 
-  friend Color operator-(Color const& a, Color const& b)
-  {
-    auto tmp(a);
-    tmp -= b;
-    return tmp;
-  }
+	Color& operator-=(Color const& other)
+	{
+		r -= other.r;
+		g -= other.g;
+		b -= other.b;
+		return *this;
+	}
+
+	bool operator==(Color const& clr1) {
+		return (r == clr1.r && g == clr1.g && b == clr1.b);
+	}
+
+	friend Color operator+(Color const& a, Color const& b)
+	{
+		auto tmp(a);
+		tmp += b;
+		return tmp;
+	}
+
+	friend Color operator-(Color const& a, Color const& b)
+	{
+		auto tmp(a);
+		tmp -= b;
+		return tmp;
+	}
 };
 
 #endif //#define BUW_COLOR_HPP
