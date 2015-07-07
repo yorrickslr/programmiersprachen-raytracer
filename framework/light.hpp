@@ -6,7 +6,7 @@
 class Light {
 	
 private:
-	glm::vec3 position_;
+	glm::vec3 light_position_;
 	Color intensity_
 };
 
