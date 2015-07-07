@@ -164,6 +164,22 @@ TEST_CASE("intersect ray with sphere method","[intersect]") {
 //	REQUIRE(distance == Approx(2.0f));
 //}
 
+TEST_CASE("intersect box","[intersect]") {
+	Box box{{1,1,0},{3,3,2}};
+	Ray ray{{0,1,0},{0.5,0.5,0.5}};
+	float distance;
+	REQUIRE(box.intersect(ray,distance));
+	REQUIRE(distance == Approx(sqrt(3)));
+}
+
+TEST_CASE("intersect box with negative min","[intersect]") {
+	Box box{{-3,-0.5,-0.5},{-3.2, 0.5, 0.5}};
+	Ray ray{{0,0,0},{-1,0,0}};
+	float distance{0};
+	REQUIRE(box.intersect(ray,distance));
+	REQUIRE(distance == 3);
+}
+
 int main(int argc, char *argv[]) {
   return Catch::Session().run(argc, argv);
 }
