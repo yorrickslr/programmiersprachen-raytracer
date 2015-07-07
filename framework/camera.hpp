@@ -6,6 +6,8 @@ class Camera{
 	Camera();
 	Camera(glm::vec3 pos);
 	~Camera();
+
+	glm::vec3 get_position() const;
 private:
 	glm::vec3 cam_position_;
 };
