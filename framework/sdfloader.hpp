@@ -1,9 +1,9 @@
 #ifndef BUW_SDFLOADER_HPP
 #define BUW_SDFLOADER_HPP
 
-#include <fstream>
 #include <string>
 #include <scene.hpp>
+#include <iostream>
 
 class SDFLoader {
 public:
