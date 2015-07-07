@@ -8,9 +8,9 @@
 
 class SDFLoader {
 public:
-	Scene getScene(std::ifstream file);
+	void getScene(std::ifstream& file, Scene& scene);
 private:
-	std::ifstream file_;
+	std::ifstream& file_;
 };
 
 #endif

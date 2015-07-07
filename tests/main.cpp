@@ -8,6 +8,17 @@
 #include <glm/glm.hpp>
 #include <glm/gtx/intersect.hpp>
 #include <iostream>
+#include <fstream>
+#include <sdfloader.hpp>
+#include <string>
+#include <scene.hpp>
+
+TEST_CASE("test sdf","[sdf]") {
+	SDFLoader asdf;
+	std::string file = "test.txt";
+	Scene scene;
+	asdf.getScene("test.txt",scene);
+}
 
 TEST_CASE("get volume of sphere", "[volume]") {
 	Sphere sphere;
