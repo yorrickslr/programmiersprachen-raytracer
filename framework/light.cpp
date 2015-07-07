@@ -17,3 +17,11 @@ Light::Light(glm::vec3 pos, Color intensity) :
 	intensity_{ intensity } {}
 
 Light::~Light(){}
+
+glm::vec3 Light::get_position() const {
+	return light_position_;
+}
+
+Color Light::get_intensity() const {
+	return intensity_;
+}
