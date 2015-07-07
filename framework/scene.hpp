@@ -6,7 +6,7 @@
 #include <camera.hpp>
 
 
-struct scene{
+struct Scene{
 	Color ambient_light;
 	std::vector<Shape> shape_vec;
 	std::vector<Light> light_vec;
