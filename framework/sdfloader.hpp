@@ -7,7 +7,7 @@
 #include <fstream>
 
 void loadScene(std::ifstream& file, Scene& scene) {
-	std::cout "funst endlich" << std::endl;
+	std::cout << "funst endlich" << std::endl;
 }
 
 #endif
