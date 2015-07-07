@@ -3,6 +3,9 @@
 #include <glm/vec3.hpp>
 
 class Camera{
+	Camera();
+	Camera(glm::vec3 pos);
+	~Camera();
 private:
 	glm::vec3 cam_position_;
 };
