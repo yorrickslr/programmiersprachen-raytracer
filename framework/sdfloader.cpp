@@ -1,18 +1,9 @@
 #include <sdfloader.hpp>
 
-SDFLoader::SDFLoader() :
-	file_{""}
-{}
 
-SDFLoader::SDFLoader(std::ifstream& file) :
-	file_{file}
-{}
-
-SDFLoader::~SDFLoader() {}
-
-Scene SDFLoader::getScene() {
+Scene SDFLoader::getScene(std::ifstream file) {
 	std::string line{""};
-	while(std::getline(file_,line)) {
+	while(std::getline(file,line)) {
 		std::cout << line << std::endl;
 	}
 }
