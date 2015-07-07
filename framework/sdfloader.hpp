@@ -4,6 +4,7 @@
 #include <string>
 #include <scene.hpp>
 #include <iostream>
+#include <fstream>
 
 class SDFLoader {
 public:
