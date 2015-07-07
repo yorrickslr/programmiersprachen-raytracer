@@ -1,11 +1,10 @@
 #include <sdfloader.hpp>
-#include <iostream>
 
 SDFLoader::SDFLoader() :
 	file_{""}
 {}
 
-SDFLoader::SDFLoader(std::fstream& file) :
+SDFLoader::SDFLoader(std::ifstream& file) :
 	file_{file}
 {}
 
