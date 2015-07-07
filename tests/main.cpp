@@ -15,17 +15,24 @@
 #include <triangle.hpp>
 
 TEST_CASE("testing triangle class","[triangle]") {
-    Triangle tri{Material{}, "Dereck", glm::vec3{0.0,0.0,0.0}, glm::vec3{2.0,0.0,0.0}, glm::vec3{1.0,2.0,0.0}};
-    glm::vec3 testp1{0.0,0.0,0.0};
-    glm::vec3 testp2{2.0,0.0,0.0};
-    glm::vec3 testp3{1.0,2.0,0.0};
+	Triangle tri{Material{}, "Dereck", glm::vec3{0.0,0.0,0.0}, glm::vec3{2.0,0.0,0.0}, glm::vec3{1.0,2.0,0.0}};
+	glm::vec3 testp1{0.0,0.0,0.0};
+	glm::vec3 testp2{2.0,0.0,0.0};
+	glm::vec3 testp3{1.0,2.0,0.0};
 
-    REQUIRE(testp1 == tri.get_p1());
-    REQUIRE(testp2 == tri.get_p2());
-    REQUIRE(testp3 == tri.get_p3());
-    REQUIRE("Dereck" == tri.name());
-    REQUIRE(Approx{2.0f} == tri.area());
-    std::cout << "Funzt" << std::endl;
+	REQUIRE(testp1 == tri.get_p1());
+	REQUIRE(testp2 == tri.get_p2());
+	REQUIRE(testp3 == tri.get_p3());
+	REQUIRE("Dereck" == tri.name());
+	REQUIRE(Approx{2.0f} == tri.area());
+
+	std::cout << "Funzt" << std::endl;
+
+	Triangle tri2{Material{}, "Durak", glm::vec3{-1.0,0.0,0.0}, glm::vec3{1.0,0.0,0.0}, glm::vec3{0.0,2.0,0.0}};
+	REQUIRE(Approx{2.0f} == tri2.area());
+
+	Triangle tri3{Material{}, "Yorrick", glm::vec3{0.0,0.0,0.0}, glm::vec3{2.0,0.0,0.0}, glm::vec3{1.0,4.0,-2.0}};
+	REQUIRE(Approx{4.4721f} == tri3.area());
 }
 
 /*TEST_CASE("test sdf","[sdf]") {
