@@ -12,7 +12,7 @@ public:
 	~SDFLoader();
 	Scene getScene();
 private:
-	std::fstream file_;
+	std::ifstream file_;
 };
 
 #endif
