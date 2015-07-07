@@ -14,8 +14,8 @@ Triangle::Triangle(glm::vec3 p1, glm::vec3 p2, glm::vec3 p3) :
 	p2_{p2},
 	p3_{p3}{}
 
-Triangle::Triangle(std::string name, Material material, glm::vec3 p1, glm::vec3 p2, glm::vec3 p3) :
-	Shape(name, material),
+Triangle::Triangle(Material material, std::string name, glm::vec3 p1, glm::vec3 p2, glm::vec3 p3) :
+	Shape(material, name),
 	p1_{p1},
 	p2_{p2},
 	p3_{p3}{}
@@ -23,27 +23,28 @@ Triangle::Triangle(std::string name, Material material, glm::vec3 p1, glm::vec3 
 Triangle::~Triangle(){}
 
 
-glm::vec3 get_p1() const {
+glm::vec3 Triangle::get_p1() const {
 	return p1_;
 }
 
-glm::vec3 get_p2() const {
+glm::vec3 Triangle::get_p2() const {
 	return p2_;
 }
 
-glm::vec3 get_p3() const {
+glm::vec3 Triangle::get_p3() const {
 	return p3_;
 }
 
 
 double Triangle::area() const {
-	float a = sqrt(std::abs((p1_.x - p2_.x)*(p1_.x - p2_.x) + (p1_.y - p2_.y)*(p1_.y - p2_.y) + (p1_.z - p2_.z)*(p1_.z - p2_.z)));
-	float b = sqrt(std::abs((p1_.x - p3_.x)*(p1_.x - p3_.x) + (p1_.y - p3_.y)*(p1_.y - p3_.y) + (p1_.z - p3_.z)*(p1_.z - p3_.z)));
-	float c = sqrt(std::abs((p2_.x - p3_.x)*(p2_.x - p3_.x) + (p2_.y - p3_.y)*(p2_.y - p3_.y) + (p2_.z - p3_.z)*(p2_.z - p3_.z)));
+	/*double a = sqrt(std::abs((p1_.x - p2_.x)*(p1_.x - p2_.x) + (p1_.y - p2_.y)*(p1_.y - p2_.y) + (p1_.z - p2_.z)*(p1_.z - p2_.z)));
+	double b = sqrt(std::abs((p1_.x - p3_.x)*(p1_.x - p3_.x) + (p1_.y - p3_.y)*(p1_.y - p3_.y) + (p1_.z - p3_.z)*(p1_.z - p3_.z)));
+	double c = sqrt(std::abs((p2_.x - p3_.x)*(p2_.x - p3_.x) + (p2_.y - p3_.y)*(p2_.y - p3_.y) + (p2_.z - p3_.z)*(p2_.z - p3_.z)));
 
-	float s = ((a + b + c)/2);
+	double s = ((a + b + c)/2);
 
-	 return sqrt(s*(s-a)*(s-b)*(s-c)); 
+	return sqrt(s*(s-a)*(s-b)*(s-c)); */
+	return 0;
 }
 
 double Triangle::volume() const {
