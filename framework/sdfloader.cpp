@@ -5,7 +5,7 @@ SDFLoader::SDFLoader() :
 	file_{""}
 {}
 
-SDFLoader::SDFLoader(std::ifstream& file) :
+SDFLoader::SDFLoader(std::fstream& file) :
 	file_{file}
 {}
 
