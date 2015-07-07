@@ -9,6 +9,6 @@ Camera::Camera(glm::vec3 pos) :
 Camera::~Camera(){}
 
 
-glm::vec3 Light::get_position() const {
+glm::vec3 Camera::get_position() const {
 	return cam_position_;
 }
