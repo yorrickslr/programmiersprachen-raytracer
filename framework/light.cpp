@@ -1,7 +1,7 @@
 #include <light.hpp>
 
 Light::Light() :
-	light_position_{ glm::vec{0.0,0.0,0.0} },
+	light_position_{ glm::vec3{0.0,0.0,0.0} },
 	intensity_{ Color{0.0,0.0,0.0} } {}
 
 Light::Light(glm::vec3 pos) : 
@@ -9,7 +9,7 @@ Light::Light(glm::vec3 pos) :
 	intensity_{ Color{0.0,0.0,0.0} } {}
 
 Light::Light(Color intensity) :
-	light_position_{ glm::vec{0.0,0.0,0.0} },
+	light_position_{ glm::vec3{0.0,0.0,0.0} },
 	intensity_{ intensity } {}
 
 Light::Light(glm::vec3 pos, Color intensity) :
