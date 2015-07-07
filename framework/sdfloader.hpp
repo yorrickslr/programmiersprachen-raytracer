@@ -6,6 +6,7 @@
 #include <iostream>
 #include <fstream>
 #include <vector>
+#include <sstream>
 
 void loadScene(std::ifstream& file, Scene& scene) {
 	std::string line{""};
