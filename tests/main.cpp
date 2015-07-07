@@ -12,12 +12,27 @@
 #include <sdfloader.hpp>
 #include <string>
 #include <scene.hpp>
+#include <triangle.hpp>
 
-TEST_CASE("test sdf","[sdf]") {
+TEST_CASE("testing triangle class","[triangle]") {
+    Triangle tri{Material{}, "Dereck", glm::vec3{0.0,0.0,0.0}, glm::vec3{2.0,0.0,0.0}, glm::vec3{1.0,2.0,0.0}};
+    glm::vec3 testp1{0.0,0.0,0.0};
+    glm::vec3 testp2{2.0,0.0,0.0};
+    glm::vec3 testp3{1.0,2.0,0.0};
+
+    REQUIRE(testp1 == tri.get_p1());
+    REQUIRE(testp2 == tri.get_p2());
+    REQUIRE(testp3 == tri.get_p3());
+    REQUIRE("Dereck" == tri.name());
+    REQUIRE(Approx{2.0f} == tri.area());
+    std::cout << "Funzt" << std::endl;
+}
+
+/*TEST_CASE("test sdf","[sdf]") {
 	std::string file = "test.txt";
 	Scene scene;
 	loadScene("test.txt",scene);
-}
+}*/
 
 TEST_CASE("get volume of sphere", "[volume]") {
 	Sphere sphere;
