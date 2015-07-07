@@ -7,7 +7,10 @@
 #include <fstream>
 
 void loadScene(std::ifstream& file, Scene& scene) {
-	std::cout << "funst endlich" << std::endl;
+	std::string line{""};
+	while(std::getline(file,line)) {
+		std::cout << line << std::endl;
+	}
 }
 
 #endif
