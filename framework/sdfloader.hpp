@@ -10,7 +10,7 @@
 void loadScene(std::ifstream& file, Scene& scene) {
 	std::string line{""};
 	while(std::getline(file,line)) {
-		vector<std::string> input = split(line," ");
+		std::vector<std::string> input = split(line," ");
 	}
 }
 
