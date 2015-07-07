@@ -5,7 +5,6 @@
 #include <scene.hpp>
 #include <iostream>
 #include <fstream>
-#include <ifstream>
 
 void loadScene(std::ifstream& file, Scene& scene) {
 	std::cout << "funst endlich" << std::endl;
