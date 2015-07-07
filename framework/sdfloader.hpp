@@ -6,11 +6,8 @@
 #include <iostream>
 #include <fstream>
 
-class SDFLoader {
-public:
-	void getScene(std::ifstream& file, Scene& scene);
-private:
-	std::ifstream& file_;
-};
+void loadScene(std::ifstream& file, Scene& scene) {
+	std::cout "funst endlich" << std::endl;
+}
 
 #endif
