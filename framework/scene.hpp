@@ -7,6 +7,14 @@
 
 
 struct Scene{
+	Scene() : 
+		ambient_light{ Color{0.0,0.0,0.0} },
+		shape_vec{},
+		light_vec{},
+		cam_vec{} {}
+
+	~Scene() {}
+
 	Color ambient_light;
 	std::vector<Shape> shape_vec;
 	std::vector<Light> light_vec;
