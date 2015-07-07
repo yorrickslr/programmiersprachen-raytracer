@@ -88,7 +88,7 @@ bool Box::intersect(Ray const& ray, float& distance) {
 		dmax = (max_[i] - ray.origin[i]) / ray.direction[i];
 		dtmp = dmin < dmax ? dmin : dmax;
 		glm::vec3 tmp{0.0,0.0,0.0};
-		if(dtmp==dtmp) {
+		if(!std::isnan(dtmp) && !std::isinf(dtmp)) {
 			tmp = {
 				ray.origin.x + dtmp * ray.direction.x,
 				ray.origin.y + dtmp * ray.direction.y,
@@ -100,7 +100,8 @@ bool Box::intersect(Ray const& ray, float& distance) {
 		if(tmp.x>=min_.x && tmp.x<=max_.x &&
 			tmp.y>=min_.y && tmp.y<=max_.y && 
 			tmp.z>=min_.z && tmp.z<=max_.z) {
-			distance = sqrt(tmp.x * tmp.x + tmp.y * tmp.y + tmp.z * tmp.z);
+			glm::vec3 mvec{dtmp * ray.direction};
+			distance = sqrt(pow(mvec.x,2) + pow(mvec.y,2) +pow(mvec.z,2));
 			return true;
 		}
 	}
