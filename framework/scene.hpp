@@ -33,6 +33,7 @@ struct Scene{
 		{
 			delete element;
 		}
+		delete camera;
 	}
 
 	Color ambient_light;
