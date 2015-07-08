@@ -12,7 +12,7 @@ struct Scene{
 		ambient_light{ Color{0.0,0.0,0.0} },
 		shapes{},
 		lights{},
-		materials{}
+		materials{},
 		camera{ nullptr }	{}
 		/*shape_vec{},
 		light_vec{},
