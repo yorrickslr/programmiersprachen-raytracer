@@ -16,10 +16,12 @@
 
 TEST_CASE("material parse test for sdfloader","[sdfloader]") {
 	Scene scene;
-	std::ifstream file{"input.sdf"};
+	std::ifstream file{"input.sdf"};	//must be relative to current shell dir or absolute
 	sdf_loadScene(file,scene);
 	Material shizzle = *(scene.materials[0]);
-	REQUIRE(shizzle.get_name() == "test");
+	REQUIRE(shizzle.get_name() == "red");
+	shizzle = *(scene.materials[1]);
+	REQUIRE(shizzle.get_name() == "blue");
 }
 
 TEST_CASE("testing triangle class","[triangle]") {
