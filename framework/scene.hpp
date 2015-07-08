@@ -12,13 +12,29 @@ struct Scene{
 		ambient_light{ Color{0.0,0.0,0.0} },
 		shapes{},
 		lights{},
-		camera{}
-	{}
+		materials{}
+		camera{ nullptr }	{}
 		/*shape_vec{},
 		light_vec{},
 		cam_vec{} {}*/
 
-	~Scene() {}
+	~Scene() {
+		for (auto element:shapes)
+		{
+			delete element;
+		}
+
+		for (auto element:lights)
+		{
+			delete element;
+		}
+
+		for (auto element:materials)
+		{
+			delete element;
+		}
+		delete camera;
+	}
 
 	Color ambient_light;
 	std::vector<Shape*> shapes;
