@@ -1,7 +1,6 @@
 #ifndef BUW_SCENE_HPP
 #define BUW_SCENE_HPP
-//#include <vector>
-#include <map>
+#include <vector>
 #include <shape.hpp>
 #include <light.hpp>
 #include <camera.hpp>
