@@ -14,6 +14,14 @@
 #include <scene.hpp>
 #include <triangle.hpp>
 
+TEST_CASE("material parse test for sdfloader","[sdfloader]") {
+	Scene scene;
+	std::ifstream file{"input.sdf"};
+	sdf_loadScene(file,scene);
+	Material shizzle = *(scene.materials[0]);
+	REQUIRE(shizzle.get_name() == "test");
+}
+
 TEST_CASE("testing triangle class","[triangle]") {
 	Triangle tri{Material{}, "Dereck", glm::vec3{0.0,0.0,0.0}, glm::vec3{2.0,0.0,0.0}, glm::vec3{1.0,2.0,0.0}};
 	glm::vec3 testp1{0.0,0.0,0.0};
@@ -34,12 +42,6 @@ TEST_CASE("testing triangle class","[triangle]") {
 	Triangle tri3{Material{}, "Yorrick", glm::vec3{0.0,0.0,0.0}, glm::vec3{2.0,0.0,0.0}, glm::vec3{1.0,4.0,-2.0}};
 	REQUIRE(Approx{4.4721f} == tri3.area());
 }
-
-/*TEST_CASE("test sdf","[sdf]") {
-	std::string file = "test.txt";
-	Scene scene;
-	loadScene("test.txt",scene);
-}*/
 
 TEST_CASE("get volume of sphere", "[volume]") {
 	Sphere sphere;
