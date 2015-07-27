@@ -81,7 +81,7 @@ std::ostream& operator<<(std::ostream& os, Box const& s) {
 	return s.print(os);
 }
 
-bool Box::intersect(Ray const& ray, float& distance) {
+bool Box::intersect(Ray const& ray, float& distance) const {
 	for(int i=0; i<3; i++) {
 		float dmin{0.0}, dmax{0.0}, dtmp{0.0};
 		dmin = (min_[i] - ray.origin[i]) / ray.direction[i];
