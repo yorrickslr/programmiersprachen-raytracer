@@ -25,7 +25,7 @@ bool sdf_isMaterial(std::string const& input) {
 	return false;
 }
 
-void sdf_parseMaterial(std::string const& input, std::map<Material>& materials) {
+void sdf_parseMaterial(std::string const& input, std::map<std::string,Material>& materials) {
 	std::vector<std::string> parsed;
 	sdf_splitString(input,parsed);
 	Color ka = {std::stof(parsed[3]),std::stof(parsed[4]),std::stof(parsed[5])};
