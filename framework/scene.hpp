@@ -21,9 +21,9 @@ struct Scene{
 		
 
 	Color ambient_light;
-	std::map<Shape> shapes; // Doch Map! Und per Value!
-	std::map<Light> lights;
-	std::map<Material> materials;
+	std::map<Shape, std::string> shapes; // Doch Map! Und per Value!
+	std::map<Light, std::string> lights;
+	std::map<Material, std::string> materials;
 	Camera camera;
 /*	std::vector<Shape> shape_vec;
 	std::vector<Light> light_vec;
