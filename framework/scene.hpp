@@ -21,7 +21,7 @@ struct Scene{
 		
 
 	Color ambient_light;
-	std::map<std::string, Shape> shapes; // Doch Map! Und per Value!
+	std::map<std::string, std::shared_ptr<Shape>> shapes; // shared_ptr instead of objects works! legal?
 	std::map<std::string, Light> lights;
 	std::map<std::string, Material> materials;
 	Camera camera;

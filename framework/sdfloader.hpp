@@ -49,9 +49,9 @@ void sdf_loadScene(std::ifstream& file, Scene& scene) {
 		if(sdf_isComment(line)) {
 			continue;
 		}
-		// Material
-		if(sdf_isMaterial(line)) {
-			sdf_parseMaterial(line,scene.materials);
+		// Material	
+		if(sdf_isMaterial(line)) {		
+			sdf_parseMaterial(line,scene.materials);		
 			//scene.materials.push_back(tmp_material);
 			continue;
 		}
