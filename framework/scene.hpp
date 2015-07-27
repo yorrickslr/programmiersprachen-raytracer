@@ -1,6 +1,6 @@
 #ifndef BUW_SCENE_HPP
 #define BUW_SCENE_HPP
-#include <vector>
+#include <map>
 #include <shape.hpp>
 #include <light.hpp>
 #include <camera.hpp>
@@ -12,34 +12,19 @@ struct Scene{
 		shapes{},
 		lights{},
 		materials{},
-		camera{ nullptr }	{}
+		camera{ Camera{} } {}
 		/*shape_vec{},
 		light_vec{},
 		cam_vec{} {}*/
 
-	~Scene() {
-		for (auto element:shapes)
-		{
-			delete element;
-		}
-
-		for (auto element:lights)
-		{
-			delete element;
-		}
-
-		for (auto element:materials)
-		{
-			delete element;
-		}
-		delete camera;
-	}
+	~Scene() {}
+		
 
 	Color ambient_light;
-	std::vector<Shape*> shapes;
-	std::vector<Light*> lights;
-	std::vector<Material*> materials;
-	Camera* camera;
+	std::map<Shape> shapes; // Doch Map! Und per Value!
+	std::map<Light> lights;
+	std::map<Material> materials;
+	Camera camera;
 /*	std::vector<Shape> shape_vec;
 	std::vector<Light> light_vec;
 	std::vector<Camera> cam_vec;*/
