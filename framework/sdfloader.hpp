@@ -31,7 +31,8 @@ void sdf_parseMaterial(std::string const& input, std::map<Material>& materials) 
 	Color ka = {std::stof(parsed[3]),std::stof(parsed[4]),std::stof(parsed[5])};
 	Color kd = {std::stof(parsed[6]),std::stof(parsed[7]),std::stof(parsed[8])};
 	Color ks = {std::stof(parsed[9]),std::stof(parsed[10]),std::stof(parsed[11])};
-	materials.push_back(parsed[2],ka,kd,ks,std::stof(parsed[12]));
+	materials.insert(materials.end(),
+		std::pair<std:string,Material>{parsed[2],{parsed[2],ka,kd,ks,std::stof(parsed[12]});
 }
 
 bool sdf_isComment(std::string const& input) {
@@ -50,7 +51,7 @@ void sdf_loadScene(std::ifstream& file, Scene& scene) {
 			continue;
 		}
 		// Material
-		Material* tmp_material{nullptr};
+		//Material* tmp_material{nullptr};
 		if(sdf_isMaterial(line)) {
 			sdf_parseMaterial(line,scene.materials);
 			//scene.materials.push_back(tmp_material);
