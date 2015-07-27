@@ -49,3 +49,7 @@ double Triangle::area() const {
 double Triangle::volume() const {
 	return 0;
 }
+
+bool intersect(Ray const& ray, float& distance) const {
+	return 0;
+}

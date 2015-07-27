@@ -16,6 +16,7 @@ public:
 
 	/*virtual*/ double area() const override;
 	/*virtual*/ double volume() const override;
+	bool intersect(Ray const& ray, float& distance) const override;
 private:
 	glm::vec3 p1_;
 	glm::vec3 p2_;
