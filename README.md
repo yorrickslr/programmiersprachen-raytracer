@@ -1,3 +1,3 @@
 Programmiersprachen: Raytracer
 ===========
-(by @yorrickslr and @DreadNoize)
+(by [@yorrickslr](https://github.com/yorrickslr) and [@DreadNoize](https://github.com/DreadNoize))
