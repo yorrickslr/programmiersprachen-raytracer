@@ -5,6 +5,8 @@
 #include "color.hpp"
 #include <ray.hpp>
 #include <material.hpp>
+#include <glm/glm.hpp>
+#include <glm/gtx/intersect.hpp>
 
 class Shape {
 public:
