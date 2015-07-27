@@ -32,7 +32,7 @@ void sdf_parseMaterial(std::string const& input, std::map<std::string,Material>&
 	Color kd = {std::stof(parsed[6]),std::stof(parsed[7]),std::stof(parsed[8])};
 	Color ks = {std::stof(parsed[9]),std::stof(parsed[10]),std::stof(parsed[11])};
 	materials.insert(materials.end(),
-		std::pair<std:string,Material>{parsed[2],{parsed[2],ka,kd,ks,std::stof(parsed[12]});
+		std::pair<std::string,Material>(parsed[2],{parsed[2],ka,kd,ks,std::stof(parsed[12])});
 }
 
 bool sdf_isComment(std::string const& input) {
