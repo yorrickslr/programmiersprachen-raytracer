@@ -1,6 +1,6 @@
 #include "sphere.hpp"
 #include <glm/vec3.hpp>
-#include <cmath>
+#include <math.h>
 #include "ray.hpp"
 #include <glm/glm.hpp>
 #include <glm/gtx/intersect.hpp>
