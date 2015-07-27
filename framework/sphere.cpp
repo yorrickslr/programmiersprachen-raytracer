@@ -35,11 +35,11 @@ Sphere::~Sphere() {
 }
 
 double Sphere::volume() const {
-	return (12.56636 * std::pow(radius_,3)) / 3 ;
+	return (4 * M_PI * std::pow(radius_,3)) / 3 ;
 }
 
 double Sphere::area() const {
-	return 12.56636 * radius_ * radius_;
+	return 4 * M_PI * radius_ * radius_;
 }
 
 glm::vec3 Sphere::center() const {
