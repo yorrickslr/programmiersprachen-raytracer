@@ -18,10 +18,10 @@ TEST_CASE("material parse test for sdfloader","[sdfloader]") {
 	Scene scene;
 	std::ifstream file{"input.sdf"};	//must be relative to current shell dir or absolute
 	sdf_loadScene(file,scene);
-	Material tmp = *(scene.materials[0]);
+	Material tmp = scene.materials["red"];
 	std::cout << tmp << std::endl;
 	REQUIRE(tmp.get_name() == "red");
-	tmp = *(scene.materials[1]);
+	tmp = scene.materials["blue"];
 	REQUIRE(tmp.get_name() == "blue");
 	std::cout << tmp << std::endl;
 }
