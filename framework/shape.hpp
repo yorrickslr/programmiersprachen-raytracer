@@ -16,7 +16,7 @@ public:
 	std::string name() const;
 	Material material() const;
 	virtual std::ostream& print(std::ostream& os) const;
-	virtual bool intersect(Ray const& ray, float& distance) = 0;
+	virtual bool intersect(Ray const& ray, float& distance) const = 0;
 protected:
 	Shape();
 	Shape(Material const& material, std::string const& name);
