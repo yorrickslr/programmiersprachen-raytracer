@@ -18,11 +18,11 @@ public:
 	glm::vec3 get_up() const;
 
 private:
-	std::string name;
-	glm::vec3 eye;
-	glm::vec3 direction;
-	float fov_x;
-	glm::vec3 up;
+	std::string name_;
+	glm::vec3 eye_;
+	glm::vec3 direction_;
+	glm::vec3 up_;
+	float fovX_;
 
 };
 

@@ -1,53 +1,57 @@
 #include <camera.hpp>
 
 Camera::Camera():
-	name{"Camera_Obscura"},
-	eye{ glm::vec3{0.0,0.0,0.0} },
-	direction{{0,-1,0}},
-	fov_x{0.0},
-	up{  } {}
+	name_{"Camera_Obscura"},
+	eye_{ 0.0,0.0,0.0 },
+	direction_{ 0,-1,0 },
+	up_{ 0.0,0.0,0.0 },
+	fovX_{ 0.0 }
+{}
 
 Camera::Camera(glm::vec3 const& pos) :
-	name{"Camera_Obscura"},
-	eye{ pos },
-	direction{{0,-1,0}},
-	fov_x{0.0},
-	up{  } {}
+	name_{"Camera_Obscura"},
+	eye_{ pos },
+	direction_{0,-1,0},
+	up_{ 0.0,0.0,0.0 },
+	fovX_{0.0} 
+{}
 
 Camera::Camera(std::string const& name, glm::vec3 const& pos, glm::vec3 const& dir, float& fov_x, glm::vec3 const& up) : 
-	name{ name },
-	eye{ pos },
-	direction{ dir },
-	fov_x{ fov_x },
-	up{ up }{}
+	name_{ name },
+	eye_{ pos },
+	direction_{ dir },
+	up_{ up },
+	fovX_{ fov_x }
+{}
 
 Camera::Camera(Camera const& cam) : 
-	name{ cam.name },
-	eye{ cam.eye },
-	direction{ cam.direction },
-	fov_x{ cam.fov_x },
-	up{ cam.up }{}
+	name_{ cam.name },
+	eye_{ cam.eye },
+	direction_{ cam.direction },
+	up_{ cam.up },
+	fovX_{ cam.fov_x }
+{}
 
 Camera::~Camera(){}
 
 
 std::string Camera::get_name() const {
-	return name;
+	return name_;
 }
 
 glm::vec3 Camera::get_position() const {
-	return eye;
+	return eye_;
 }
 
 glm::vec3 Camera::get_direction() const {
-	return direction;
-}
-
-float Camera::get_fov_x() const {
-	return fov_x;
+	return direction_;
 }
 
 glm::vec3 Camera::get_up() const {
-	return up;
+	return up_;
+}
+
+float Camera::get_fov_x() const {
+	return fovX_;
 }
 
