@@ -31,7 +31,7 @@ bool sdf_isCamera(std::string const& input) {
 }
 
 bool sdf_isMaterial(std::string const& input) {
-	std::regex rgx_material{"define[\\s\\t]+material[\\s\\t]+\\S+[\\s\\t]+([0-9]+[\\s\\t]){9}[0-9]+.*"};
+	std::regex rgx_material{"define[\\s\\t]+material[\\s\\t]+\\S+[\\s\\t]+([0-9]+[\\s\\t]+){9}[0-9]+.*"};
 	if(std::regex_match(input,rgx_material)) {
 		return true;
 	}
