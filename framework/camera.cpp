@@ -16,20 +16,20 @@ Camera::Camera(glm::vec3 const& pos) :
 	fovX_{0.0} 
 {}
 
-Camera::Camera(std::string const& name, glm::vec3 const& pos, glm::vec3 const& dir, float& fov_x, glm::vec3 const& up) : 
+Camera::Camera(std::string const& name, glm::vec3 const& pos, glm::vec3 const& dir, float& fov, glm::vec3 const& up) : 
 	name_{ name },
 	eye_{ pos },
 	direction_{ dir },
 	up_{ up },
-	fovX_{ fov_x }
+	fovX_{ fov }
 {}
 
 Camera::Camera(Camera const& cam) : 
-	name_{ cam.name },
-	eye_{ cam.eye },
-	direction_{ cam.direction },
-	up_{ cam.up },
-	fovX_{ cam.fov_x }
+	name_{ cam.name_ },
+	eye_{ cam.eye_ },
+	direction_{ cam.direction_ },
+	up_{ cam.up_ },
+	fovX_{ cam.fovX_ }
 {}
 
 Camera::~Camera(){}
