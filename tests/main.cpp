@@ -221,6 +221,14 @@ TEST_CASE("intersect box with negative min","[intersect]") {
 	REQUIRE(distance == 3);
 }
 
+TEST_CASE("intersect ray with triangle", "[intersect]"){
+	Ray ray{{0,0,0},{0,-1,0}};
+	Triangle test_tri{{0,-3,1},{2,-3,-0.5},{-2,-3,-0.5}};
+	float distance{0};
+	REQUIRE(test_tri.intersect(ray, distance));
+	REQUIRE(3 == distance);
+}
+
 int main(int argc, char *argv[]) {
   return Catch::Session().run(argc, argv);
 }
