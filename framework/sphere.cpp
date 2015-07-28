@@ -1,3 +1,4 @@
+#define _USE_MATH_DEFINES
 #include "sphere.hpp"
 #include <glm/vec3.hpp>
 #include <math.h>
