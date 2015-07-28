@@ -66,7 +66,7 @@ void sdf_loadScene(std::ifstream& file, Scene& scene) {
 			//scene.materials.push_back(tmp_material);
 			continue;
 		}
-		std::cout << "ERROR: Line " << lineCount << " could not be parsed";
+		std::cout << "ERROR: Line " << lineCount << " could not be parsed" << std::endl;
 		break;
 	}
 }
