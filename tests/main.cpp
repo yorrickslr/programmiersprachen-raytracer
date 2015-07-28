@@ -14,6 +14,23 @@
 #include <scene.hpp>
 #include <triangle.hpp>
 
+TEST_CASE("output objects of scene","[print scene]") {
+	Scene scene;
+	std::ifstream file;
+	file.open("input.sdf");
+	REQUIRE(file.is_open());
+	sdf_loadScene(file,scene);
+	std::cout << "*** Printing Scene..." << std::endl;
+	std::cout << "***    Materials:" << std::endl;
+	for(auto element : scene.materials) {
+		std::cout << "***       " << element.second.get_name() << std::endl;
+	}
+	std::cout << "***    Shapes:" << std::endl;
+	for(auto element : scene.shapes) {
+		std::cout << "***       " << element.second->area() << std::endl;
+	}
+}
+
 TEST_CASE("material parse test for sdfloader","[sdfloader]") {
 	Scene scene;
 	std::ifstream file;	//must be relative to current shell dir or absolute

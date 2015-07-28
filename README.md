@@ -6,7 +6,10 @@ Yay, this so awesome :rocket:
 
 ## To Do:
 
-Add floats to sdfloader.
+- Add floats to sdfloader
+- Add name getter to abstract class shape and subclasses
+- Clear debugging prints in sdfloader
+
 
 ## Attention:
 
