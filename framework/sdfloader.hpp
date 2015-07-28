@@ -25,9 +25,19 @@ bool sdf_isComment(std::string const& input) {
 	return false;
 }
 
+/* Should detect camera, not finished yet
 bool sdf_isCamera(std::string const& input) {
-	std::regex rgx_camera{"define[\\s\\t]+camera[\\s\\t]+\\S+"};
+	std::regex rgx_camera{"camera[\\s\\t]+\\S+"};
 	return true;
+}
+*/
+
+bool sdf_isSphere(std::string const& line) {
+	std::regex rgx_shape{"^define[\\s\\t]+shape[\\s\\t]+sphere[\\s\\t]+\\S+[\\s\\t]+([0-9]+[\\s\\t]+){4}\\S+[\\s\\t]*"}
+	if(std::regex_match(input,rgx_sphere)) {
+		return true;
+	}
+	return false;
 }
 
 bool sdf_isMaterial(std::string const& input) {
