@@ -4,6 +4,7 @@
 #include <shape.hpp>
 #include <light.hpp>
 #include <camera.hpp>
+#include <memory>
 
 
 struct Scene{

@@ -16,7 +16,9 @@
 
 TEST_CASE("material parse test for sdfloader","[sdfloader]") {
 	Scene scene;
-	std::ifstream file{"input.sdf"};	//must be relative to current shell dir or absolute
+	std::ifstream file;	//must be relative to current shell dir or absolute
+	file.open("input.sdf");
+	REQUIRE(file.is_open()); //check if file exists
 	sdf_loadScene(file,scene);
 	Material tmp = scene.materials["red"];
 	std::cout << tmp << std::endl;
@@ -24,6 +26,7 @@ TEST_CASE("material parse test for sdfloader","[sdfloader]") {
 	tmp = scene.materials["blue"];
 	REQUIRE(tmp.get_name() == "blue");
 	std::cout << tmp << std::endl;
+	file.close();
 }
 
 TEST_CASE("testing triangle class","[triangle]") {
