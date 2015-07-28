@@ -51,5 +51,12 @@ double Triangle::volume() const {
 }
 
 bool Triangle::intersect(Ray const& ray, float& distance) const {
-	return 0;
+	glm::vec3 baryPosition{};
+	auto a = glm::intersectRayTriangle(ray.origin, ray.direction, p1_, p2_, p3_, baryPosition);
+	if(a){
+		glm::vec3 cartesianPosition = ray.origin + ray.direction * baryPosition.z;
+		distance = glm::distance(cartesianPosition, ray.origin);
+		return distance;
+	}
+	return a;
 }
