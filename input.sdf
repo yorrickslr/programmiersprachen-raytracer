@@ -1,2 +1,11 @@
-define material red 1 0 0 1 0 0 1 0 0 1
-define material blue 0 0 1 0 0 1 0 0 1 1
+###############################################
+##### First SDF-file for testing purposes #####
+###############################################
+
+# Materials
+define material			red				1 0 0	1 0 0	1 0 0	1
+define material 		blue			0 0 1	0 0 1	0 0 1	1
+define material			moon-surface	1 0 1	1 0 1	1 0 1	1
+
+# Objects
+define shape sphere	moon 0 0 0 4 moonsurface
