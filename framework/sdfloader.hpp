@@ -39,7 +39,7 @@ bool sdf_isEmpty(std::string const& input) {
 }
 
 bool sdf_isSphere(std::string const& input) {
-	std::regex rgx_sphere{"^[\\s\\t]*define[\\s\\t]+shape[\\s\\t]+sphere[\\s\\t]+\\S+[\\s\\t]+([0-9]+[\\s\\t]+){4}\\S+[\\s\\t]*$"};
+	std::regex rgx_sphere{"^[\\s\\t]*define[\\s\\t]+shape[\\s\\t]+sphere[\\s\\t]+\\S+[\\s\\t]+([0-9]+(\\.[0-9]+)?[\\s\\t]+){4}\\S+[\\s\\t]*$"};
 	if(std::regex_match(input,rgx_sphere)) {
 		return true;
 	}
@@ -64,7 +64,7 @@ bool sdf_parseSphere(
 }
 
 bool sdf_isBox(std::string const& input) {
-	std::regex rgx_box{"^[\\s\\t]*define[\\s\\t]+shape[\\s\\t]+box[\\s\\t]+\\S+[\\s\\t]+([0-9]+[\\s\\t]+){6}\\S+[\\s\\t]*$"};
+	std::regex rgx_box{"^[\\s\\t]*define[\\s\\t]+shape[\\s\\t]+box[\\s\\t]+\\S+[\\s\\t]+([0-9]+(\\.[0-9]+)?[\\s\\t]+){6}\\S+[\\s\\t]*$"};
 	if(std::regex_match(input, rgx_box)) {
 		return true;
 	}
@@ -90,7 +90,8 @@ bool sdf_parseBox(
 }
 
 bool sdf_isMaterial(std::string const& input) {
-	std::regex rgx_material{"^[\\s\\t]*define[\\s\\t]+material[\\s\\t]+\\S+[\\s\\t]+([0-9]+[\\s\\t]+){9}[0-9]+[\\s\\t]*$"};
+	std::cout << "***DEBUG*** bin drin" << std::endl;
+	std::regex rgx_material{"^[\\s\\t]*define[\\s\\t]+material[\\s\\t]+\\S+[\\s\\t]+([0-1](\\.[0-9]+)?[\\s\\t]+){9}[0-9](\\.[0-9]+)?+[\\s\\t]*$"};
 	if(std::regex_match(input,rgx_material)) {
 		return true;
 	}

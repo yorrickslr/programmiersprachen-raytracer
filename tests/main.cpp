@@ -27,7 +27,7 @@ TEST_CASE("output objects of scene","[print scene]") {
 	}
 	std::cout << "***    Shapes:" << std::endl;
 	for(auto element : scene.shapes) {
-		std::cout << "***       " << element.second->area() << std::endl;
+		std::cout << "***       " << element.second->name() << std::endl;
 	}
 }
 
