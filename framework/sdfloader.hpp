@@ -131,6 +131,23 @@ void sdf_parseCamera(std::string const& input, Camera cam) {
 	cam = tmp;
 }
 
+// isLight 
+/*bool sdf_isLight(std::string const& input) {
+	std::regex rgx_light{};
+	if(std::regex_match(input,rgx_light)) {
+		return true;
+	}
+	return false;
+}
+*/
+
+// Light parser
+/*void sdf_parseCamera(std::string const& input, std::map<std::string,Light>& lights) {
+	std::vector<std::string> parsed;
+
+*/
+
+
 void sdf_loadScene(std::ifstream& file, Scene& scene) {
 	std::string line{""};
 	int lineCount{0};
