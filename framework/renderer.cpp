@@ -19,17 +19,19 @@ Renderer::Renderer(unsigned w, unsigned h, std::string const& file)
 
 void Renderer::render()
 {
-  const std::size_t checkersize = 20;
+  const std::size_t checkersize = 10;
 
   for (unsigned y = 0; y < height_; ++y) {
     for (unsigned x = 0; x < width_; ++x) {
       Pixel p(x,y);
       if ( ((x/checkersize)%2) != ((y/checkersize)%2)) {
-        p.color = Color(0.0, 1.0, float(x)/height_);
+        p.color = Color(1.0, 1.0, 1.0);
       } else {
-        p.color = Color(1.0, 0.0, float(y)/width_);
+        p.color = Color(0.8, 0.8, 0.8);
       }
-
+      if( x>=103 && x<203 && y>=103 && y<203) {
+        p.color = Color(0.0,0.0,1.0);
+      }
       write(p);
     }
   }
