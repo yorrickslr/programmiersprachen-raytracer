@@ -7,9 +7,11 @@ class Camera{
 public:
 	Camera();
 	Camera(glm::vec3 const& pos);
-	Camera(std::string const& name, glm::vec3 const& eye, glm::vec3 const& direction, float& fov_x, glm::vec3 const& up);
+	Camera(std::string const& name, glm::vec3 const& eye, glm::vec3 const& direction, glm::vec3 const& up, float& fov);
 	Camera(Camera const& cam);
 	~Camera();
+
+	Camera& operator=(Camera& tmp);
 
 	std::string get_name() const;
 	glm::vec3 get_position() const;
