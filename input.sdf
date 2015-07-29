@@ -3,9 +3,27 @@
 ###############################################
 
 # Materials
-define material			red				1 0 0	1 0 0	1 0 0	1
-define material 		blue			0 0 1	0 0 1	0 0 1	1
-define material			moon-surface	1 0 1	1 0 1	1 0 1	1
+	define material 		red				1 0 0	1 0 0	1 0 0	1
+	define material 		blue			0 0 1	0 0 1	0 0 1	1
+	define material 		moonsurface		1 0 1	1 0 1	1 0 1	1
+	define material 		lava			1 1 1	1 1 1	1 1 1	1
+	define material 		white			0 0 0	0 0 0	0 0 0	1
 
 # Objects
-define shape sphere	moon 0 0 0 4 moonsurface
+	# Spheres
+		define shape sphere		moon 	0 0 0	4	moonsurface
+		define shape sphere		sun 	0 0 0	42	lava
+
+	# Boxes
+		define shape box		rocket		0 0 0	1 1 1	white
+
+# Camera
+	camera 					eye		45	0 0 0	0 1 0	1 0 0
+
+
+	#	It is possible to indent definitions and comments
+	#	with spaces or tabs. You can even use both in a
+	#	mix if you want to.
+	#	In general you can place spaces and tabs as a
+	#	command to move on with the next text while
+	#	parsing.
