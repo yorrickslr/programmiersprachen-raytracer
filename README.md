@@ -1,6 +1,6 @@
 Programmiersprachen: Raytracer
 ===========
-(by [@yorrickslr](https://github.com/yorrickslr) and [@DreadNoize](https://github.com/DreadNoize))
+(by [@yorrickslr](https://github.com/yorrickslr) :octocat: and [@DreadNoize](https://github.com/DreadNoize) :dragon: )
 
 Yay, this so awesome :rocket:
 
@@ -9,8 +9,8 @@ Yay, this so awesome :rocket:
 - Add floats to sdfloader :heavy_check_mark:
 - Add name getter to abstract class shape and subclasses :heavy_check_mark:
 - Clear debugging prints in sdfloader
-- renderer
-- intersect() for triangle class
+- renderer (currently working on it)
+- intersect() for triangle class (maybe...)
 - lots of other funny stuff :poop:
 
 ## Attention:
