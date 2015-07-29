@@ -51,15 +51,41 @@ bool sdf_parseSphere(
 		std::map<std::string,std::shared_ptr<Shape>>& shapes, 
 		std::map<std::string,Material>& materials) {
 	std::vector<std::string> parsed;
-	sdf_splitString(input,parsed);
-	glm::vec3 center{std::stod(parsed[4]),std::stod(parsed[5]),std::stod(parsed[6])};
+	sdf_splitString(input, parsed);
+	glm::vec3 center{std::stod(parsed[4]), std::stod(parsed[5]), std::stod(parsed[6])};
 	auto iterator = materials.find(parsed[8]);
 	if(iterator == materials.end()) {
 		return false;
 	}
-	std::shared_ptr<Shape> pointer = std::make_shared<Sphere>(center,std::stod(parsed[7]),iterator->second,parsed[8]);
-	shapes.insert(shapes.end(),std::pair<std::string,std::shared_ptr<Shape>>(parsed[8],pointer));
+	std::shared_ptr<Shape> pointer = std::make_shared<Sphere>(center, std::stod(parsed[7]), iterator->second, parsed[3]);
+	shapes.insert(shapes.end(),std::pair<std::string,std::shared_ptr<Shape>>(parsed[3], pointer));
 	std::cout << "***DEBUG*** parsed sphere" << std::endl;
+	return true;
+}
+
+bool sdf_isBox(std::string const& input) {
+	std::regex rgx_box{"^[\\s\\t]*define[\\s\\t]+shape[\\s\\t]+box[\\s\\t]+\\S+[\\s\\t]+([0-9]+[\\s\\t]+){6}\\S+[\\s\\t]*$"};
+	if(std::regex_match(input, rgx_box)) {
+		return true;
+	}
+	return false;
+}
+
+bool sdf_parseBox(
+		std::string const& input,
+		std::map<std::string,std::shared_ptr<Shape>>& shapes,
+		std::map<std::string,Material>& materials) {
+	std::vector<std::string> parsed;
+	sdf_splitString(input, parsed);
+	glm::vec3 min{std::stod(parsed[4]),std::stod(parsed[5]),std::stod(parsed[6])};
+	glm::vec3 max{std::stod(parsed[7]),std::stod(parsed[8]),std::stod(parsed[9])};
+	auto iterator = materials.find(parsed[10]);
+	if(iterator == materials.end()) {
+		return false;
+	}
+	std::shared_ptr<Shape> pointer = std::make_shared<Box>(min, max, iterator->second, parsed[3]);
+	shapes.insert(shapes.end(),std::pair<std::string, std::shared_ptr<Shape>>(parsed[3],pointer));
+	std::cout << "***DEBUG*** parsed box" << std::endl;
 	return true;
 }
 
@@ -98,10 +124,17 @@ void sdf_loadScene(std::ifstream& file, Scene& scene) {
 			std::cout << "***DEBUG*** continued at line " << lineCount << std::endl;
 			continue;
 		}
-		//Camera
+		//Sphere
 		if(sdf_isSphere(line)) {
 			if(!sdf_parseSphere(line,scene.shapes,scene.materials)) {
 				std::cout << "---ERROR--- could not parse sphere (material not defined?) in line" << lineCount << std::endl;
+			}
+			continue;
+		}
+		//Box
+		if(sdf_isBox(line)) {
+			if(!sdf_parseBox(line,scene.shapes,scene.materials)) {
+				std::cout << "---ERROR--- could not parse box (material not defined?) in line" << lineCount << std::endl;
 			}
 			continue;
 		}
