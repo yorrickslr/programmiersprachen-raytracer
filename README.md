@@ -6,10 +6,12 @@ Yay, this so awesome :rocket:
 
 ## To Do:
 
-- Add floats to sdfloader
-- Add name getter to abstract class shape and subclasses
+- Add floats to sdfloader :heavy_check_mark:
+- Add name getter to abstract class shape and subclasses :heavy_check_mark:
 - Clear debugging prints in sdfloader
-
+- renderer
+- intersect() for triangle class
+- lots of other funny stuff :poop:
 
 ## Attention:
 
