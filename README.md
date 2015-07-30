@@ -20,4 +20,6 @@ Yay, this so awesome :rocket:
 
 The last three commits are made by Jojo. Yorrick wasn’t working at all.:stuck_out_tongue_winking_eye:
 
-Use underscores only at the ends of membernames... it’s not compiling :trollface: , why the hell ever?! [¯\\\_(ツ)_/¯](https://www.youtube.com/watch?v=32UGD0fV45g)
+Use underscores only at the ends of membernames... it’s not compiling :trollface: , why the hell ever?! 
+
+[¯\\\_(ツ)_/¯](https://www.youtube.com/watch?v=32UGD0fV45g)
