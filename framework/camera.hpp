@@ -2,6 +2,7 @@
 #define BUW_CAMERA_HPP
 #include <glm/vec3.hpp>
 #include <string>
+#include <ray.hpp>
 
 class Camera{
 public:
@@ -18,6 +19,8 @@ public:
 	glm::vec3 get_direction() const;
 	float get_fov_x() const;
 	glm::vec3 get_up() const;
+	Ray eyeRay(int x, int y) const;
+	void setResolution(int width, int height);
 
 private:
 	std::string name_;
@@ -25,7 +28,8 @@ private:
 	glm::vec3 direction_;
 	glm::vec3 up_;
 	float fovX_;
-
+	int width_;
+	int height_;
 };
 
 #endif

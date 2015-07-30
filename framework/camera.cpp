@@ -1,4 +1,5 @@
 #include <camera.hpp>
+#include <cmath>
 
 Camera::Camera():
 	name_{"Camera_Obscura"},
@@ -65,3 +66,17 @@ float Camera::get_fov_x() const {
 	return fovX_;
 }
 
+void Camera::setResolution(int width, int height) {
+	width_ = width;
+	height_ = height;
+}
+
+Ray Camera::eyeRay(int x, int y) const {
+	Ray eyeRay;
+	float fovY = (height_ / width_) * fovX_;
+	float dirX = (2 * x - width_) / (width_) * std::tan(fovX_);
+	float dirY = (2 * y - height_) / (height_) * std::tan(fovY);
+	eyeRay.direction = glm::vec3{dirX, -1.0, dirY};
+	eyeRay.origin = eye_;
+	return eyeRay;
+}
