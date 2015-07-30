@@ -10,9 +10,11 @@
 #include <glm/vec3.hpp>
 
 #include <material.hpp>
-#include <sphere.hpp>
 #include <shape.hpp>
+#include <sphere.hpp>
+#include <box.hpp>
 #include <camera.hpp>
+#include <light.hpp>
 
 void sdf_splitString(std::string const& input, std::vector<std::string>& output) {
 	std::istringstream tmp{input};
@@ -92,7 +94,7 @@ bool sdf_parseBox(
 
 bool sdf_isMaterial(std::string const& input) {
 	std::cout << "***DEBUG*** bin drin" << std::endl;
-	std::regex rgx_material{"^[\\s\\t]*define[\\s\\t]+material[\\s\\t]+\\S+[\\s\\t]+([0-1](\\.[0-9]+)?[\\s\\t]+){9}[0-9](\\.[0-9]+)?+[\\s\\t]*$"};
+	std::regex rgx_material{"^[\\s\\t]*define[\\s\\t]+material[\\s\\t]+\\S+[\\s\\t]+([0-1](\\.[0-9]+)?[\\s\\t]+){9}[0-9](\\.[0-9]+)?[\\s\\t]*$"};
 	if(std::regex_match(input,rgx_material)) {
 		return true;
 	}
@@ -119,7 +121,7 @@ bool sdf_isCamera(std::string const& input) {
 	return false; 			// camera 	<name> <fov-x> <eye> <dir> <up>
 }
 
-void sdf_parseCamera(std::string const& input, Camera cam) {
+void sdf_parseCamera(std::string const& input, Camera& cam) {
 	std::vector<std::string> parsed;
 	sdf_splitString(input, parsed);
 	glm::vec3 eye{std::stod(parsed[3]), std::stod(parsed[4]), std::stod(parsed[5])};
@@ -132,20 +134,29 @@ void sdf_parseCamera(std::string const& input, Camera cam) {
 }
 
 // isLight 
-/*bool sdf_isLight(std::string const& input) {
-	std::regex rgx_light{};
+bool sdf_isLight(std::string const& input) {
+	std::cout << "***DEBUG*** inside light" << std::endl;
+	std::regex rgx_light{"^[\\s\\t]*define[\\s\\t]+light[\\s\\t]+\\S+[\\s\\t]+([0-9]*(\\.[0-9]+)?[\\s\\t]+){3}([0-1]?(\\.[0-9]+)?[\\s\\t]+){5}[0-1](\\.[0-9]+)?[\\s\\t]*$"};
+	//define 	light 	<name> 	[pos]	[La]	[Ld]
 	if(std::regex_match(input,rgx_light)) {
+		std::cout << "***DEBUG*** light ok" << std::endl;
 		return true;
 	}
 	return false;
 }
-*/
+
 
 // Light parser
-/*void sdf_parseCamera(std::string const& input, std::map<std::string,Light>& lights) {
+void sdf_parseLight(std::string const& input, std::map<std::string,Light>& lights) {
 	std::vector<std::string> parsed;
+	sdf_splitString(input, parsed);
+	auto name = parsed[2];
+	glm::vec3 pos{std::stof(parsed[3]), std::stof(parsed[4]), std::stof(parsed[5])};
+	Color la{std::stof(parsed[6]), std::stof(parsed[7]), std::stof(parsed[8])};
+	Color ld{std::stof(parsed[9]), std::stof(parsed[10]), std::stof(parsed[11])};
+	lights.insert(lights.end(),std::pair<std::string, Light>(name,{name, pos,la,ld}));
+}
 
-*/
 
 
 void sdf_loadScene(std::ifstream& file, Scene& scene) {
@@ -181,6 +192,10 @@ void sdf_loadScene(std::ifstream& file, Scene& scene) {
 		// Camera
 		if(sdf_isCamera(line)) {
 			sdf_parseCamera(line, scene.camera);
+			continue;
+		}
+		if(sdf_isLight(line)) {
+			sdf_parseLight(line, scene.lights);
 			continue;
 		}
 		std::cout << "---ERROR--- line " << lineCount << " could not be parsed" << std::endl;
