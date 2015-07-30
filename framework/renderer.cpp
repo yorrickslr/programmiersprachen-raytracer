@@ -51,9 +51,16 @@ void Renderer::write(Pixel const& p)
 }
 
 Color Renderer::raytrace(Ray const& ray) const {
+  Scene scene;
+  std::ifstream file;
+  file.open(filename_);
+  if(!file.is_open()) {
+    return Color{1,0,0};
+  }
+  sdf_loadScene(file, scene);
   float distance{0};
-  for(auto element : shapes) {
-    if(element->second.intersect(ray, distance)) {
+  for(auto element : scene.shapes) {
+    if(element.second->intersect(ray, distance)) {
       return Color{0,0,0};
     }
   }
