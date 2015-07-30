@@ -4,6 +4,7 @@
 #include <string>
 #include <scene.hpp>
 #include <iostream>
+#include <sstream>
 #include <fstream>
 #include <vector>
 #include <regex>
@@ -42,7 +43,7 @@ bool sdf_isEmpty(std::string const& input) {
 }
 
 bool sdf_isSphere(std::string const& input) {
-	std::regex rgx_sphere{"^[\\s\\t]*define[\\s\\t]+shape[\\s\\t]+sphere[\\s\\t]+\\S+[\\s\\t]+([0-9]+(\\.[0-9]+)?[\\s\\t]+){4}\\S+[\\s\\t]*$"};
+	std::regex rgx_sphere{"^[\\s\\t]*define[\\s\\t]+shape[\\s\\t]+sphere[\\s\\t]+\\S+[\\s\\t]+((\\+|-)?[0-9]+(\\.[0-9]+)?[\\s\\t]+){4}\\S+[\\s\\t]*$"};
 	if(std::regex_match(input,rgx_sphere)) {
 		return true;
 	}
@@ -67,7 +68,7 @@ bool sdf_parseSphere(
 }
 
 bool sdf_isBox(std::string const& input) {
-	std::regex rgx_box{"^[\\s\\t]*define[\\s\\t]+shape[\\s\\t]+box[\\s\\t]+\\S+[\\s\\t]+([0-9]+(\\.[0-9]+)?[\\s\\t]+){6}\\S+[\\s\\t]*$"};
+	std::regex rgx_box{"^[\\s\\t]*define[\\s\\t]+shape[\\s\\t]+box[\\s\\t]+\\S+[\\s\\t]+((\\+|-)?[0-9]+(\\.[0-9]+)?[\\s\\t]+){6}\\S+[\\s\\t]*$"};
 	if(std::regex_match(input, rgx_box)) {
 		return true;
 	}
@@ -114,7 +115,7 @@ bool sdf_parseMaterial(std::string const& input, std::map<std::string,Material>&
 // Should detect camera, not finished yet
 bool sdf_isCamera(std::string const& input) {
 	std::cout << "***DEBUG*** regex ok" << std::endl;
-	std::regex rgx_camera{"^[\\s\\t]*camera[\\s\\t]+\\S+[\\s\\t]+[0-9]+(\\.[0-9]+)?[\\s\\t]+([0-9]+(\\.[0-9]+)?[\\s\\t]+){8}[0-9]+(\\.[0-9]+)?[\\s\\t]*$"};
+	std::regex rgx_camera{"^[\\s\\t]*camera[\\s\\t]+\\S+[\\s\\t]+[0-9]+(\\.[0-9]+)?[\\s\\t]+((\\+|-)?[0-9]+(\\.[0-9]+)?[\\s\\t]+){8}(\\+|-)?[0-9]+(\\.[0-9]+)?[\\s\\t]*$"};
 	if(std::regex_match(input,rgx_camera)) {
 		return true;
 	}
@@ -136,7 +137,7 @@ void sdf_parseCamera(std::string const& input, Camera& cam) {
 // isLight 
 bool sdf_isLight(std::string const& input) {
 	std::cout << "***DEBUG*** inside light" << std::endl;
-	std::regex rgx_light{"^[\\s\\t]*define[\\s\\t]+light[\\s\\t]+\\S+[\\s\\t]+([0-9]*(\\.[0-9]+)?[\\s\\t]+){3}([0-1]?(\\.[0-9]+)?[\\s\\t]+){5}[0-1](\\.[0-9]+)?[\\s\\t]*$"};
+	std::regex rgx_light{"^[\\s\\t]*define[\\s\\t]+light[\\s\\t]+\\S+[\\s\\t]+((\\+|-)?[0-9]*(\\.[0-9]+)?[\\s\\t]+){3}([0-1]?(\\.[0-9]+)?[\\s\\t]+){5}[0-1](\\.[0-9]+)?[\\s\\t]*$"};
 	//define 	light 	<name> 	[pos]	[La]	[Ld]
 	if(std::regex_match(input,rgx_light)) {
 		std::cout << "***DEBUG*** light ok" << std::endl;
