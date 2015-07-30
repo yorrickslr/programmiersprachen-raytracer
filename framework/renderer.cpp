@@ -17,7 +17,7 @@ Renderer::Renderer(unsigned w, unsigned h, std::string const& file)
   , ppm_(width_, height_)
 {}
 
-void Renderer::render()
+void Renderer::render(Scene& scene)
 {
   const std::size_t checkersize = 10;
   for (unsigned y = 0; y < height_; ++y) {
@@ -28,6 +28,7 @@ void Renderer::render()
       } else {
         p.color = Color(0.8, 0.8, 0.8);
       }
+      p.color = raytrace(scene.camera.eyeRay(x,y), scene.shapes);
       write(p);
     }
   }
@@ -50,16 +51,9 @@ void Renderer::write(Pixel const& p)
   ppm_.write(p);
 }
 
-Color Renderer::raytrace(Ray const& ray) const {
-  Scene scene;
-  std::ifstream file;
-  file.open(filename_);
-  if(!file.is_open()) {
-    return Color{1,0,0};
-  }
-  sdf_loadScene(file, scene);
+Color Renderer::raytrace(Ray const& ray, std::map<std::string,std::shared_ptr<Shape>>& shapes) const {
   float distance{0};
-  for(auto element : scene.shapes) {
+  for(auto element : shapes) {
     if(element.second->intersect(ray, distance)) {
       return Color{0,0,0};
     }

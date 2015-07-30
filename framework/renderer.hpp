@@ -16,18 +16,18 @@
 #include <string>
 #include <glm/glm.hpp>
 #include <ray.hpp>
-//#include <scene.hpp>
+#include <scene.hpp>
 #include <fstream>
-#include <sdfloader.hpp>
 
 class Renderer
 {
 public:
   Renderer(unsigned w, unsigned h, std::string const& file);
 
-  void render();
+  void render(Scene& scene);
   void write(Pixel const& p);
-  Color raytrace(Ray const& ray) const;
+  Color raytrace(Ray const& ray,std::map<std::string,std::shared_ptr<Shape>>& shapes) const;
+
 
   inline std::vector<Color> const& colorbuffer() const
   {

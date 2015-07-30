@@ -1,6 +1,7 @@
 #include <thread>
 #include <renderer.hpp>
 #include <fensterchen.hpp>
+#include <sdfloader.hpp>
 
 int main(int argc, char* argv[])
 {
@@ -9,8 +10,15 @@ int main(int argc, char* argv[])
   std::string const filename = "./checkerboard.ppm";
 
   Renderer app(width, height, filename);
+  Scene scene;
+  std::ifstream file;
+  file.open("input.sdf");
+  if(!file.is_open()) {
+    std::cout << "---ERROR--- file could not found" << std::endl;
+  }
+  sdf_loadScene(file, scene);
 
-  std::thread thr([&app]() { app.render(); });
+  std::thread thr([&app,&scene]() { app.render(scene); });
 
   Window win(glm::ivec2(width,height));
 
