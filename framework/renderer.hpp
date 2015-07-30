@@ -23,6 +23,7 @@ public:
 
   void render();
   void write(Pixel const& p);
+  Color raytrace(Ray const& ray) const;
 
   inline std::vector<Color> const& colorbuffer() const
   {

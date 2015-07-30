@@ -49,3 +49,13 @@ void Renderer::write(Pixel const& p)
 
   ppm_.write(p);
 }
+
+Color Renderer::raytrace(Ray const& ray) const {
+  float distance{0};
+  for(auto element : shapes) {
+    if(element->second.intersect(ray, distance)) {
+      return Color{0,0,0};
+    }
+  }
+  return Color{1,1,1};
+}
