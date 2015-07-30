@@ -1,27 +1,41 @@
 #include <light.hpp>
 
 Light::Light() :
-	light_position_{ glm::vec3{0.0,0.0,0.0} },
-	intensity_{ Color{0.0,0.0,0.0} } {}
+	name_{"default"},
+	lightPosition_{ glm::vec3{0.0,0.0,0.0} },
+	la_{ Color{0.0,0.0,0.0} },
+	ld_{ Color{0.0,0.0,0.0} }
+{}
 
-Light::Light(glm::vec3 pos) : 
-	light_position_{ pos },
-	intensity_{ Color{0.0,0.0,0.0} } {}
+/*Light::Light(glm::vec3 pos) : 
+	lightPosition_{ pos },
+	la_{ Color{0.0,0.0,0.0} },
+	ld_{ Color{0.0,0.0,0.0} }
+{}
 
-Light::Light(Color intensity) :
-	light_position_{ glm::vec3{0.0,0.0,0.0} },
-	intensity_{ intensity } {}
+Light::Light(Color la, Color ld) :
+	lightPosition_{ glm::vec3{0.0,0.0,0.0} },
+	la_{ la },
+	ld_{ ld }
+{}*/
 
-Light::Light(glm::vec3 pos, Color intensity) :
-	light_position_{ pos },
-	intensity_{ intensity } {}
+Light::Light(std::string const& name, glm::vec3 const& pos, Color const& la, Color const& ld) :
+	name_{ name },
+	lightPosition_{ pos },
+	la_{ la },
+	ld_{ ld }
+{}
 
 Light::~Light(){}
 
 glm::vec3 Light::get_position() const {
-	return light_position_;
+	return lightPosition_;
 }
 
-Color Light::get_intensity() const {
-	return intensity_;
+Color Light::get_la() const {
+	return la_;
+}
+
+Color Light::get_ld() const {
+	return ld_;
 }
