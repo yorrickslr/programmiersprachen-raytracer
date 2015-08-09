@@ -17,7 +17,7 @@ int main(int argc, char* argv[])
     std::cout << "---ERROR--- file could not found" << std::endl;
   }
   sdf_loadScene(file, scene);
-
+  scene.camera.setResolution(width, height);
   std::thread thr([&app,&scene]() { app.render(scene); });
 
   Window win(glm::ivec2(width,height));

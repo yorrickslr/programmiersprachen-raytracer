@@ -195,6 +195,7 @@ void sdf_loadScene(std::ifstream& file, Scene& scene) {
 			sdf_parseCamera(line, scene.camera);
 			continue;
 		}
+		// Light
 		if(sdf_isLight(line)) {
 			sdf_parseLight(line, scene.lights);
 			continue;

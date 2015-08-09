@@ -26,7 +26,7 @@ public:
 
   void render(Scene& scene);
   void write(Pixel const& p);
-  Color raytrace(Ray const& ray,std::map<std::string,std::shared_ptr<Shape>>& shapes) const;
+  Color raytrace(Ray const& ray, Scene scene) const;
 
 
   inline std::vector<Color> const& colorbuffer() const

@@ -8,6 +8,7 @@
 // -----------------------------------------------------------------------------
 
 #include "renderer.hpp"
+#include <sphere.hpp>
 
 Renderer::Renderer(unsigned w, unsigned h, std::string const& file)
   : width_(w)
@@ -28,7 +29,7 @@ void Renderer::render(Scene& scene)
       } else {
         p.color = Color(0.8, 0.8, 0.8);
       }
-      p.color = raytrace(scene.camera.eyeRay(x,y), scene.shapes);
+      p.color = raytrace(scene.camera.eyeRay(x,y), scene);
       write(p);
     }
   }
@@ -51,12 +52,17 @@ void Renderer::write(Pixel const& p)
   ppm_.write(p);
 }
 
-Color Renderer::raytrace(Ray const& ray, std::map<std::string,std::shared_ptr<Shape>>& shapes) const {
+Color Renderer::raytrace(Ray const& ray, Scene scene) const {
   float distance{0};
-  for(auto element : shapes) {
+  for(auto element : scene.shapes) {
     if(element.second->intersect(ray, distance)) {
-      return Color{0,0,0};
+      return element.second->material().get_ka();
     }
   }
-  return Color{1,1,1};
+  return scene.ambient_light;
+  Sphere kugel{{0,-10,0},0.01};
+  if(kugel.intersect(ray, distance)) {
+    return Color(0,0,0);
+  }
+  return Color(1,1,1);
 }

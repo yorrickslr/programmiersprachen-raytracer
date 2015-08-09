@@ -1,5 +1,6 @@
 #include <camera.hpp>
 #include <cmath>
+#include <iostream>
 
 Camera::Camera():
 	name_{"Camera_Obscura"},
@@ -72,10 +73,21 @@ void Camera::setResolution(int width, int height) {
 }
 
 Ray Camera::eyeRay(int x, int y) const {
+	/* yorrick'scher Algorithmus - funst nicht:
+	glm::vec3 origin{0,0,0};
+	glm::vec3 direction{0,0,0};
+	float fovY = fovX_ * width_ / height_;
+	direction.x = 0.5 - float(x) / width_;
+	direction.y = 0.5 - float(y) / height_;//(fovY * (90 - fovY)) / (direction.z * ;
+	direction.z = -((90 - fovX_) * width_) / (2 * fovX_);
+	std::cout << "***DEBUG*** " << "x=" << direction.x << " y=" << direction.y << " z=" << direction.z << std::endl;
+	return Ray{origin, direction};
+	*/
 	Ray eyeRay;
-	float fovY = (height_ / width_) * fovX_;
-	float dirX = (2 * x - width_) / (width_) * std::tan(fovX_);
-	float dirY = (2 * y - height_) / (height_) * std::tan(fovY);
+	float fovX = fovX_;
+	float fovY = (width_ / height_) * fovX;
+	float dirX = ((2 * float(x) - width_) / (width_)) * std::tan(fovX);
+	float dirY = ((2 * float(y) - height_) / (height_)) * std::tan(fovY);
 	eyeRay.direction = glm::vec3{dirX, -1.0, dirY};
 	eyeRay.origin = eye_;
 	return eyeRay;
