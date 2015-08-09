@@ -12,9 +12,10 @@ Yay, this so awesome :rocket:
 - Add camera to sdfloader :heavy_check_mark:
 - Add light to sdfloader :heavy_check_mark:
 - Adjust regex for negative numbers :heavy_check_mark:
-- renderer (still working on it)
+- basic renderer :heavy_check_mark:
 - intersect() for triangle class (maybe...)
-- lots of other funny stuff :poop:
+- composite pattern
+- (BOSS)transformation
 
 ## Attention:
 
