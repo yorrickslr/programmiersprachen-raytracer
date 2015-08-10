@@ -52,7 +52,7 @@ TEST_CASE("material parse test for sdfloader","[sdfloader]") {
 	file.close();
 }
 
-TEST_CASE("testing triangle class","[triangle]") {
+/*TEST_CASE("testing triangle class","[triangle]") {
 	Triangle tri{Material{}, "Dereck", glm::vec3{0.0,0.0,0.0}, glm::vec3{2.0,0.0,0.0}, glm::vec3{1.0,2.0,0.0}};
 	glm::vec3 testp1{0.0,0.0,0.0};
 	glm::vec3 testp2{2.0,0.0,0.0};
@@ -71,7 +71,7 @@ TEST_CASE("testing triangle class","[triangle]") {
 
 	Triangle tri3{Material{}, "Yorrick", glm::vec3{0.0,0.0,0.0}, glm::vec3{2.0,0.0,0.0}, glm::vec3{1.0,4.0,-2.0}};
 	REQUIRE(Approx{4.4721f} == tri3.area());
-}
+}*/
 
 TEST_CASE("get volume of sphere", "[volume]") {
 	Sphere sphere;

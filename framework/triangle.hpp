@@ -8,7 +8,7 @@ class Triangle : public Shape {
 public:
 	Triangle();
 	Triangle(glm::vec3 const& p1, glm::vec3 const& p2, glm::vec3 const& p3);
-	Triangle(Material const& material, std::string const& name, glm::vec3 const& p1, glm::vec3 const& p2, glm::vec3 const& p3);
+	Triangle(std::string const& name, glm::vec3 const& p1, glm::vec3 const& p2, glm::vec3 const& p3, Material const& material);
 	~Triangle();
 
 	glm::vec3 get_p1() const;

@@ -16,7 +16,7 @@ Triangle::Triangle(glm::vec3 const& p1, glm::vec3 const& p2, glm::vec3 const& p3
 	p2_{p2},
 	p3_{p3}{}
 
-Triangle::Triangle(Material const& material, std::string const& name, glm::vec3 const& p1, glm::vec3 const& p2, glm::vec3 const& p3) :
+Triangle::Triangle(std::string const& name, glm::vec3 const& p1, glm::vec3 const& p2, glm::vec3 const& p3, Material const& material) :
 	Shape(material, name),
 	p1_{p1},
 	p2_{p2},

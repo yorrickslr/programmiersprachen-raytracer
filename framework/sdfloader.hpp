@@ -97,7 +97,7 @@ bool sdf_parseBox(
 bool sdf_isTriangle(std::string const& input) {
 	// define shape triangle <name> <p1> <p2> <p3> <material>
 	std::regex rgx_triangle{"^[\\s\\t]*define[\\s\\t]+shape[\\s\\t]+triangle[\\s\\t]+\\S+[\\s\\t]+((\\+|-)?[0-9]+(\\.[0-9]+)?[\\s\\t]+){9}\\S+[\\s\\t]*$"};
-	if(std::regex_match(input, rgx_box)) {
+	if(std::regex_match(input, rgx_triangle)) {
 		return true;
 	}
 	return false;
@@ -105,8 +105,8 @@ bool sdf_isTriangle(std::string const& input) {
 
 bool sdf_parseTriangle(
 		std::string const& input,
-		std::map<std::string, std::shared_ptr<Shape>& shapes,
-		std::map<std::string,Material>& materials) {
+		std::map<std::string, std::shared_ptr<Shape>>& shapes,
+		std::map<std::string, Material>& materials) {
 	std::vector<std::string> parsed;
 	sdf_splitString(input, parsed);
 	glm::vec3 p1{std::stod(parsed[4]),std::stod(parsed[5]),std::stod(parsed[6])};
@@ -116,7 +116,7 @@ bool sdf_parseTriangle(
 	if(iterator == materials.end()) {
 		return false;
 	}
-	std::shared_ptr<Shape> pointer = std::make_shared<Triangle>(min, max, iterator->second, parsed[3]);
+	std::shared_ptr<Shape> pointer = std::make_shared<Triangle>(parsed[3], p1, p2, p3, iterator->second);
 	shapes.insert(shapes.end(),std::pair<std::string, std::shared_ptr<Shape>>(parsed[3],pointer));
 	std::cout << "***DEBUG*** parsed triangle" << std::endl;
 	return true;
