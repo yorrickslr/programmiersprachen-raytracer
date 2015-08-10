@@ -1,0 +1,27 @@
+#############################
+##### First Scene Tests #####
+#############################
+
+# Materials
+	define material 	red 		1 0 0		1 0 0	1 0 0	1
+	define material 	blue 		0 0 1		1 0 0	1 0 0	1
+	define material 	green 		0 1 0		1 0 0	1 0 0	1
+	define material 	pink 		1 0.9 0.9 	1 0 0 	1 0 0 	1
+
+# Objects
+	# Spheres
+		define shape sphere 		sun 	0 -2 0		0.5 	red
+		# define shape sphere 	ball 	-1 -2 -1 	0.1 	pink
+
+	# Boxes
+		define shape box 	chest 		-1 -2 -1 	0 -3 0 		blue
+		define shape box 	chest2 		1 -2 1 		2 -4 2 		green
+
+	# Triangle
+		define shape triangle 	triforce	4 0 -2	-4 0 -2	0 -5 -1	pink 
+
+#Lights
+	define light 	funzel 		-1.5 0 2 	0.5 0.5 0.5 	0.5 0.5 0.5
+
+# Camera
+	camera 	eye		0.78	0 0 0	0 1 0	1 0 0
