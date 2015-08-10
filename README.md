@@ -14,8 +14,9 @@ Yay, this so awesome :rocket:
 - Adjust regex for negative numbers :heavy_check_mark:
 - basic renderer :heavy_check_mark:
 - intersect() for triangle class :heavy_check_mark: (Great Job [Yorrick](https://github.com/yorrickslr)! :v:)
+- Add triangle to sdf loader :heavy_check_mark:
+- fix the box intersect (Yes, I’m looking at you [Yorrick](https://github.com/yorrickslr))
 - composite pattern (difficult)
-- Add triangle to sdf loader
 - (BOSS)transformation
 
 ## Attention:
@@ -24,5 +25,5 @@ Use underscores only at the ends of membernames... it’s not compiling :trollfa
 
 [¯\\\_(ツ)_/¯](https://www.youtube.com/watch?v=32UGD0fV45g)
 
-## And now something complete different
+## And now something completely different
 - Konsultation: Wann?
