@@ -13,14 +13,16 @@ Yay, this so awesome :rocket:
 - Add light to sdfloader :heavy_check_mark:
 - Adjust regex for negative numbers :heavy_check_mark:
 - basic renderer :heavy_check_mark:
-- intersect() for triangle class (maybe...)
-- composite pattern
+- intersect() for triangle class :heavy_check_mark: (Great Job [Yorrick](https://github.com/yorrickslr)! :v:)
+- composite pattern (difficult)
+- Add triangle to sdf loader
 - (BOSS)transformation
 
 ## Attention:
 
-The last three commits are made by Jojo. Yorrick wasn’t working at all.:stuck_out_tongue_winking_eye:
-
 Use underscores only at the ends of membernames... it’s not compiling :trollface: , why the hell ever?! 
 
 [¯\\\_(ツ)_/¯](https://www.youtube.com/watch?v=32UGD0fV45g)
+
+## And now something complete different
+- Konsultation: Wann?
