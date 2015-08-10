@@ -14,6 +14,7 @@
 #include <shape.hpp>
 #include <sphere.hpp>
 #include <box.hpp>
+#include <triangle.hpp>
 #include <camera.hpp>
 #include <light.hpp>
 
@@ -93,6 +94,34 @@ bool sdf_parseBox(
 	return true;
 }
 
+bool sdf_isTriangle(std::string const& input) {
+	// define shape triangle <name> <p1> <p2> <p3> <material>
+	std::regex rgx_triangle{"^[\\s\\t]*define[\\s\\t]+shape[\\s\\t]+triangle[\\s\\t]+\\S+[\\s\\t]+((\\+|-)?[0-9]+(\\.[0-9]+)?[\\s\\t]+){9}\\S+[\\s\\t]*$"};
+	if(std::regex_match(input, rgx_box)) {
+		return true;
+	}
+	return false;
+}
+
+bool sdf_parseTriangle(
+		std::string const& input,
+		std::map<std::string, std::shared_ptr<Shape>& shapes,
+		std::map<std::string,Material>& materials) {
+	std::vector<std::string> parsed;
+	sdf_splitString(input, parsed);
+	glm::vec3 p1{std::stod(parsed[4]),std::stod(parsed[5]),std::stod(parsed[6])};
+	glm::vec3 p2{std::stod(parsed[7]),std::stod(parsed[8]),std::stod(parsed[9])};
+	glm::vec3 p3{std::stod(parsed[10]),std::stod(parsed[11]),std::stod(parsed[12])};
+	auto iterator = materials.find(parsed[13]);
+	if(iterator == materials.end()) {
+		return false;
+	}
+	std::shared_ptr<Shape> pointer = std::make_shared<Triangle>(min, max, iterator->second, parsed[3]);
+	shapes.insert(shapes.end(),std::pair<std::string, std::shared_ptr<Shape>>(parsed[3],pointer));
+	std::cout << "***DEBUG*** parsed triangle" << std::endl;
+	return true;
+}
+
 bool sdf_isMaterial(std::string const& input) {
 	std::cout << "***DEBUG*** bin drin" << std::endl;
 	std::regex rgx_material{"^[\\s\\t]*define[\\s\\t]+material[\\s\\t]+\\S+[\\s\\t]+([0-1](\\.[0-9]+)?[\\s\\t]+){9}[0-9](\\.[0-9]+)?[\\s\\t]*$"};
@@ -159,6 +188,21 @@ void sdf_parseLight(std::string const& input, std::map<std::string,Light>& light
 }
 
 
+// isComposite
+/*bool sdf_isComposite(std::string const& input) {
+	std::cout << "***DEBUG*** inside composite" << std::endl;
+	std::regex rgx_light{"^[\\s\\t]*define[\\s\\t]+shape[\\s\\t]+composite[\\s\\t]+\\S+[\\s\\t]+((\\+|-)?[0-9]*(\\.[0-9]+)?[\\s\\t]+){3}([0-1]?(\\.[0-9]+)?[\\s\\t]+){5}[0-1](\\.[0-9]+)?[\\s\\t]*$"};
+}
+
+// Composite parser
+void sdf_parseComposite(std::string const& input, std::shared_ptr<Shape> composite) {
+	std::vector<std::string> parsed;
+	sdf_splitString(input, parsed);
+	auto name = parsed[3];
+
+}*/
+// define shape composite root rbottom bsphere
+
 
 void sdf_loadScene(std::ifstream& file, Scene& scene) {
 	std::string line{""};
@@ -181,6 +225,13 @@ void sdf_loadScene(std::ifstream& file, Scene& scene) {
 		if(sdf_isBox(line)) {
 			if(!sdf_parseBox(line,scene.shapes,scene.materials)) {
 				std::cout << "---ERROR--- could not parse box (material not defined?) in line" << lineCount << std::endl;
+			}
+			continue;
+		}
+		// Triangle
+		if(sdf_isTriangle(line)) {
+			if(!sdf_parseTriangle(line,scene.shapes,scene.materials)) {
+				std::cout << "---ERROR--- could not parse triangle (material not defined?) in line" << lineCount << std::endl;
 			}
 			continue;
 		}
