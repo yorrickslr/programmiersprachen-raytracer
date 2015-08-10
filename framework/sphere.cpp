@@ -61,8 +61,13 @@ std::ostream& operator<<(std::ostream& os, Sphere const& s) {
 	return s.print(os);
 }
 
-bool Sphere::intersect(Ray const& ray, float& distance) const {
-	return glm::intersectRaySphere(ray.origin, glm::normalize(ray.direction), center_, radius_, distance);
+Hit Sphere::intersect(Ray const& ray) const {
+	Hit hit;
+	hit.hit = glm::intersectRaySphere(ray.origin, glm::normalize(ray.direction), center_, radius_, hit.intersection, hit.normal);
+	//hit.hit = glm::intersectRaySphere(ray.origin, ray.direction, center_, radius_, hit.distance);
+	hit.distance = glm::distance(ray.origin,hit.intersection);
+	//hit.object = std::make_shared<Sphere>(*this);
+	return hit;
 }
 
 // MinGW does not support M_PI, 

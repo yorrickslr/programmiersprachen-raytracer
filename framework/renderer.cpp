@@ -9,6 +9,7 @@
 
 #include "renderer.hpp"
 #include <sphere.hpp>
+#include <triangle.hpp>
 
 Renderer::Renderer(unsigned w, unsigned h, std::string const& file)
   : width_(w)
@@ -54,14 +55,20 @@ void Renderer::write(Pixel const& p)
 
 Color Renderer::raytrace(Ray const& ray, Scene scene) const {
   float distance{0};
+  Color color;
+  /*scene.shapes.insert(std::pair<std::string,std::shared_ptr<Shape>>("testri",std::make_shared<Triangle>(Triangle{scene.materials["blue"], "testri", {-1,-2,-1}, {1,-2,-1}, {0,-2,1}})));*/
   for(auto element : scene.shapes) {
-    if(element.second->intersect(ray, distance)) {
+    Hit hit = element.second->intersect(ray);
+    if(hit.hit) {
+      for(auto element : scene.lights) {
+      }
+      std::cout << hit.distance << std::endl;
       return element.second->material().get_ka();
     }
   }
   return scene.ambient_light;
   Sphere kugel{{0,-10,0},0.01};
-  if(kugel.intersect(ray, distance)) {
+  if(kugel.intersect(ray).hit) {
     return Color(0,0,0);
   }
   return Color(1,1,1);

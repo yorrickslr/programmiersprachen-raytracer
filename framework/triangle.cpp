@@ -1,5 +1,7 @@
 #include <triangle.hpp>
 #include <math.h>
+#include <glm/glm.hpp>
+#include <glm/gtx/intersect.hpp>
 
 
 Triangle::Triangle() :
@@ -50,11 +52,17 @@ double Triangle::volume() const {
 	return 0;
 }
 
-bool Triangle::intersect(Ray const& ray, float& distance) const {
-	
+Hit Triangle::intersect(Ray const& ray) const {
+	Hit hit;
+	hit.hit = glm::intersectLineTriangle(ray.origin, glm::normalize(ray.direction), p1_, p2_, p3_, hit.intersection);
+	hit.distance = glm::distance(ray.origin, hit.intersection);
+	glm::vec3 tmp1{p1_.x - p2_.x, p1_.y - p2_.y, p1_.z - p2_.z};
+	glm::vec3 tmp2{p1_.x - p3_.x, p1_.y - p3_.y, p1_.z - p3_.z};
+	hit.normal = glm::cross(tmp1, tmp2);
+	return hit;
 
 	//netter versuch, funzt nur für gleiche y-werte
-	glm::vec3 baryPosition{};
+	/*glm::vec3 baryPosition{};
 	auto a = glm::intersectRayTriangle(ray.origin, ray.direction, p1_, p2_, p3_, baryPosition);
 
 	if(a){
@@ -63,5 +71,5 @@ bool Triangle::intersect(Ray const& ray, float& distance) const {
 		return distance;
 	}
 
-	return a;
+	return a;*/
 }

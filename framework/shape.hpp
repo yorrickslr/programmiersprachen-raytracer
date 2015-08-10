@@ -7,6 +7,7 @@
 #include <material.hpp>
 #include <glm/glm.hpp>
 #include <glm/gtx/intersect.hpp>
+#include <hit.hpp>
 
 class Shape {
 public:
@@ -16,7 +17,7 @@ public:
 	std::string name() const;
 	Material material() const;
 	virtual std::ostream& print(std::ostream& os) const;
-	virtual bool intersect(Ray const& ray, float& distance) const = 0;
+	virtual Hit intersect(Ray const& ray) const = 0;
 protected:
 	Shape();
 	Shape(Material const& material, std::string const& name);

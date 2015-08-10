@@ -6,6 +6,7 @@
 #include "color.hpp"
 #include <string>
 #include "ray.hpp"
+#include <hit.hpp>
 
 class Sphere : public Shape {
 public:
@@ -18,7 +19,7 @@ public:
 	double area() const override;
 	double volume() const override;
 	std::ostream& print(std::ostream& os) const override;
-	bool intersect(Ray const& ray, float& distance) const override;
+	Hit intersect(Ray const& ray) const override;
 private:
 	glm::vec3 center_;
 	double radius_;

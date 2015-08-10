@@ -2,6 +2,7 @@
 #define BUW_TRIANGLE_HPP
 #include <shape.hpp>
 #include <glm/vec3.hpp>
+#include <hit.hpp>
 
 class Triangle : public Shape {
 public:
@@ -14,9 +15,9 @@ public:
 	glm::vec3 get_p2() const;
 	glm::vec3 get_p3() const;
 
-	/*virtual*/ double area() const override;
-	/*virtual*/ double volume() const override;
-	bool intersect(Ray const& ray, float& distance) const override;
+	double area() const override;
+	double volume() const override;
+	Hit intersect(Ray const& ray) const override;
 private:
 	glm::vec3 p1_;
 	glm::vec3 p2_;
