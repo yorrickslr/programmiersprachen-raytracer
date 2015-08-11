@@ -71,7 +71,7 @@ Color Renderer::raytrace(Ray const& ray, Scene scene) const {
     }*/
   }
   if(minHit.hit) {
-    std::cout << minHit.object << std::endl;
+    std::cout << "Core dump? Area=" << minHit.object->area() << std::endl;
     return Color(0,0,0); //(*minHit.object).material().get_ka();
   }
   return scene.ambient_light;

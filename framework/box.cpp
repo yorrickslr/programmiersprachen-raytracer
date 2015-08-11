@@ -81,10 +81,10 @@ std::ostream& operator<<(std::ostream& os, Box const& s) {
 	return s.print(os);
 }
 
-Hit Box::intersect(Ray const& ray) const {
+Hit Box::intersect(Ray const& ray) {
 	Hit min, max;
-	min.object = std::make_shared<Box>(*this);
-	max.object = std::make_shared<Box>(*this);
+	min.object = this->shared_from_this();
+	max.object = this->shared_from_this();
 	glm::vec3 invDirection{ (1 / ray.direction.x), (1 / ray.direction.y), (1 / ray.direction.z) };
 	double t1 = (min_[0] - ray.origin[0])*invDirection[0];
 	double t2 = (max_[0] - ray.origin[0])*invDirection[0];
@@ -111,14 +111,12 @@ Hit Box::intersect(Ray const& ray) const {
 
 		if(max.distance > min.distance) {
 			min.hit = true;
-			return min;	
+			return min;
 		}
 
 		max.hit = true;
 		return max;
 	}
-	
-
 	return Hit{};
 
 	

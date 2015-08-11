@@ -6,7 +6,7 @@
 #include "ray.hpp"
 #include <hit.hpp>
 
-class Box : public Shape {
+class Box : public Shape, public std::enable_shared_from_this<Box> {
 public:
 	Box();
 	Box(glm::vec3 const& min, glm::vec3 const& max);
@@ -17,7 +17,7 @@ public:
 	double area() const override;
 	double volume() const override;
 	std::ostream& print(std::ostream& os) const override;
-	Hit intersect(Ray const& ray) const override;
+	Hit intersect(Ray const& ray) override;
 private:
 	glm::vec3 min_;
 	glm::vec3 max_;

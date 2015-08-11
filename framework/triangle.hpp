@@ -4,7 +4,7 @@
 #include <glm/vec3.hpp>
 #include <hit.hpp>
 
-class Triangle : public Shape {
+class Triangle : public Shape, public std::enable_shared_from_this<Triangle> {
 public:
 	Triangle();
 	Triangle(glm::vec3 const& p1, glm::vec3 const& p2, glm::vec3 const& p3);
@@ -17,7 +17,7 @@ public:
 
 	double area() const override;
 	double volume() const override;
-	Hit intersect(Ray const& ray) const override;
+	Hit intersect(Ray const& ray) override;
 private:
 	glm::vec3 p1_;
 	glm::vec3 p2_;

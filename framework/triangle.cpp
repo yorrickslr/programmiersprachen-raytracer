@@ -52,9 +52,9 @@ double Triangle::volume() const {
 	return 0;
 }
 
-Hit Triangle::intersect(Ray const& ray) const {
+Hit Triangle::intersect(Ray const& ray) {
 	Hit hit;
-	hit.object = std::make_shared<Triangle>(*this);
+	hit.object = this->shared_from_this();
 	hit.hit = glm::intersectLineTriangle(ray.origin, glm::normalize(ray.direction), p1_, p2_, p3_, hit.intersection);
 	hit.distance = glm::distance(ray.origin, hit.intersection);
 	glm::vec3 tmp1{p1_.x - p2_.x, p1_.y - p2_.y, p1_.z - p2_.z};

@@ -20,7 +20,7 @@ public:
 	std::string name() const;
 	Material material() const;
 	virtual std::ostream& print(std::ostream& os) const;
-	virtual Hit intersect(Ray const& ray) const = 0;
+	virtual Hit intersect(Ray const& ray) = 0;
 protected:
 	Shape();
 	Shape(Material const& material, std::string const& name);
