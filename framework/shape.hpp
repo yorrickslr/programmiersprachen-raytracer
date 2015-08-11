@@ -7,7 +7,10 @@
 #include <material.hpp>
 #include <glm/glm.hpp>
 #include <glm/gtx/intersect.hpp>
+#include <glm/vec3.hpp>
+#include <memory>
 #include <hit.hpp>
+
 
 class Shape {
 public:

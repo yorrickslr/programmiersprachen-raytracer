@@ -58,12 +58,10 @@ Color Renderer::raytrace(Ray const& ray, Scene scene) const {
   Color color;
   /*scene.shapes.insert(std::pair<std::string,std::shared_ptr<Shape>>("testri",std::make_shared<Triangle>(Triangle{scene.materials["blue"], "testri", {-1,-2,-1}, {1,-2,-1}, {0,-2,1}})));*/
   Hit minHit;
-  Shape tmp;
   for(auto element : scene.shapes) {
     Hit hit = element.second->intersect(ray);
     if(hit.distance < minHit.distance) {
       minHit = hit;
-      tmp = element;
     }
     /*if(hit.hit) {
       for(auto element : scene.lights) {
@@ -73,7 +71,8 @@ Color Renderer::raytrace(Ray const& ray, Scene scene) const {
     }*/
   }
   if(minHit.hit) {
-    return tmp;
+    std::cout << minHit.object << std::endl;
+    return Color(0,0,0); //(*minHit.object).material().get_ka();
   }
   return scene.ambient_light;
   Sphere kugel{{0,-10,0},0.01};

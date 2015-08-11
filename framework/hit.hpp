@@ -5,11 +5,14 @@
 #include <ray.hpp>
 #include <memory>
 
+class Shape;
+
 struct Hit {
 	bool hit;
 	float distance;
 	glm::vec3 intersection;
 	glm::vec3 normal;
+	std::shared_ptr<Shape> object;
 };
 
 #endif

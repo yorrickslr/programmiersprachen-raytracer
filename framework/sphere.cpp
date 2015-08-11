@@ -67,6 +67,7 @@ Hit Sphere::intersect(Ray const& ray) const {
 	//hit.hit = glm::intersectRaySphere(ray.origin, ray.direction, center_, radius_, hit.distance);
 	hit.distance = glm::distance(ray.origin,hit.intersection);
 	//hit.object = std::make_shared<Sphere>(*this);
+	hit.object = std::make_shared<Sphere>(*this);
 	return hit;
 }
 
