@@ -15,8 +15,10 @@ Yay, this so awesome :rocket:
 - basic renderer :heavy_check_mark:
 - intersect() for triangle class :heavy_check_mark: (Great Job [Yorrick](https://github.com/yorrickslr)! :v:)
 - Add triangle to sdf loader :heavy_check_mark:
-- fix the box intersect (Yes, I’m looking at you [Yorrick](https://github.com/yorrickslr))
-- composite pattern (difficult)
+- fix the box intersect :heavy_check_mark: 
+- fix renderer, so that front objects are in the front (almost there:heavy_check_mark:)
+- fix all the intersects! add the shape-pointer from hit
+- composite pattern (still difficult)
 - (BOSS)transformation
 
 ## Attention:
@@ -27,3 +29,4 @@ Use underscores only at the ends of membernames... it’s not compiling :trollfa
 
 ## And now something completely different
 - Konsultation: Wann?
+- Warum mach ich eigentlich immer die Updates :question:
