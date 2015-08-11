@@ -82,7 +82,32 @@ std::ostream& operator<<(std::ostream& os, Box const& s) {
 }
 
 Hit Box::intersect(Ray const& ray) const {
-	return Hit{};
+	Hit hit;
+	glm::vec3 invDirection{ (1 / ray.direction.x), (1 / ray.direction.y), (1 / ray.direction.z) };
+	double t1 = (min_[0] - ray.origin[0])*invDirection[0];
+	double t2 = (max_[0] - ray.origin[0])*invDirection[0];
+
+	double tmin = std::min(t1, t2);
+	double tmax = std::max(t1, t2);
+
+	for (int i = 1; i < 3; ++i) {
+		t1 = (min_[i] - ray.origin[i])*invDirection[i];
+		t2 = (max_[i] - ray.origin[i])*invDirection[i];
+
+		tmin = std::max(tmin, std::min(std::min(t1, t2), tmax));
+		tmax = std::min(tmax, std::max(std::max(t1, t2), tmin));
+	}
+
+	if(tmax > std::max(tmin, 0.0)) {
+		hit.hit = true;
+	}
+	else {
+		hit.hit = false;
+	}
+
+	return hit;
+
+	
 
 	/*for(int i=0; i<3; i++) {
 		float dmin{0.0}, dmax{0.0}, dtmp{0.0};

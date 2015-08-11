@@ -4,6 +4,7 @@
 #include "shape.hpp"
 #include <glm/vec3.hpp>
 #include "ray.hpp"
+#include <hit.hpp>
 
 class Box : public Shape {
 public:
