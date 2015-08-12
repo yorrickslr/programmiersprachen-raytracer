@@ -6,7 +6,7 @@
 #include "ray.hpp"
 #include <hit.hpp>
 
-class Box : public Shape, public std::enable_shared_from_this<Box> {
+class Box : public Shape {
 public:
 	Box();
 	Box(glm::vec3 const& min, glm::vec3 const& max);

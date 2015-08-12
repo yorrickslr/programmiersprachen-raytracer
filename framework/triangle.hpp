@@ -4,7 +4,7 @@
 #include <glm/vec3.hpp>
 #include <hit.hpp>
 
-class Triangle : public Shape, public std::enable_shared_from_this<Triangle> {
+class Triangle : public Shape {
 public:
 	Triangle();
 	Triangle(glm::vec3 const& p1, glm::vec3 const& p2, glm::vec3 const& p3);

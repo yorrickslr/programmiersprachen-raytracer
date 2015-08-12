@@ -64,10 +64,8 @@ std::ostream& operator<<(std::ostream& os, Sphere const& s) {
 Hit Sphere::intersect(Ray const& ray) {
 	Hit hit;
 	hit.hit = glm::intersectRaySphere(ray.origin, glm::normalize(ray.direction), center_, radius_, hit.intersection, hit.normal);
-	//hit.hit = glm::intersectRaySphere(ray.origin, ray.direction, center_, radius_, hit.distance);
 	hit.distance = glm::distance(ray.origin,hit.intersection);
-	//hit.object = std::make_shared<Sphere>(*this);
-	hit.object = this->shared_from_this();
+	hit.object = shared_from_this();
 	return hit;
 }
 

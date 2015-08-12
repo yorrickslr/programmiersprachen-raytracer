@@ -83,8 +83,8 @@ std::ostream& operator<<(std::ostream& os, Box const& s) {
 
 Hit Box::intersect(Ray const& ray) {
 	Hit min, max;
-	min.object = this->shared_from_this();
-	max.object = this->shared_from_this();
+	min.object = shared_from_this();
+	max.object = shared_from_this();
 	glm::vec3 invDirection{ (1 / ray.direction.x), (1 / ray.direction.y), (1 / ray.direction.z) };
 	double t1 = (min_[0] - ray.origin[0])*invDirection[0];
 	double t2 = (max_[0] - ray.origin[0])*invDirection[0];

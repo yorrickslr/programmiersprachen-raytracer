@@ -8,7 +8,7 @@
 #include "ray.hpp"
 #include <hit.hpp>
 
-class Sphere : public Shape, public std::enable_shared_from_this<Sphere> {
+class Sphere : public Shape {
 public:
 	Sphere(glm::vec3 const& center, double const radius, Material const& material, std::string const& name);
 	Sphere(glm::vec3 const& center, double const radius);

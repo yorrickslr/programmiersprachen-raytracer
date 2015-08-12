@@ -13,6 +13,18 @@ struct Hit {
 	glm::vec3 intersection;
 	glm::vec3 normal;
 	std::shared_ptr<Shape> object;
+	
+	Hit& operator=(const Hit& src) {
+		if(this==&src) {
+			return *this;
+		}
+		hit = src.hit;
+		distance = src.distance;
+		intersection = src.intersection;
+		normal = src.normal;
+		object = src.object;
+	}
 };
+
 
 #endif

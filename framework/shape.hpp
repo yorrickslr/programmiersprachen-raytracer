@@ -12,7 +12,7 @@
 #include <hit.hpp>
 
 
-class Shape {
+class Shape : public std::enable_shared_from_this<Shape> {
 public:
 	~Shape();
 	virtual double area() const = 0;
