@@ -10,6 +10,7 @@
 #include "renderer.hpp"
 #include <sphere.hpp>
 #include <triangle.hpp>
+#include <glm/glm.hpp>
 
 Renderer::Renderer(unsigned w, unsigned h, std::string const& file)
   : width_(w)
@@ -55,7 +56,6 @@ void Renderer::write(Pixel const& p)
 
 Color Renderer::raytrace(Ray const& ray, Scene scene) const {
   float distance{INFINITY};
-  Color color;
   /*scene.shapes.insert(std::pair<std::string,std::shared_ptr<Shape>>("testri",std::make_shared<Triangle>(Triangle{scene.materials["blue"], "testri", {-1,-2,-1}, {1,-2,-1}, {0,-2,1}})));*/
   Hit minHit{false, INFINITY, {INFINITY, INFINITY, INFINITY}, {0,0,0}, nullptr};
   for(auto element : scene.shapes) {
@@ -70,13 +70,14 @@ Color Renderer::raytrace(Ray const& ray, Scene scene) const {
       return element.second->material().get_ka();
     }*/
   }
+  Color color = scene.ambient_light;
   if(minHit.hit) {
-    return (*minHit.object).material().get_ka();
+    Light debugLight{"debug", {0,0,0}, {255,255,255}, {100,100,100}};
+    float tmpdeg = glm::dotp(glm::normalize(ray.direction),glm::normalize(debugLight.get_position() - hit.intersection));
+    float red = (*minHit.object).material().get_kd().r * debugLight.ld_.r * deg;
+    float green = (*minHit.object).material().get_kd().g * debugLight.ld_.g * deg;
+    float blue = (*minHit.object).material().get_kd().b * debugLight.ld_.b * deg;
+    return Color(red, green, blue);
   }
-  return scene.ambient_light;
-  Sphere kugel{{0,-10,0},0.01};
-  if(kugel.intersect(ray).hit) {
-    return Color(0,0,0);
-  }
-  return Color(1,1,1);
+  return color;
 }
