@@ -93,20 +93,20 @@ Hit Box::intersect(Ray const& ray) {
 	xHit.distance = (xLimit - ray.origin.x) / normDir.x;
 	tmpY = ray.origin.y + xHit.distance * normDir.y;
 	tmpZ = ray.origin.z + xHit.distance * normDir.z;
-	xHit.intersect = {xLimit,  tmpY, tmpZ};
-	xHit.hit = tmpy<=max_.y && tmpy>=min_.y && tmpz<=max_.z && tmpz>=min_.z ? true : false;
+	xHit.intersection = {xLimit,  tmpY, tmpZ};
+	xHit.hit = tmpY<=max_.y && tmpY>=min_.y && tmpZ<=max_.z && tmpZ>=min_.z ? true : false;
 
 	yHit.distance = (yLimit - ray.origin.y) / normDir.y;
 	tmpX = ray.origin.x + yHit.distance * normDir.x;
 	tmpZ = ray.origin.z + yHit.distance * normDir.z;
-	yHit.intersect = {tmpX, yLimit, tmpZ};
-	yHit.hit = tmpx<=max_.x && tmpx>=min_.x && tmpz<=max_.z && tmpz>=min_.z ? true : false;
+	yHit.intersection = {tmpX, yLimit, tmpZ};
+	yHit.hit = tmpX<=max_.x && tmpX>=min_.x && tmpZ<=max_.z && tmpZ>=min_.z ? true : false;
 
 	zHit.distance = (zLimit - ray.origin.z) / normDir.z;
 	tmpX = ray.origin.x + zHit.distance * normDir.x;
 	tmpY = ray.origin.y + zHit.distance * normDir.x;
-	zHit.intersect = {tmpX, tmpY, zLimit};
-	zHit.hit = tmpx<=max_.x && tmpx>=min_.x && tmpy<=max_.y && tmpy>=min_.y ? true : false;
+	zHit.intersection = {tmpX, tmpY, zLimit};
+	zHit.hit = tmpX<=max_.x && tmpX>=min_.x && tmpY<=max_.y && tmpY>=min_.y ? true : false;
 
 	Hit hit = xHit;
 	hit = yHit.hit && yHit.distance < hit.distance ? yHit : hit;
