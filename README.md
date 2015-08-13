@@ -21,6 +21,12 @@ Yay, this so awesome :rocket:
 - composite pattern (still difficult)
 - (BOSS)transformation
 
+## Konsultaion:
+### Fragen:
+- Pointer in Scene statt Typ Shape, Typ Composite?
+- Allgemeiner Aufbau von der objektorientiertheit so OK?
+
+
 ## Attention:
 
 Use underscores only at the ends of membernames... it’s not compiling :trollface: , why the hell ever?! 
@@ -28,5 +34,5 @@ Use underscores only at the ends of membernames... it’s not compiling :trollfa
 [¯\\\_(ツ)_/¯](https://www.youtube.com/watch?v=32UGD0fV45g)
 
 ## And now something completely different
-- Konsultation: Wann?
+- Konsultation: Wann? Montag!
 - Warum mach ich eigentlich immer die Updates :question:
