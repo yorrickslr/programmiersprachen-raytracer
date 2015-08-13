@@ -1,38 +1,44 @@
 #include <composite.hpp>
 
-Composite::Composite(std::string name) :
-	name_{ name },
-	children_{}
+Composite::Composite() :
+	name_{"Default"},
+	shapes{}
 {}
 
 
-double Composite::area() {
+Composite::Composite(std::string const& name) :
+	name_{ name },
+	shapes{}
+{}
+
+
+double Composite::area() const {
 	float sum = 0;
-	for(auto element : children_) {
-		sum += element->area();
+	for(auto element : shapes) {
+		sum += element.second->area();
 	}
 	return sum;
 }
 
-double Composite::volume() {
+double Composite::volume() const {
 	float sum = 0;
-	for(auto element : children_) {
-		sum += element->volume();
+	for(auto element : shapes) {
+		sum += element.second->volume();
 	}
 	return sum;
 }
 
-std::ostream& Composite::print(std::ostream& os) {
-	for(auto element : children_) {
-		element->print(os);
+std::ostream& Composite::print(std::ostream& os) const {
+	for(auto element : shapes) {
+		element.second->print(os);
 	}
 	return os;
 }
 
 Hit Composite::intersect(Ray const& ray) {
 	Hit hit{false, INFINITY, {INFINITY, INFINITY, INFINITY}, {0,0,0}, nullptr};
-	for(auto element : children_) {
-		Hit tmp = element->intersect(ray);
+	for(auto element : shapes) {
+		Hit tmp = element.second->intersect(ray);
 		if(tmp.hit && tmp.distance<=hit.distance) {
 			hit = tmp;
 		}
@@ -41,10 +47,10 @@ Hit Composite::intersect(Ray const& ray) {
 }
 
 
-void Composite::add(Shape& shape) {
-	children_.insert(shape);
+void Composite::add(std::shared_ptr<Shape> const& shape) {
+	shapes.insert(shapes.end(),std::pair<std::string,std::shared_ptr<Shape>>(shape->name(), shape));
 }
 
-void Composite::remove(mapIter element) {
-	children_.erase(element);
+std::map<std::string, std::shared_ptr<Shape>> Composite::get_children() const {
+	return shapes;
 }

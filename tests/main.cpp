@@ -32,7 +32,7 @@ TEST_CASE("output objects of scene","[print scene]") {
 		std::cout << "***       " << element.second.get_name() << std::endl;
 	}
 	std::cout << "***    Shapes:" << std::endl;
-	for(auto element : scene.shapes) {
+	for(auto element : scene.composite->get_children()) {
 		std::cout << "***       " << element.second->name() << std::endl;
 	}
 }

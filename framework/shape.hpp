@@ -21,6 +21,7 @@ public:
 	Material material() const;
 	virtual std::ostream& print(std::ostream& os) const;
 	virtual Hit intersect(Ray const& ray) = 0;
+	// virtual void add(std::shared_ptr<Shape> const& composite) = 0;
 protected:
 	Shape();
 	Shape(Material const& material, std::string const& name);

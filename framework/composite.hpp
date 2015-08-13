@@ -6,20 +6,22 @@
 
 class Composite : public Shape {
 public:
+	typedef std::map<std::string, std::shared_ptr<Shape>> map;
+	Composite();
 	Composite(std::string const& name);
 	
 	double area() const override;
 	double volume() const override;
 	std::ostream& print(std::ostream& os) const override;
-	bool intersect(Ray const& ray, float& distance) const override;
+	Hit intersect(Ray const& ray) override;
 
-	void add(Shape& shape);
-	void remove(Shape& shape);
+	void add(std::shared_ptr<Shape> const& shape);
+	map get_children() const;
 
 private:
 	std::string name_;
-	typedef std::vector<std::shared_ptr<Shape>>::iterator vecIter;
-	std::vector<std::shared_ptr<Shape>> children_;
+	// typedef std::map<std::shared_ptr<Shape>>::iterator mapIter;
+	std::map<std::string, std::shared_ptr<Shape>> shapes;
 };
 
 
