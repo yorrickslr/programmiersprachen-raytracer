@@ -82,6 +82,39 @@ std::ostream& operator<<(std::ostream& os, Box const& s) {
 }
 
 Hit Box::intersect(Ray const& ray) {
+	Hit xHit, yHit, zHit;
+	glm::vec3 normDir = glm::normalize(ray.direction);
+
+	float xLimit = max_.x < ray.origin.x ? max_.x : min_.x;
+	float yLimit = max_.y < ray.origin.y ? max_.y : min_.y;
+	float zLimit = max_.z < ray.origin.z ? max_.z : min_.z;
+	float tmp, tmpX, tmpY, tmpZ;
+
+	xHit.distance = (xLimit - ray.origin.x) / normDir.x;
+	tmpY = ray.origin.y + xHit.distance * normDir.y;
+	tmpZ = ray.origin.z + xHit.distance * normDir.z;
+	xHit.intersect = {xLimit,  tmpY, tmpZ};
+	xHit.hit = tmpy<=max_.y && tmpy>=min_.y && tmpz<=max_.z && tmpz>=min_.z ? true : false;
+
+	yHit.distance = (yLimit - ray.origin.y) / normDir.y;
+	tmpX = ray.origin.x + yHit.distance * normDir.x;
+	tmpZ = ray.origin.z + yHit.distance * normDir.z;
+	yHit.intersect = {tmpX, yLimit, tmpZ};
+	yHit.hit = tmpx<=max_.x && tmpx>=min_.x && tmpz<=max_.z && tmpz>=min_.z ? true : false;
+
+	zHit.distance = (zLimit - ray.origin.z) / normDir.z;
+	tmpX = ray.origin.x + zHit.distance * normDir.x;
+	tmpY = ray.origin.y + zHit.distance * normDir.x;
+	zHit.intersect = {tmpX, tmpY, zLimit};
+	zHit.hit = tmpx<=max_.x && tmpx>=min_.x && tmpy<=max_.y && tmpy>=min_.y ? true : false;
+
+	Hit hit = xHit;
+	hit = yHit.hit && yHit.distance < hit.distance ? yHit : hit;
+	hit = zHit.hit && zHit.distance < hit.distance ? zHit : hit;
+
+	return hit;
+
+/* ### Second try, no intersection points are correct
 	Hit min, max;
 	min.object = shared_from_this();
 	max.object = shared_from_this();
@@ -118,7 +151,7 @@ Hit Box::intersect(Ray const& ray) {
 		return max;
 	}
 	return Hit{};
-
+*/
 	
 
 	/*for(int i=0; i<3; i++) {
