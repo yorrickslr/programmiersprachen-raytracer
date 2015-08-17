@@ -104,11 +104,11 @@ Hit Box::intersect(Ray const& ray) {
 
 	zHit.distance = (zLimit - ray.origin.z) / normDir.z;
 	tmpX = ray.origin.x + zHit.distance * normDir.x;
-	tmpY = ray.origin.y + zHit.distance * normDir.x;
+	tmpY = ray.origin.y + zHit.distance * normDir.y;
 	zHit.intersection = {tmpX, tmpY, zLimit};
 	zHit.hit = tmpX<=max_.x && tmpX>=min_.x && tmpY<=max_.y && tmpY>=min_.y ? true : false;
 
-	Hit hit{};
+	Hit hit{false, INFINITY, {INFINITY, INFINITY, INFINITY}, {0,0,0}, nullptr};
 	hit = xHit.hit && xHit.distance < hit.distance ? xHit : hit;
 	hit = yHit.hit && yHit.distance < hit.distance ? yHit : hit;
 	hit = zHit.hit && zHit.distance < hit.distance ? zHit : hit;

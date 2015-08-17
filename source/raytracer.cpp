@@ -10,17 +10,16 @@ int main(int argc, char* argv[])
   std::string const filename = "./checkerboard.ppm";
 
   Renderer app(width, height, filename);
+  //Renderer app(scene) BS
   Scene scene;
   std::ifstream file;
   file.open("input.sdf");
   if(!file.is_open()) {
     std::cout << "---ERROR--- file could not be found" << std::endl;
   }
-  sdf_loadScene(file, scene);
-  scene.camera.setResolution(width, height);
-  std::cout << "***GRFJZ*** line 21" << std::endl;
+  sdf_loadScene(file, scene); // Lieber mit Rückgabe
+  scene.camera.setResolution(width, height); // ist okay, denk nochmal drüber nach
   std::thread thr([&app,&scene]() { app.render(scene); });
-  std::cout << "***GRJFZ*** line 23" << std::endl;
 
   Window win(glm::ivec2(width,height));
 

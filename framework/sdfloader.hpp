@@ -19,6 +19,8 @@
 #include <light.hpp>
 #include <composite.hpp>
 
+//Hier muss noch einigees umgebaut werden, außerdem bitte nicht in eine hpp, sondern in eine Cpp!
+
 void sdf_splitString(std::string const& input, std::vector<std::string>& output) {
 	std::istringstream tmp{input};
 	do {
