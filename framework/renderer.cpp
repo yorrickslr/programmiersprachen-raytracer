@@ -55,6 +55,7 @@ void Renderer::write(Pixel const& p)
 }
 
 Color Renderer::raytrace(Ray const& ray, Scene scene) const {
+  scene.ambient_light = {100,100,100};
 	float distance{INFINITY};
 	/*scene.shapes.insert(std::pair<std::string,std::shared_ptr<Shape>>("testri",std::make_shared<Triangle>(Triangle{scene.materials["blue"], "testri", {-1,-2,-1}, {1,-2,-1}, {0,-2,1}})));*/
 	Hit minHit{false, INFINITY, {INFINITY, INFINITY, INFINITY}, {0,0,0}, nullptr};
@@ -71,13 +72,18 @@ Color Renderer::raytrace(Ray const& ray, Scene scene) const {
 		}*/
 	}
 	Color color = scene.ambient_light;
-	if(minHit.hit) {
-		Light debugLight{"debug", {0,0,0}, {255,255,255}, {100,100,100}};
-		float tmpdeg = glm::dot(glm::normalize(ray.direction),glm::normalize(debugLight.get_position() - minHit.intersection));
-		float red = (*minHit.object).material().get_kd().r * debugLight.get_ld().r * tmpdeg;
-		float green = (*minHit.object).material().get_kd().g * debugLight.get_ld().g * tmpdeg;
-		float blue = (*minHit.object).material().get_kd().b * debugLight.get_ld().b * tmpdeg;
+	/*if(minHit.hit) {
+		Light debugLight{"debug", {0,0,0}, {255,255,255}, {100,100,100}}; //total fail as of color between 0 and 1
+		float deg = glm::dot(glm::normalize(ray.direction),glm::normalize(debugLight.get_position() - minHit.intersection));
+    float red = (*minHit.object).material().get_kd().r * debugLight.get_ld().r * deg;
+		float green = (*minHit.object).material().get_kd().g * debugLight.get_ld().g * deg;
+		float blue = (*minHit.object).material().get_kd().b * debugLight.get_ld().b * deg;
 		return Color(red, green, blue);
 	}
-	return color;
+
+	return color;*/
+  if(minHit.hit) {
+    return Color{1,1,1};
+  }
+  return Color{0,0,0};
 }

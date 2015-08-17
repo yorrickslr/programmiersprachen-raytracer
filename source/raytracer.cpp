@@ -14,11 +14,13 @@ int main(int argc, char* argv[])
   std::ifstream file;
   file.open("input.sdf");
   if(!file.is_open()) {
-    std::cout << "---ERROR--- file could not found" << std::endl;
+    std::cout << "---ERROR--- file could not be found" << std::endl;
   }
   sdf_loadScene(file, scene);
   scene.camera.setResolution(width, height);
+  std::cout << "***GRFJZ*** line 21" << std::endl;
   std::thread thr([&app,&scene]() { app.render(scene); });
+  std::cout << "***GRJFZ*** line 23" << std::endl;
 
   Window win(glm::ivec2(width,height));
 

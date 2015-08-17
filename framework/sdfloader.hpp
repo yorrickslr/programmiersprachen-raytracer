@@ -63,7 +63,9 @@ bool sdf_parseSphere(
 	if(iterator == materials.end()) {
 		return false;
 	}
+	std::cout << "***DEBUG*** lol" << std::endl;
 	std::shared_ptr<Shape> pointer = std::make_shared<Sphere>(center, std::stod(parsed[7]), iterator->second, parsed[3]);
+	std::cout << "***DEBUG*** after lol" << std::endl;
 	composite->add(pointer);
 	std::cout << "***DEBUG*** parsed sphere" << std::endl;
 	return true;
@@ -90,6 +92,7 @@ bool sdf_parseBox(
 		return false;
 	}
 	std::shared_ptr<Shape> pointer = std::make_shared<Box>(min, max, iterator->second, parsed[3]);
+	std::cout << "***DEBUG*** going to add box too composite" << std::endl;
 	composite->add(pointer);
 	std::cout << "***DEBUG*** parsed box" << std::endl;
 	return true;
@@ -218,27 +221,26 @@ void sdf_loadScene(std::ifstream& file, Scene& scene) {
 		lineCount++;
 		//Comment
 		if(sdf_isComment(line) || sdf_isEmpty(line)) {
-			std::cout << "***DEBUG*** continued at line " << lineCount << std::endl;
 			continue;
 		}
 		//Sphere
 		if(sdf_isSphere(line)) {
 			if(!sdf_parseSphere(line,scene.composite,scene.materials)) {
-				std::cout << "---ERROR--- could not parse sphere (material not defined?) in line" << lineCount << std::endl;
+				std::cout << "---ERROR--- could not parse sphere (material not defined?) in line " << lineCount << std::endl;
 			}
 			continue;
 		}
 		//Box
 		if(sdf_isBox(line)) {
 			if(!sdf_parseBox(line,scene.composite,scene.materials)) {
-				std::cout << "---ERROR--- could not parse box (material not defined?) in line" << lineCount << std::endl;
+				std::cout << "---ERROR--- could not parse box (material not defined?) in line " << lineCount << std::endl;
 			}
 			continue;
 		}
 		// Triangle
 		if(sdf_isTriangle(line)) {
 			if(!sdf_parseTriangle(line,scene.composite,scene.materials)) {
-				std::cout << "---ERROR--- could not parse triangle (material not defined?) in line" << lineCount << std::endl;
+				std::cout << "---ERROR--- could not parse triangle (material not defined?) in line " << lineCount << std::endl;
 			}
 			continue;
 		}

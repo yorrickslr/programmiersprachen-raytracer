@@ -108,10 +108,12 @@ Hit Box::intersect(Ray const& ray) {
 	zHit.intersection = {tmpX, tmpY, zLimit};
 	zHit.hit = tmpX<=max_.x && tmpX>=min_.x && tmpY<=max_.y && tmpY>=min_.y ? true : false;
 
-	Hit hit = xHit;
+	Hit hit{};
+	hit = xHit.hit && xHit.distance < hit.distance ? xHit : hit;
 	hit = yHit.hit && yHit.distance < hit.distance ? yHit : hit;
 	hit = zHit.hit && zHit.distance < hit.distance ? zHit : hit;
 
+	hit.object = shared_from_this();
 	return hit;
 
 /* ### Second try, no intersection points are correct

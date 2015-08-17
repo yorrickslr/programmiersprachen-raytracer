@@ -11,7 +11,7 @@
 struct Scene{
 	Scene() : 
 		ambient_light{ Color{0.0,0.0,0.0} },
-		composite{ nullptr },
+		composite{ std::make_shared<Composite>(Composite{}) },
 		lights{},
 		materials{},
 		camera{ Camera{} } {}
