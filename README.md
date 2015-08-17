@@ -1,10 +1,29 @@
-Programmiersprachen: Raytracer
+Programmiersprachen: Raytracer (Still under construction :construction:)
 ===========
 (by [@yorrickslr](https://github.com/yorrickslr) :octocat: and [@DreadNoize](https://github.com/DreadNoize) :dragon: )
 
 Yay, this so awesome :rocket:
 
-## To Do:
+Please note, that we don’t take this Readme very seriously. It’s a kind of test- and playground to get a bit behind this whole Gitstuff. Thank you and sorry for any inconvenience :smiley:
+
+## Mitarbeiter des Monats:
+[Yorrick](https://github.com/yorrickslr)
+:godmode:
+
+## Alles neu, macht der Mai (oder Der Code im Wandel der Zeit)
+### (oder Was nach der Konsultation gemacht werden muss)
+- Alles :shit: ! also umbauen.
+- Zwei Spaces statt Tab, weil  "Das ist scheiße" (A. Bernstein)
+- SDF Loader ohne Regexes, weil die "nicht zum parsen verwendet werden, die sind zu lang" (A. Bernstein)
+- Renderer neu
+- Area() und Volume() überhaupt nötig? Nein? Dann raus damit!
+- Warum ist auf einmal alles auf Deutsch?
+- Egal weiter im Text
+- Die Mucke zum Updates schreiben -> [GEIL](https://www.youtube.com/watch?v=LBZ-3Ugj1AQ)
+- Box intersect fixen (Schon wieder?! Das kann doch nicht so schwer sein)
+- Transformation
+
+## To Do (theoretisch obsolet, aus Gründen der Nachvollziehung bleibts drin und weil ich das schön finde):
 
 - Add floats to sdfloader :heavy_check_mark:
 - Add name getter to abstract class shape and subclasses :heavy_check_mark:
@@ -21,10 +40,6 @@ Yay, this so awesome :rocket:
 - composite pattern (still difficult)
 - (BOSS)transformation
 
-## Konsultaion:
-### Fragen:
-- Pointer in Scene statt Typ Shape, Typ Composite?
-- Allgemeiner Aufbau von der objektorientiertheit so OK?
 
 
 ## Attention:
@@ -34,5 +49,4 @@ Use underscores only at the ends of membernames... it’s not compiling :trollfa
 [¯\\\_(ツ)_/¯](https://www.youtube.com/watch?v=32UGD0fV45g)
 
 ## And now something completely different
-- Konsultation: Wann? Montag!
 - Warum mach ich eigentlich immer die Updates :question:
