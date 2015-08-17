@@ -20,7 +20,14 @@ struct Scene{
 		cam_vec{} {}*/
 
 	~Scene() {}
-		
+	Scene& operator=(Scene& src) {
+		ambient_light = src.ambient_light;
+		composite = src.composite;
+		lights = src.lights;
+		materials = src.materials;
+		camera = src.camera;
+		return *this;
+	};
 
 	Color ambient_light;
 	 // shared_ptr instead of objects works! legal?
@@ -34,3 +41,5 @@ struct Scene{
 };
 
 #endif
+
+//move operator to a new file scene.cpp:

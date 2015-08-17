@@ -14,6 +14,28 @@
 #include <scene.hpp>
 #include <triangle.hpp>
 #include <hit.hpp>
+#include <sdfloader.cpp>
+#include <exception>
+
+TEST_CASE("new sdfloader","[nsdfloader]") {
+	Scene scene;
+	std::ifstream file;
+	file.open("input.sdf");
+	REQUIRE(file.is_open());
+	try {
+		scene = nsdf_loadScene(file);
+	} catch(std::exception& e) {
+		std::cerr << "an error occured while parsing SDF-file: " << e.what() << "\r\n";
+	}
+}
+
+TEST_CASE("Raycasting", "[raycast]") {
+	float fov = 45;
+	Camera cam{"eye",{0,0,0},{0,0,-1},{1,0,0},fov};
+	cam.setResolution(100,100);
+	glm::vec3 dir = cam.eyeRay(50,50).direction;
+	std::cout << "Direction of ray at 50,50: {" << dir.x << "," << dir.y << "," << dir.z << "}" << std::endl;
+}
 
 TEST_CASE("Constructor for hit","[hit]")  {
 	Hit hit;

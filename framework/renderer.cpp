@@ -64,26 +64,16 @@ Color Renderer::raytrace(Ray const& ray, Scene scene) const {
 		if(hit.distance < minHit.distance && hit.hit) {
 			minHit = hit;
 		}
-		/*if(hit.hit) {
-			for(auto element : scene.lights) {
-			}
-			std::cout << hit.distance << std::endl;
-			return element.second->material().get_ka();
-		}*/
 	}
 	Color color = scene.ambient_light;
-	/*if(minHit.hit) {
-		Light debugLight{"debug", {0,0,0}, {255,255,255}, {100,100,100}}; //total fail as of color between 0 and 1
+	if(minHit.hit) {
+		/*Light debugLight{"debug", {0,0,0}, {255,255,255}, {100,100,100}}; //total fail as of color between 0 and 1
 		float deg = glm::dot(glm::normalize(ray.direction),glm::normalize(debugLight.get_position() - minHit.intersection));
     float red = (*minHit.object).material().get_kd().r * debugLight.get_ld().r * deg;
 		float green = (*minHit.object).material().get_kd().g * debugLight.get_ld().g * deg;
-		float blue = (*minHit.object).material().get_kd().b * debugLight.get_ld().b * deg;
-		return Color(red, green, blue);
+		float blue = (*minHit.object).material().get_kd().b * debugLight.get_ld().b * deg;*/
+		return minHit.object->material().get_ka();
 	}
 
-	return color;*/
-  if(minHit.hit) {
-    return Color{1,1,1};
-  }
-  return Color{0,0,0};
+	return color;
 }

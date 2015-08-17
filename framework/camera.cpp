@@ -83,6 +83,8 @@ Ray Camera::eyeRay(int x, int y) const {
 	std::cout << "***DEBUG*** " << "x=" << direction.x << " y=" << direction.y << " z=" << direction.z << std::endl;
 	return Ray{origin, direction};
 	*/
+
+	/* Algorithm powered by internet
 	Ray eyeRay;
 	float fovX = fovX_;
 	float fovY = (width_ / height_) * fovX;
@@ -90,5 +92,10 @@ Ray Camera::eyeRay(int x, int y) const {
 	float dirY = ((2 * float(y) - height_) / (height_)) * std::tan(fovY);
 	eyeRay.direction = glm::vec3{dirX, -1.0, dirY};
 	eyeRay.origin = eye_;
-	return eyeRay;
+	return eyeRay;*/
+
+	float tmpx = 1 - 2*x/float(width_);
+	float tmpy = 1 - 2*y/float(height_);
+	float tmpz = (fovX_-90)/fovX_;
+	return Ray{eye_, {tmpx, tmpy, tmpz}};
 }

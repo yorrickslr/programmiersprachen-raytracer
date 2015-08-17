@@ -17,7 +17,7 @@ int main(int argc, char* argv[])
   if(!file.is_open()) {
     std::cout << "---ERROR--- file could not be found" << std::endl;
   }
-  sdf_loadScene(file, scene); // Lieber mit Rückgabe
+  sdf_loadScene(file, scene); // Lieber mit Rückgabe, operator ist in scene schon drin
   scene.camera.setResolution(width, height); // ist okay, denk nochmal drüber nach
   std::thread thr([&app,&scene]() { app.render(scene); });
 
@@ -35,6 +35,5 @@ int main(int argc, char* argv[])
   }
 
   thr.join();
-
   return 0;
 }
