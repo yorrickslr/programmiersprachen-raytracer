@@ -51,9 +51,7 @@ Hit Composite::intersect(Ray const& ray) {
 }
 
 void Composite::add(std::shared_ptr<Shape>& shape) {
-	std::cout << "***COREDUMP*** before composite add" << std::endl;
 	shapes_.insert(shapes_.begin(),std::pair<std::string,std::shared_ptr<Shape>>(shape->name(),shape));
-	std::cout << "***COREDUMP*** after composite add" << std::endl;
 }
 
 std::map<std::string, std::shared_ptr<Shape>> Composite::get_children() {

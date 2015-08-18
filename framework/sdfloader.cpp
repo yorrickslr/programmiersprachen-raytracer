@@ -34,7 +34,7 @@ Scene& nsdf_loadScene(std::ifstream& file) {
         std::cout << lineCount << ": sphere detected, going to parse..." << std::endl;
       } else if(input[2]=="triangle") {
         std::cout << lineCount << ": triangle detected, going to parse..." << std::endl;
-      } else if(input[3]=="composite") {
+      } else if(input[2]=="composite") {
         std::cout << lineCount << ": composite detected, going to parse..." << std::endl;
       } else {
         throw std::logic_error("cannot parse shape at line " + lineCountStr);

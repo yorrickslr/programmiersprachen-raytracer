@@ -25,7 +25,7 @@ TEST_CASE("new sdfloader","[nsdfloader]") {
 	try {
 		scene = nsdf_loadScene(file);
 	} catch(std::exception& e) {
-		std::cerr << "an error occured while parsing SDF-file: " << e.what() << "\r\n";
+		std::cerr << "---ERROR--- SDF-loader: " << e.what() << std::endl;
 	}
 }
 
