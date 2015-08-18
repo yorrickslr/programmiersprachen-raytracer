@@ -20,7 +20,7 @@ Please note, that we don’t take this Readme very seriously. It’s a kind of t
 - Warum ist auf einmal alles auf Deutsch?
 - Egal weiter im Text
 - Die Mucke zum Updates schreiben -> [GEIL](https://www.youtube.com/watch?v=LBZ-3Ugj1AQ)
-- Box intersect fixen (Schon wieder?! Das kann doch nicht so schwer sein)
+- Box intersect fixen (Schon wieder?! Das kann doch nicht so schwer sein) :heavy_check_mark: (Finally done!)
 - Transformation
 
 ## To Do (theoretisch obsolet, aus Gründen der Nachvollziehung bleibts drin und weil ich das schön finde):
