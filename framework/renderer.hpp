@@ -24,9 +24,9 @@ class Renderer
 public:
   Renderer(unsigned w, unsigned h, std::string const& file);
 
-  void render(Scene& scene);
+  void render(Scene& scene, unsigned depth);
   void write(Pixel const& p);
-  Color raytrace(Ray const& ray, Scene scene) const;
+  Color raytrace(Ray const& ray, Scene& scene, unsigned depth) const;
 
 
   inline std::vector<Color> const& colorbuffer() const

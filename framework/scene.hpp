@@ -14,7 +14,9 @@ struct Scene{
 		composite{ std::make_shared<Composite>(Composite{}) },
 		lights{},
 		materials{},
-		camera{ Camera{} } {}
+		camera{ Camera{} },
+		background{0,0,0}
+		{}
 		/*shape_vec{},
 		light_vec{},
 		cam_vec{} {}*/
@@ -35,6 +37,7 @@ struct Scene{
 	std::map<std::string, Light> lights;
 	std::map<std::string, Material> materials;
 	Camera camera;
+	Color background;
 /*	std::vector<Shape> shape_vec;
 	std::vector<Light> light_vec;
 	std::vector<Camera> cam_vec;*/

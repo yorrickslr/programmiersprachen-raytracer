@@ -19,7 +19,7 @@ int main(int argc, char* argv[])
   }
   sdf_loadScene(file, scene); // Lieber mit Rückgabe, operator ist in scene schon drin
   scene.camera.setResolution(width, height); // ist okay, denk nochmal drüber nach
-  std::thread thr([&app,&scene]() { app.render(scene); });
+  std::thread thr([&app,&scene]() { app.render(scene, 1); });
 
   Window win(glm::ivec2(width,height));
 

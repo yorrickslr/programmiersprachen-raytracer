@@ -82,6 +82,7 @@ std::ostream& operator<<(std::ostream& os, Box const& s) {
 }
 
 Hit Box::intersect(Ray const& ray) {
+  float eps = 0.001;
   Hit xHit, yHit, zHit;
   glm::vec3 normDir = glm::normalize(ray.direction);
   float tmp, tmpX, tmpY, tmpZ, xLimit, yLimit, zLimit;
@@ -121,19 +122,19 @@ Hit Box::intersect(Ray const& ray) {
   tmpY = ray.origin.y + xHit.distance * normDir.y;
   tmpZ = ray.origin.z + xHit.distance * normDir.z;
   xHit.intersection = {xLimit,  tmpY, tmpZ};
-  xHit.hit = tmpY<=max_.y && tmpY>=min_.y && tmpZ<=max_.z && tmpZ>=min_.z ? true : false;
+  xHit.hit = tmpY<=max_.y+eps && tmpY+eps>=min_.y && tmpZ<=max_.z+eps && tmpZ+eps>=min_.z ? true : false;
 
   yHit.distance = (yLimit - ray.origin.y) / normDir.y;
   tmpX = ray.origin.x + yHit.distance * normDir.x;
   tmpZ = ray.origin.z + yHit.distance * normDir.z;
   yHit.intersection = {tmpX, yLimit, tmpZ};
-  yHit.hit = tmpX<=max_.x && tmpX>=min_.x && tmpZ<=max_.z && tmpZ>=min_.z ? true : false;
+  yHit.hit = tmpX<=max_.x+eps && tmpX+eps>=min_.x && tmpZ<=max_.z+eps && tmpZ+eps>=min_.z ? true : false;
 
   zHit.distance = (zLimit - ray.origin.z) / normDir.z;
   tmpX = ray.origin.x + zHit.distance * normDir.x;
   tmpY = ray.origin.y + zHit.distance * normDir.y;
   zHit.intersection = {tmpX, tmpY, zLimit};
-  zHit.hit = tmpX<=max_.x && tmpX>=min_.x && tmpY<=max_.y && tmpY>=min_.y ? true : false;
+  zHit.hit = tmpX<=max_.x+eps && tmpX+eps>=min_.x && tmpY<=max_.y+eps && tmpY+eps>=min_.y ? true : false;
 
   Hit hit{false, INFINITY, {INFINITY, INFINITY, INFINITY}, {0,0,0}, nullptr};
   hit = xHit.hit && xHit.distance < hit.distance ? xHit : hit;

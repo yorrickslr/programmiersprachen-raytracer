@@ -12,7 +12,7 @@
 #include <hit.hpp>
 
 
-class Shape : public std::enable_shared_from_this<Shape> {
+class Shape : public std::enable_shared_from_this<Shape> { //umstellen von shared ptr auf raw ptr
 public:
 	~Shape();
 	virtual double area() const = 0;
