@@ -31,7 +31,7 @@ Scene& nsdf_loadScene(std::ifstream& file) {
         std::cout << lineCount << ": empty line detected, nothing to do...." << std::endl;
     } else if(input[0]=="define" && input[1]=="shape") {
 
-        if(input[2]=="box"/* && input.size() == 11*/) {
+        if(input[2]=="box" && input.size() == 12) {
         std::cout << lineCount << ": box detected, going to parse..." << std::endl;
 
         // Box components
@@ -49,7 +49,7 @@ Scene& nsdf_loadScene(std::ifstream& file) {
         scene->composite->add(ptr); //shitty code, muss aber irgendwie? =S
 
 
-        } else if(input[2]=="sphere"/* && input.size() == 9*/) {
+        } else if(input[2]=="sphere" && input.size() == 10) {
         std::cout << lineCount << ": sphere detected, going to parse..." << std::endl;
 
         // Sphere components
@@ -64,7 +64,7 @@ Scene& nsdf_loadScene(std::ifstream& file) {
         std::shared_ptr<Shape> ptr = std::make_shared<Sphere>(center, std::stod(input[7]), iterator->second, input[3]);
         scene->composite->add(ptr);
         
-        } else if(input[2]=="triangle" /*&& input.size() == 14*/) {
+        } else if(input[2]=="triangle" && input.size() == 15) {
         std::cout << lineCount << ": triangle detected, going to parse..." << std::endl;
 
         // Triangle components
