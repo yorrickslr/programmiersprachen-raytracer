@@ -60,7 +60,7 @@ Scene& nsdf_loadScene(std::ifstream& file) {
         std::shared_ptr<Shape> ptr = std::make_shared<Sphere>(center, std::stod(input[7]), iterator->second, input[3]);
         scene->composite->add(ptr);
         
-      } else if(input[2]=="triangle") {
+      } else if(input[2]=="triangle" && input.size() == 13) {
         std::cout << lineCount << ": triangle detected, going to parse..." << std::endl;
 
         // Triangle components
