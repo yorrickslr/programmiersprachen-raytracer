@@ -103,15 +103,21 @@ Scene& nsdf_loadScene(std::ifstream& file) {
         
 
     } else if(input[0]=="define" && input[1]=="light") {
-        std::cout << lineCount << ": light detected, going to parse..." << std::endl;
+        if (input[2] == "ambient") {
+            std::cout << lineCount << ": ambient light detected, going to parse..." << std::endl;
+            Color abs{std::stof(input[4]), std::stof(input[5]), std::stof(input[6])};
+            scene->ambient_light = abs;
+        }
 
-        // Light components
-        glm::vec3 pos{std::stof(input[3]), std::stof(input[4]), std::stof(input[5])};
-        Color la{std::stof(input[6]), std::stof(input[7]), std::stof(input[8])};
-        Color ld{std::stof(input[9]), std::stof(input[10]), std::stof(input[11])};
-        
-        scene->lights.insert(scene->lights.end(),std::pair<std::string, Light>(input[2],{input[2], pos,la,ld}));
+        else if (input[2] == "diffuse") {
+            std::cout << lineCount << ": light detected, going to parse..." << std::endl;
 
+            // Light components
+            glm::vec3 pos{std::stof(input[4]), std::stof(input[5]), std::stof(input[6])};
+            Color ld{std::stof(input[7]), std::stof(input[8]), std::stof(input[9])};
+            
+            scene->lights.insert(scene->lights.end(),std::pair<std::string, Light>(input[3],{input[3], pos,/*la,*/ld}));
+        }
 
     } else if(input[0]=="camera") {
         std::cout << lineCount << ": camera detected, going to parse..." << std::endl;
