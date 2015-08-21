@@ -83,7 +83,22 @@ Scene& nsdf_loadScene(std::ifstream& file) {
 
         } else if(input[2]=="composite") {
         std::cout << lineCount << ": composite detected, going to parse..." << std::endl;
-        std::shared_ptr<Shape> ptr = std::make_shared<Composite>(input[3]);
+		std::shared_ptr<Composite> tmpptr = std::make_shared<Composite>(Composite{ input[3] });
+
+        for (int i = 4; i < input.size(); ++i)
+        {
+            auto iterator = scene->composite->get_children().find(input[i]);
+            /*if(iterator == scene->composite->get_children().end()) {
+                throw std::logic_error("Shape not found. cannot parse composite at line " + lineCountStr);
+            }*/
+            std::cout << lineCount << ": outside if" << std::endl;
+            tmpptr->add(iterator->second);
+            scene->composite->remove(input[i]);
+            std::cout << lineCount << ": DEBUG for" << std::endl;
+        }
+        std::cout << lineCount << ": outside for-loop" << std::endl;
+
+        std::shared_ptr<Shape> ptr = tmpptr;
         scene->composite->add(ptr);
 
         } else {
@@ -91,7 +106,7 @@ Scene& nsdf_loadScene(std::ifstream& file) {
         }
 
 
-    } else if(input[0]=="define" && input[1]=="material") {
+    } else if(input[0]=="define" && input[1]=="material"  && input.size() == 14) {
         std::cout << lineCount << ": material detected, going to parse..." << std::endl;
 
         // Material components
@@ -103,13 +118,14 @@ Scene& nsdf_loadScene(std::ifstream& file) {
         
 
     } else if(input[0]=="define" && input[1]=="light") {
-        if (input[2] == "ambient") {
+        if (input[2] == "ambient" && input.size() == 8) {
             std::cout << lineCount << ": ambient light detected, going to parse..." << std::endl;
+
             Color abs{std::stof(input[4]), std::stof(input[5]), std::stof(input[6])};
             scene->ambient_light = abs;
         }
 
-        else if (input[2] == "diffuse") {
+        else if (input[2] == "diffuse" && input.size() == 11) {
             std::cout << lineCount << ": light detected, going to parse..." << std::endl;
 
             // Light components
@@ -119,7 +135,7 @@ Scene& nsdf_loadScene(std::ifstream& file) {
             scene->lights.insert(scene->lights.end(),std::pair<std::string, Light>(input[3],{input[3], pos,/*la,*/ld}));
         }
 
-    } else if(input[0]=="camera") {
+    } else if(input[0]=="camera" && input.size() == 13) {
         std::cout << lineCount << ": camera detected, going to parse..." << std::endl;
 
         // Camera components
