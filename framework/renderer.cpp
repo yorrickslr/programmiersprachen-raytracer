@@ -11,6 +11,7 @@
 #include <sphere.hpp>
 #include <triangle.hpp>
 #include <glm/glm.hpp>
+#include <cmath>
 
 Renderer::Renderer(unsigned w, unsigned h, std::string const& file)
   : width_(w)
@@ -20,12 +21,26 @@ Renderer::Renderer(unsigned w, unsigned h, std::string const& file)
   , ppm_(width_, height_)
 {}
 
+Color Renderer::shade(Ray const& ray, Hit const& hit, Scene const& scene, unsigned depth) const {
+  Color color{0,0,0};
+  if (depth > 0) {
+    Material mat = hit.object->material();
+    glm::vec3 light = {3,-3,-1};
+    glm::vec3 toLight = light - hit.intersection;
+    float red = mat.get_kd().r * 1 * glm::dot(glm::normalize(hit.normal),glm::normalize(toLight));
+    float green = mat.get_kd().g * 1 * glm::dot(glm::normalize(hit.normal),glm::normalize(toLight));
+    float blue = mat.get_kd().b * 1 * glm::dot(glm::normalize(hit.normal),glm::normalize(toLight));
+    color = Color{red,green,blue};
+  }
+  return color;
+}
+
 void Renderer::render(Scene& scene, unsigned depth)
 {
   for (unsigned y = 0; y < height_; ++y) {
     for (unsigned x = 0; x < width_; ++x) {
       Pixel p(x,y);
-      p.color = raytrace(scene.camera.eyeRay(x,y), scene, depth-1);
+      p.color = raytrace(scene.camera.eyeRay(x,y), scene, depth);
       write(p);
     }
   }
@@ -48,8 +63,7 @@ void Renderer::write(Pixel const& p)
   ppm_.write(p);
 }
 
-Color Renderer::raytrace(Ray const& ray, Scene& scene, unsigned depth) const {
-  scene.ambient_light = {100,100,100}; // muss aus dem SDF-FIle gelesen werden!
+Color Renderer::raytrace(Ray const& ray, Scene const& scene, unsigned depth) const {
   float distance{INFINITY};
   /*scene.shapes.insert(std::pair<std::string,std::shared_ptr<Shape>>("testri",std::make_shared<Triangle>(Triangle{scene.materials["blue"], "testri", {-1,-2,-1}, {1,-2,-1}, {0,-2,1}})));*/
   Hit minHit{false, INFINITY, {INFINITY, INFINITY, INFINITY}, {0,0,0}, nullptr};
@@ -59,15 +73,16 @@ Color Renderer::raytrace(Ray const& ray, Scene& scene, unsigned depth) const {
       minHit = hit;
     }
   }
-  Color color = scene.ambient_light;
+  Color color = scene.background;
   if(minHit.hit) {
+    color = shade(ray, minHit, scene, depth);
     /*Light debugLight{"debug", {0,0,0}, {255,255,255}, {100,100,100}}; //total fail as of color between 0 and 1
     float deg = glm::dot(glm::normalize(ray.direction),glm::normalize(debugLight.get_position() - minHit.intersection));
     float red = (*minHit.object).material().get_kd().r * debugLight.get_ld().r * deg;
     float green = (*minHit.object).material().get_kd().g * debugLight.get_ld().g * deg;
     float blue = (*minHit.object).material().get_kd().b * debugLight.get_ld().b * deg;*/
-    return minHit.object->material().get_ka();
+    //return minHit.object->material().get_ka();
   }
 
-  return scene.background;
+  return color;
 }

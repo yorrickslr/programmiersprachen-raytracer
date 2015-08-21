@@ -26,8 +26,8 @@ public:
 
   void render(Scene& scene, unsigned depth);
   void write(Pixel const& p);
-  Color raytrace(Ray const& ray, Scene& scene, unsigned depth) const;
-
+  Color raytrace(Ray const& ray, Scene const& scene, unsigned depth) const;
+  Color shade(Ray const& ray, Hit const& hit, Scene const& scene, unsigned depth) const;
 
   inline std::vector<Color> const& colorbuffer() const
   {

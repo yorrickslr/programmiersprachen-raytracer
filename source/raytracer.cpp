@@ -1,7 +1,7 @@
 #include <thread>
 #include <renderer.hpp>
 #include <fensterchen.hpp>
-#include <sdfloader.hpp>
+#include <sdfloader.cpp>
 
 int main(int argc, char* argv[])
 {
@@ -11,7 +11,10 @@ int main(int argc, char* argv[])
 
   Renderer app(width, height, filename);
   //Renderer app(scene) BS
+
+/*
   Scene scene;
+  scene.ambient_light = {100,100,100}; // muss aus dem SDF-FIle gelesen werden!
   std::ifstream file;
   file.open("input.sdf");
   if(!file.is_open()) {
@@ -19,7 +22,22 @@ int main(int argc, char* argv[])
   }
   sdf_loadScene(file, scene); // Lieber mit Rückgabe, operator ist in scene schon drin
   scene.camera.setResolution(width, height); // ist okay, denk nochmal drüber nach
-  std::thread thr([&app,&scene]() { app.render(scene, 1); });
+*/
+
+
+  Scene scene;
+  std::ifstream file;
+  file.open("input.sdf");
+  try {
+    scene = nsdf_loadScene(file);
+  } catch(std::exception& e) {
+    std::cerr << "---ERROR--- SDF-loader: " << e.what() << std::endl;
+  }
+  scene.camera.setResolution(width, height); // ist okay, denk nochmal drüber nach
+  scene.ambient_light = {100,100,100}; // muss aus dem SDF-FIle gelesen werden!
+  
+
+  std::thread thr([&app,&scene]() { app.render(scene, 2); });
 
   Window win(glm::ivec2(width,height));
 

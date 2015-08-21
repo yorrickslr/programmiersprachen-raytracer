@@ -82,6 +82,7 @@ std::ostream& operator<<(std::ostream& os, Box const& s) {
 }
 
 Hit Box::intersect(Ray const& ray) {
+// also renders in front if behind camera
   float eps = 0.001;
   Hit xHit, yHit, zHit;
   glm::vec3 normDir = glm::normalize(ray.direction);
