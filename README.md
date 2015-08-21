@@ -12,15 +12,17 @@ Please note, that we don’t take this Readme very seriously. It’s a kind of t
 
 ## Alles neu, macht der Mai (oder Der Code im Wandel der Zeit)
 ### (oder Was nach der Konsultation gemacht werden muss)
-- Alles :shit: ! also umbauen.
-- Zwei Spaces statt Tab, weil  "Das ist scheiße" (A. Bernstein)
-- SDF Loader ohne Regexes, weil die "nicht zum parsen verwendet werden, die sind zu lang" (A. Bernstein)
-- Renderer neu
-- Area() und Volume() überhaupt nötig? Nein? Dann raus damit!
-- Warum ist auf einmal alles auf Deutsch?
-- Egal weiter im Text
-- Die Mucke zum Updates schreiben -> [GEIL](https://www.youtube.com/watch?v=LBZ-3Ugj1AQ)
+- Alles :shit: ! also umbauen. :construction:
+- Zwei Spaces statt Tab, weil  "Das ist scheiße" (A. Bernstein) :heavy_check_mark:
+- SDF Loader ohne Regexes, weil die "nicht zum parsen verwendet werden, die sind zu lang" (A. Bernstein) :heavy_check_mark:
+- Renderer neu :heavy_check_mark:
+- Area() und Volume() überhaupt nötig? Nein? Dann raus damit! :heavy_check_mark:
+- Warum ist auf einmal alles auf Deutsch? :heavy_check_mark:
+- Egal weiter im Text :heavy_check_mark:
+- Die Mucke zum Updates schreiben -> [GEIL](https://www.youtube.com/watch?v=LBZ-3Ugj1AQ) :heavy_check_mark:
 - Box intersect fixen (Schon wieder?! Das kann doch nicht so schwer sein) :heavy_check_mark: (Finally done!)
+- composite still buggy. runtime errors!
+- reflection and refraction
 - Transformation
 
 ## To Do (theoretisch obsolet, aus Gründen der Nachvollziehung bleibts drin und weil ich das schön finde):
