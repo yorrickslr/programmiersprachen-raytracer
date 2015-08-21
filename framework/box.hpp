@@ -13,9 +13,9 @@ public:
 	Box(glm::vec3 const& min, glm::vec3 const& max, Material const& material, std::string const& name);
 	~Box();
 	glm::vec3 min() const;
-	glm::vec3 max() const;
+	glm::vec3 max() const;/*
 	double area() const override;
-	double volume() const override;
+	double volume() const override;*/
 	std::ostream& print(std::ostream& os) const override;
 	Hit intersect(Ray const& ray) override;
 private:

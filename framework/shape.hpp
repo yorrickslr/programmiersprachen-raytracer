@@ -15,8 +15,8 @@
 class Shape : public std::enable_shared_from_this<Shape> { //umstellen von shared ptr auf raw ptr
 public:
 	~Shape();
-	virtual double area() const = 0;
-	virtual double volume() const = 0;
+	/*virtual double area() const = 0;
+	virtual double volume() const = 0;*/
 	std::string name() const;
 	Material material() const;
 	virtual std::ostream& print(std::ostream& os) const;

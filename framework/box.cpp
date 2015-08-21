@@ -56,7 +56,7 @@ glm::vec3 Box::max() const {
   return max_;
 }
 
-double Box::area() const {
+/*double Box::area() const {
   double a = max_[0] - min_[0];
   double b = max_[1] - min_[1];
   double c = max_[2] - min_[2];
@@ -69,7 +69,7 @@ double Box::volume() const {
   double c = max_[2] - min_[2];
   return a * b * c;
 }
-
+*/
 std::ostream& Box::print(std::ostream& os) const {
   Shape::print(os) << "min: [" << min_.x << "," << min_.y 
     << "," << min_.z << "]\r\n" << "max: [" << max_.x 

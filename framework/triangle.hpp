@@ -15,8 +15,8 @@ public:
 	glm::vec3 get_p2() const;
 	glm::vec3 get_p3() const;
 
-	double area() const override;
-	double volume() const override;
+	/*double area() const override;
+	double volume() const override;*/
 	Hit intersect(Ray const& ray) override;
 private:
 	glm::vec3 p1_;

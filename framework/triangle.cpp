@@ -38,7 +38,7 @@ glm::vec3 Triangle::get_p3() const {
 }
 
 
-double Triangle::area() const {
+/*double Triangle::area() const {
 	double a = sqrt((p1_.x - p2_.x)*(p1_.x - p2_.x) + (p1_.y - p2_.y)*(p1_.y - p2_.y) + (p1_.z - p2_.z)*(p1_.z - p2_.z));
 	double b = sqrt((p1_.x - p3_.x)*(p1_.x - p3_.x) + (p1_.y - p3_.y)*(p1_.y - p3_.y) + (p1_.z - p3_.z)*(p1_.z - p3_.z));
 	double c = sqrt((p2_.x - p3_.x)*(p2_.x - p3_.x) + (p2_.y - p3_.y)*(p2_.y - p3_.y) + (p2_.z - p3_.z)*(p2_.z - p3_.z));
@@ -50,7 +50,7 @@ double Triangle::area() const {
 
 double Triangle::volume() const {
 	return 0;
-}
+}*/
 
 Hit Triangle::intersect(Ray const& ray) {
 	Hit hit;

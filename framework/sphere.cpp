@@ -34,14 +34,14 @@ Sphere::Sphere() :
 Sphere::~Sphere() {
 	// std::cout << "Destruction of sphere" << std::endl;
 }
-
+/*
 double Sphere::volume() const {
 	return (4 * M_PI * std::pow(radius_,3)) / 3 ;
 }
 
 double Sphere::area() const {
 	return 4 * M_PI * radius_ * radius_;
-}
+}*/
 
 glm::vec3 Sphere::center() const {
 	return center_;
