@@ -1,29 +1,55 @@
-###############################################
-##### First SDF-file for testing purposes #####
-###############################################
+#############################
+##### First Scene Tests #####
+#############################
 
 # Materials
-	define material 		red				1 0 0	1 0 0	1 0 0	1
-	define material 		blue			0 0 1	0 0 1	0 0 1	1
-	define material 		moonsurface		1 0 1	1 0 1	1 0 1	1
-	define material 		lava			1 1 1	1 1 1	1 1 1	1
-	define material 		white			0 0 0	0 0 0	0 0 0	1
+	define material 	red 		1 0 0		1 0 0 		1 0 0		0
+	define material 	blue 		0 0 1		0 0 1		0 0 1		0
+	define material 	green 		0 1 0		1 0 0		1 0 0		0
+	define material 	pink 		1 0.8 0.8	1 0 0		1 0 0 		0
+	define material 	white 		1 1 1 		1 1 1 		1 1 1 		1
 
 # Objects
 	# Spheres
-		define shape sphere		moon 	0 0 0	4	moonsurface
-		define shape sphere		sun 	0 0 0	42	lava
+		# define shape sphere 	sun 	0 -2 0		0.5 	red
+		# define shape sphere 	ball 	-1 -2 -1 	0.1 	blue
 
 	# Boxes
-		define shape box		rocket		0 0 0	1 1 1	white
+		# define shape box 	chest 		-1 -2 -1 	-2 -3 -2 	blue
+		# define shape box 	chest2 		1 -2 1 		2 -4 2 		green
+
+	# Triangle
+		# define shape triangle 	triforce	4 0 -2	-4 0 -2	0 -5 -1	pink 
+
+# Composites
+	# define shape composite root sun ball chest chest2 triforce 
+
+# Tests
+# define shape sphere kugel1 -1 -2 0 1.2 red
+# define shape sphere kugel2 0.5 -2 0 1.5 blue
+# define shape sphere kugel3 0 -2 0 1.2 red
+# define shape triangle tri1 0 -1 0	1 -3 -1	-1 -3 -1 green	
+# define shape box box1 0 -3 -0.5		1 -4 0.5 	blue 
+
+#Lights
+	# define light 	funzel 		-1.5 0 2 	0.5 0.5 0.5 	0.5 0.5 0.5
 
 # Camera
-	camera 					eye		45	0 0 0	0 1 0	1 0 0
+	camera 	eye		40	0 0 0	0 1 0	1 0 0
 
 
-	#	It is possible to indent definitions and comments
-	#	with spaces or tabs. You can even use both in a
-	#	mix if you want to.
-	#	In general you can place spaces and tabs as a
-	#	command to move on with the next text while
-	#	parsing.
+
+# define shape box 	test1 		-1 -1 -10 	-3 -3 -6.5	blue
+# define shape box 	test2 		-2 -2 -7 	-4 -4 -6	green
+# define shape sphere 	kugel 		1 1 -2 	1 	blue
+
+
+
+# define shape box 	mirror 		-2 -2 -2 	2 2 -3 		white
+# define shape box 	kiste		-1.5 -1.5 2 	-0.5 -0.5 3 		blue
+
+# define shape sphere kugel 0 0 5 1 blue
+
+define shape sphere kugel 0 0 -3 1 red
+# define shape box kiste -1 1 -5 -2 2 -6 blue
+# define shape triangle triforce 1 1 -2 -1 1 -2 0 -2 -4 pink

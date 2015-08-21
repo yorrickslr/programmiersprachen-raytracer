@@ -27,9 +27,9 @@ Color Renderer::shade(Ray const& ray, Hit const& hit, Scene const& scene, unsign
     Material mat = hit.object->material();
     glm::vec3 light = {3,-3,-1};
     glm::vec3 toLight = light - hit.intersection;
-    float red = mat.get_kd().r * 1 * glm::dot(glm::normalize(hit.normal),glm::normalize(toLight));
-    float green = mat.get_kd().g * 1 * glm::dot(glm::normalize(hit.normal),glm::normalize(toLight));
-    float blue = mat.get_kd().b * 1 * glm::dot(glm::normalize(hit.normal),glm::normalize(toLight));
+    float red = mat.get_ka().r * scene.ambient_light.r + mat.get_kd().r * 1 * glm::dot(glm::normalize(hit.normal),glm::normalize(toLight));
+    float green = mat.get_ka().g * scene.ambient_light.g + mat.get_kd().g * 1 * glm::dot(glm::normalize(hit.normal),glm::normalize(toLight));
+    float blue = mat.get_ka().b * scene.ambient_light.b + mat.get_kd().b * 1 * glm::dot(glm::normalize(hit.normal),glm::normalize(toLight));
     color = Color{red,green,blue};
   }
   return color;

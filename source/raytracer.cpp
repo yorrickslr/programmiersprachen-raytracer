@@ -34,7 +34,7 @@ int main(int argc, char* argv[])
     std::cerr << "---ERROR--- SDF-loader: " << e.what() << std::endl;
   }
   scene.camera.setResolution(width, height); // ist okay, denk nochmal drüber nach
-  scene.ambient_light = {100,100,100}; // muss aus dem SDF-FIle gelesen werden!
+  scene.ambient_light = {0.2,0.2,0.2}; // muss aus dem SDF-FIle gelesen werden!
   
 
   std::thread thr([&app,&scene]() { app.render(scene, 2); });
