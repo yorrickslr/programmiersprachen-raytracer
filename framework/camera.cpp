@@ -94,6 +94,7 @@ Ray Camera::eyeRay(int x, int y) const {
 	eyeRay.origin = eye_;
 	return eyeRay;*/
 
+	//float tmpx = width_/height_ - (2*x*width_/height_)/float(width_);
 	float tmpx = 1 - 2*x/float(width_);
 	float tmpy = 1 - 2*y/float(height_);
 	float tmpz = (fovX_-90)/fovX_;

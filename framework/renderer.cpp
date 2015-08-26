@@ -25,11 +25,28 @@ Color Renderer::shade(Ray const& ray, Hit const& hit, Scene const& scene, unsign
   Color color{0,0,0};
   if (depth > 0) {
     Material mat = hit.object->material();
-    glm::vec3 light = {3,-3,-1};
+    float red{0}, green{0}, blue{0};
+    for(auto light : scene.lights) {
+      glm::vec3 toLight = glm::normalize(light.second.get_position() - hit.intersection);
+      glm::vec3 epsIntersect = hit.intersection + 0.000001f * glm::normalize(hit.normal);
+      float dot = glm::dot(glm::normalize(hit.normal),toLight);
+      dot = dot>0 ? dot : glm::dot(glm::normalize(-1.0f * hit.normal),toLight);
+      Hit shadowHit = scene.composite->intersect(Ray{epsIntersect, toLight});
+      if(!shadowHit.hit) {
+        red += mat.get_kd().r * light.second.get_ld().r * dot;
+        green += mat.get_kd().g * light.second.get_ld().g * dot;
+        blue += mat.get_kd().b * light.second.get_ld().b * dot;
+      }
+    }
+    red += mat.get_ka().r * scene.ambient_light.r;
+    green += mat.get_ka().g * scene.ambient_light.g;
+    blue += mat.get_ka().b * scene.ambient_light.b;
+    /*glm::vec3 light{3,-3,1};
     glm::vec3 toLight = light - hit.intersection;
-    float red = mat.get_ka().r * scene.ambient_light.r + mat.get_kd().r * 1 * glm::dot(glm::normalize(hit.normal),glm::normalize(toLight));
-    float green = mat.get_ka().g * scene.ambient_light.g + mat.get_kd().g * 1 * glm::dot(glm::normalize(hit.normal),glm::normalize(toLight));
-    float blue = mat.get_ka().b * scene.ambient_light.b + mat.get_kd().b * 1 * glm::dot(glm::normalize(hit.normal),glm::normalize(toLight));
+    red = mat.get_ka().r * scene.ambient_light.r + mat.get_kd().r * 0.3 * glm::dot(glm::normalize(hit.normal),glm::normalize(toLight));
+    green = mat.get_ka().g * scene.ambient_light.g + mat.get_kd().g * 0.3 * glm::dot(glm::normalize(hit.normal),glm::normalize(toLight));
+    blue = mat.get_ka().b * scene.ambient_light.b + mat.get_kd().b * 0.3 * glm::dot(glm::normalize(hit.normal),glm::normalize(toLight));
+    */
     color = Color{red,green,blue};
   }
   return color;
@@ -66,13 +83,14 @@ void Renderer::write(Pixel const& p)
 Color Renderer::raytrace(Ray const& ray, Scene const& scene, unsigned depth) const {
   float distance{INFINITY};
   /*scene.shapes.insert(std::pair<std::string,std::shared_ptr<Shape>>("testri",std::make_shared<Triangle>(Triangle{scene.materials["blue"], "testri", {-1,-2,-1}, {1,-2,-1}, {0,-2,1}})));*/
-  Hit minHit{false, INFINITY, {INFINITY, INFINITY, INFINITY}, {0,0,0}, nullptr};
+  /*Hit minHit{false, INFINITY, {INFINITY, INFINITY, INFINITY}, {0,0,0}, nullptr};
   for(auto element : scene.composite->get_children()) {
     Hit hit = element.second->intersect(ray);
     if(hit.distance < minHit.distance && hit.hit) {
       minHit = hit;
     }
-  }
+  }*/
+  Hit minHit = scene.composite->intersect(ray);
   Color color = scene.background;
   if(minHit.hit) {
     color = shade(ray, minHit, scene, depth);

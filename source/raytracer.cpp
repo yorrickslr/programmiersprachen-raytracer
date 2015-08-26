@@ -24,20 +24,27 @@ int main(int argc, char* argv[])
   scene.camera.setResolution(width, height); // ist okay, denk nochmal drüber nach
 */
 
-
+  if(argc!=2) {
+    std::cerr << "---ERROR--- no path to SDF-file given" << std::endl;
+    return 0;
+  }
   Scene scene;
   std::ifstream file;
-  file.open("input.sdf");
+  file.open(argv[1]);
+  if(!file.is_open()) {
+    std::cerr << "---ERROR--- no SDF-file found at " << argv[1] << std::endl;
+    return 0;
+  }
+
   try {
     scene = nsdf_loadScene(file);
   } catch(std::exception& e) {
     std::cerr << "---ERROR--- SDF-loader: " << e.what() << std::endl;
   }
   scene.camera.setResolution(width, height); // ist okay, denk nochmal drüber nach
-  scene.ambient_light = {0.2,0.2,0.2}; // muss aus dem SDF-FIle gelesen werden!
-  
+  scene.background = Color{0,0,0};
 
-  std::thread thr([&app,&scene]() { app.render(scene, 2); });
+  std::thread thr([&app,&scene]() { app.render(scene, 1); });
 
   Window win(glm::ivec2(width,height));
 

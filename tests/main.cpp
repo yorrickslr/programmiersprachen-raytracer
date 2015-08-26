@@ -9,7 +9,6 @@
 #include <glm/gtx/intersect.hpp>
 #include <iostream>
 #include <fstream>
-#include <sdfloader.hpp>
 #include <string>
 #include <scene.hpp>
 #include <triangle.hpp>
@@ -41,7 +40,7 @@ TEST_CASE("Constructor for hit","[hit]")  {
 	Hit hit;
 	REQUIRE(hit.distance == 0);
 }
-
+/*
 TEST_CASE("output objects of scene","[print scene]") {
 	Scene scene;
 	std::ifstream file;
@@ -73,7 +72,7 @@ TEST_CASE("material parse test for sdfloader","[sdfloader]") {
 	std::cout << tmp << std::endl;
 	file.close();
 }
-
+*/
 /*TEST_CASE("testing triangle class","[triangle]") {
 	Triangle tri{Material{}, "Dereck", glm::vec3{0.0,0.0,0.0}, glm::vec3{2.0,0.0,0.0}, glm::vec3{1.0,2.0,0.0}};
 	glm::vec3 testp1{0.0,0.0,0.0};
@@ -94,7 +93,7 @@ TEST_CASE("material parse test for sdfloader","[sdfloader]") {
 	Triangle tri3{Material{}, "Yorrick", glm::vec3{0.0,0.0,0.0}, glm::vec3{2.0,0.0,0.0}, glm::vec3{1.0,4.0,-2.0}};
 	REQUIRE(Approx{4.4721f} == tri3.area());
 }*/
-
+/*
 TEST_CASE("get volume of sphere", "[volume]") {
 	Sphere sphere;
 	REQUIRE(sphere.volume() == Approx(4.1888));
@@ -147,7 +146,7 @@ TEST_CASE("get volume of box", "[area]") {
 	Box box;
 	REQUIRE(box.volume() == 1);
 }
-
+*/
 /*TEST_CASE("get color of sphere", "[color]") {
 	Sphere sphere;
 	Color tmp{100,100,100};
