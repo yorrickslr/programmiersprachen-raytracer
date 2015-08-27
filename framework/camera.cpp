@@ -5,17 +5,17 @@
 Camera::Camera():
 	name_{"Camera_Obscura"},
 	eye_{ 0.0,0.0,0.0 },
-	direction_{ 0,-1,0 },
+	direction_{ 0,0,-1 },
 	up_{ 0.0,0.0,0.0 },
-	fovX_{ 0.0 }
+	fovX_{ 45.0 }
 {}
 
 Camera::Camera(glm::vec3 const& pos) :
 	name_{"Camera_Obscura"},
 	eye_{ pos },
-	direction_{0,-1,0},
+	direction_{0,0,-1},
 	up_{ 0.0,0.0,0.0 },
-	fovX_{0.0} 
+	fovX_{45.0} 
 {}
 
 Camera::Camera(std::string const& name, glm::vec3 const& pos, glm::vec3 const& dir, glm::vec3 const& up, float& fov) : 
@@ -95,8 +95,8 @@ Ray Camera::eyeRay(int x, int y) const {
 	return eyeRay;*/
 
 	//float tmpx = width_/height_ - (2*x*width_/height_)/float(width_);
-	float tmpx = 1 - 2*x/float(width_);
-	float tmpy = 1 - 2*y/float(height_);
+	float tmpx = 2*x/float(width_) - 1;
+	float tmpy = 2*y/float(height_) - 1;
 	float tmpz = (fovX_-90)/fovX_;
 	return Ray{eye_, {tmpx, tmpy, tmpz}};
 }

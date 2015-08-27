@@ -28,9 +28,9 @@ Color Renderer::shade(Ray const& ray, Hit const& hit, Scene const& scene, unsign
     float red{0}, green{0}, blue{0};
     for(auto light : scene.lights) {
       glm::vec3 toLight = glm::normalize(light.second.get_position() - hit.intersection);
-      glm::vec3 epsIntersect = hit.intersection + 0.000001f * glm::normalize(hit.normal);
+      glm::vec3 epsIntersect = hit.intersection + 0.001f * glm::normalize(hit.normal);
       float dot = glm::dot(glm::normalize(hit.normal),toLight);
-      dot = dot>0 ? dot : glm::dot(glm::normalize(-1.0f * hit.normal),toLight);
+      /*dot = dot>0 ? dot : glm::dot(glm::normalize(-1.0f * hit.normal),toLight);*/
       Hit shadowHit = scene.composite->intersect(Ray{epsIntersect, toLight});
       if(!shadowHit.hit) {
         red += mat.get_kd().r * light.second.get_ld().r * dot;
@@ -62,6 +62,7 @@ void Renderer::render(Scene& scene, unsigned depth)
     }
   }
   ppm_.save(filename_);
+  std::cout << "Finished!" << std::endl;
 }
 
 void Renderer::write(Pixel const& p)

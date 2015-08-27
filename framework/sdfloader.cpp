@@ -13,24 +13,26 @@
 #include <vector>
 
 Scene& nsdf_loadScene(std::ifstream& file) {
-    Scene* scene = new Scene();
-    std::string line;
-    int lineCount{0};
-    while(std::getline(file,line)) {
+  Scene* scene = new Scene();
+  std::string line;
+  int lineCount{0};
+  while(std::getline(file,line)) {
     lineCount++;
     std::string lineCountStr = std::to_string(lineCount);
     std::vector<std::string> input;
     std::istringstream stream{line};
     do {
-        std::string sub{""};
-        stream >> sub;
-        input.push_back(sub);
+      std::string sub{""};
+      stream >> sub;
+      input.push_back(sub);
     } while(stream);
     // Parsing
-    if(line.empty() || input[0].at(0)=='#') {
+    if(line.empty() || input.size()==0 || input[0].length()==0) {
         std::cout << lineCount << ": empty line detected, nothing to do...." << std::endl;
-    } else if(input[0]=="define" && input[1]=="shape") {
-
+    } else if(input[0].length()>0) {
+      if(input[0].at(0) == '#') {
+        std::cout << lineCount << ": comment detected, nothing to do...." << std::endl;
+      } else if(input[0]=="define" && input[1]=="shape") {
         if(input[2]=="box" && input.size() == 12) {
         std::cout << lineCount << ": box detected, going to parse..." << std::endl;
 
@@ -41,7 +43,7 @@ Scene& nsdf_loadScene(std::ifstream& file) {
         auto iterator = scene->materials.find(input[10]);
 
         if(iterator == scene->materials.end()) {
-            throw std::logic_error("No Material found. Cannot parse line " + lineCountStr);
+          throw std::logic_error("No Material found. Cannot parse line " + lineCountStr);
         }
 
         // Make smart pointer to box and add it to composite
@@ -57,7 +59,7 @@ Scene& nsdf_loadScene(std::ifstream& file) {
         auto iterator = scene->materials.find(input[8]);
 
         if(iterator == scene->materials.end()) {
-            throw std::logic_error("No Material found. Cannot parse line " + lineCountStr);
+          throw std::logic_error("No Material found. Cannot parse line " + lineCountStr);
         }
 
         // Make smart pointer to Sphere and add it to composite  
@@ -74,7 +76,7 @@ Scene& nsdf_loadScene(std::ifstream& file) {
         auto iterator = scene->materials.find(input[13]);
 
         if(iterator == scene->materials.end()) {
-            throw std::logic_error("No Material found. Cannot parse line " + lineCountStr);
+          throw std::logic_error("No Material found. Cannot parse line " + lineCountStr);
         }
 
         // Make smart pointer to Triangle and add it to composite
@@ -82,19 +84,19 @@ Scene& nsdf_loadScene(std::ifstream& file) {
         scene->composite->add(ptr);
 
         } else if(input[2]=="composite") {
-        std::cout << lineCount << ": composite detected, going to parse..." << std::endl;
-		std::shared_ptr<Composite> tmpptr = std::make_shared<Composite>(Composite{ input[3] });
+          std::cout << lineCount << ": composite detected, going to parse..." << std::endl;
+  		    std::shared_ptr<Composite> tmpptr = std::make_shared<Composite>(Composite{ input[3] });
 
         for (int i = 4; i < input.size(); ++i)
         {
-            auto iterator = scene->composite->get_children().find(input[i]);
-            /*if(iterator == scene->composite->get_children().end()) {
-                throw std::logic_error("Shape not found. cannot parse composite at line " + lineCountStr);
-            }*/
-            std::cout << lineCount << ": outside if" << std::endl;
-            tmpptr->add(iterator->second);
-            scene->composite->remove(input[i]);
-            std::cout << lineCount << ": DEBUG for" << std::endl;
+          auto iterator = scene->composite->get_children().find(input[i]);
+          /*if(iterator == scene->composite->get_children().end()) {
+              throw std::logic_error("Shape not found. cannot parse composite at line " + lineCountStr);
+          }*/
+          std::cout << lineCount << ": outside if" << std::endl;
+          tmpptr->add(iterator->second);
+          scene->composite->remove(input[i]);
+          std::cout << lineCount << ": DEBUG for" << std::endl;
         }
         std::cout << lineCount << ": outside for-loop" << std::endl;
 
@@ -102,11 +104,11 @@ Scene& nsdf_loadScene(std::ifstream& file) {
         scene->composite->add(ptr);
 
         } else {
-        throw std::logic_error("cannot parse shape at line " + lineCountStr);
+          throw std::logic_error("cannot parse shape at line " + lineCountStr);
         }
 
 
-    } else if(input[0]=="define" && input[1]=="material"  && input.size() == 14) {
+      } else if(input[0]=="define" && input[1]=="material"  && input.size() == 14) {
         std::cout << lineCount << ": material detected, going to parse..." << std::endl;
 
         // Material components
@@ -115,27 +117,26 @@ Scene& nsdf_loadScene(std::ifstream& file) {
         Color ks = {std::stof(input[9]),std::stof(input[10]),std::stof(input[11])};
 
         scene->materials.insert(scene->materials.end(),std::pair<std::string,Material>(input[2],{input[2],ka,kd,ks,std::stof(input[12])}));
-        
+          
 
-    } else if(input[0]=="define" && input[1]=="light") {
+      } else if(input[0]=="define" && input[1]=="light") {
         if (input[2] == "ambient" && input.size() == 8) {
-            std::cout << lineCount << ": ambient light detected, going to parse..." << std::endl;
+          std::cout << lineCount << ": ambient light detected, going to parse..." << std::endl;
 
-            Color abs{std::stof(input[4]), std::stof(input[5]), std::stof(input[6])};
-            scene->ambient_light = abs;
+          Color abs{std::stof(input[4]), std::stof(input[5]), std::stof(input[6])};
+          scene->ambient_light = abs;
+        } else if (input[2] == "diffuse" && input.size() == 11) {
+          std::cout << lineCount << ": light detected, going to parse..." << std::endl;
+
+          // Light components
+          glm::vec3 pos{std::stof(input[4]), std::stof(input[5]), std::stof(input[6])};
+          Color ld{std::stof(input[7]), std::stof(input[8]), std::stof(input[9])};
+          
+          scene->lights.insert(scene->lights.end(),std::pair<std::string, Light>(input[3],{input[3], pos,/*la,*/ld}));
+        } else {
+          throw std::logic_error("cannot parse light at line " + lineCountStr);
         }
-
-        else if (input[2] == "diffuse" && input.size() == 11) {
-            std::cout << lineCount << ": light detected, going to parse..." << std::endl;
-
-            // Light components
-            glm::vec3 pos{std::stof(input[4]), std::stof(input[5]), std::stof(input[6])};
-            Color ld{std::stof(input[7]), std::stof(input[8]), std::stof(input[9])};
-            
-            scene->lights.insert(scene->lights.end(),std::pair<std::string, Light>(input[3],{input[3], pos,/*la,*/ld}));
-        }
-
-    } else if(input[0]=="camera" && input.size() == 13) {
+      } else if(input[0]=="camera" && input.size() == 13) {
         std::cout << lineCount << ": camera detected, going to parse..." << std::endl;
 
         // Camera components
@@ -146,11 +147,10 @@ Scene& nsdf_loadScene(std::ifstream& file) {
         auto fov = std::stof(input[2]);
         Camera tmp{name, eye, dir, up, fov};
         scene->camera = tmp;
-
-
-    } else {
+      } else {
         throw std::logic_error("cannot parse line " + lineCountStr);
+      }
     }
-    }
-    return *scene;
+  }
+  return *scene;
 }

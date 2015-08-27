@@ -46,6 +46,13 @@ int main(int argc, char* argv[])
 
   std::thread thr([&app,&scene]() { app.render(scene, 1); });
 
+/*  // Debug
+  Ray dbg_ray = {{0,0,0},{0,0,-1}};
+  Hit dbg_hit = scene.composite->intersect(dbg_ray);
+  std::cout << dbg_hit.intersection.x << " | " << dbg_hit.intersection.y << " | " << dbg_hit.intersection.z << std::endl;
+  std::cout << dbg_hit.normal.x << " | " << dbg_hit.normal.y << " | " << dbg_hit.normal.z << std::endl;
+  std::cout << glm::dot(dbg_hit.normal, dbg_ray.direction) << std::endl;
+*/
   Window win(glm::ivec2(width,height));
 
   while (!win.shouldClose()) {
