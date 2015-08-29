@@ -33,9 +33,12 @@ Color Renderer::shade(Ray const& ray, Hit const& hit, Scene const& scene, unsign
       /*dot = dot>0 ? dot : glm::dot(glm::normalize(-1.0f * hit.normal),toLight);*/
       Hit shadowHit = scene.composite->intersect(Ray{epsIntersect, toLight});
       if(!shadowHit.hit) {
-        red += mat.get_kd().r * light.second.get_ld().r * dot;
-        green += mat.get_kd().g * light.second.get_ld().g * dot;
-        blue += mat.get_kd().b * light.second.get_ld().b * dot;
+        float tmpRed = mat.get_kd().r * light.second.get_ld().r * dot;
+        float tmpGreen = mat.get_kd().g * light.second.get_ld().g * dot;
+        float tmpBlue = mat.get_kd().b * light.second.get_ld().b * dot;
+        red += tmpRed>0 ? tmpRed : 0;
+        green += tmpGreen>0 ? tmpGreen : 0;
+        blue += tmpBlue>0 ? tmpBlue : 0;
       }
     }
     red += mat.get_ka().r * scene.ambient_light.r;

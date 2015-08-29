@@ -106,10 +106,10 @@ Hit Box::intersect(Ray const& ray) {
 
   if(max_.z < ray.origin.z) {
     zLimit = max_.z;
-    zHit.normal = {0,1,0};
+    zHit.normal = {0,0,1};
   } else {
     zLimit = min_.z;
-    zHit.normal = {0,-1,0};
+    zHit.normal = {0,0,-1};
   }
 
   /* Without normals
@@ -123,19 +123,19 @@ Hit Box::intersect(Ray const& ray) {
   tmpY = ray.origin.y + xHit.distance * normDir.y;
   tmpZ = ray.origin.z + xHit.distance * normDir.z;
   xHit.intersection = {xLimit,  tmpY, tmpZ};
-  xHit.hit = tmpY<=max_.y+eps && tmpY+eps>=min_.y && tmpZ<=max_.z+eps && tmpZ+eps>=min_.z ? true : false;
+  xHit.hit = xHit.distance>0 && tmpY<=max_.y+eps && tmpY+eps>=min_.y && tmpZ<=max_.z+eps && tmpZ+eps>=min_.z ? true : false;
 
   yHit.distance = (yLimit - ray.origin.y) / normDir.y;
   tmpX = ray.origin.x + yHit.distance * normDir.x;
   tmpZ = ray.origin.z + yHit.distance * normDir.z;
   yHit.intersection = {tmpX, yLimit, tmpZ};
-  yHit.hit = tmpX<=max_.x+eps && tmpX+eps>=min_.x && tmpZ<=max_.z+eps && tmpZ+eps>=min_.z ? true : false;
+  yHit.hit = yHit.distance>0 && tmpX<=max_.x+eps && tmpX+eps>=min_.x && tmpZ<=max_.z+eps && tmpZ+eps>=min_.z ? true : false;
 
   zHit.distance = (zLimit - ray.origin.z) / normDir.z;
   tmpX = ray.origin.x + zHit.distance * normDir.x;
   tmpY = ray.origin.y + zHit.distance * normDir.y;
   zHit.intersection = {tmpX, tmpY, zLimit};
-  zHit.hit = tmpX<=max_.x+eps && tmpX+eps>=min_.x && tmpY<=max_.y+eps && tmpY+eps>=min_.y ? true : false;
+  zHit.hit = zHit.distance>0 && tmpX<=max_.x+eps && tmpX+eps>=min_.x && tmpY<=max_.y+eps && tmpY+eps>=min_.y ? true : false;
 
   Hit hit{false, INFINITY, {INFINITY, INFINITY, INFINITY}, {0,0,0}, nullptr};
   hit = xHit.hit && xHit.distance < hit.distance ? xHit : hit;
