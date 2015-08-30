@@ -15,6 +15,7 @@
 
 Renderer nsdf_loadScene(std::ifstream& file) {
   Scene* scene = new Scene();
+  Renderer bad_voodoo;
   std::string line;
   int lineCount{0};
   while(std::getline(file,line)) {
@@ -145,18 +146,18 @@ Renderer nsdf_loadScene(std::ifstream& file) {
         auto name = input[1];
         auto fov = std::stof(input[2]);
 
-        scene->cameras.insert(scene->cameras.end(),std::pair<std::string, Light>(input[1],{input[1], eye, dir, up, fov}));
+        scene->cameras.insert(scene->cameras.end(),std::pair<std::string, Camera>(input[1],{input[1], eye, dir, up, fov}));
 
       } else if(input[0] == "render") {
       	std::cout << lineCount << ": renderer detected, going to parse..." << std::endl;
 
       	auto iterator = scene->cameras.find(input[1]);
-      	std::shared_ptr<Camera> cam = make_shared<Camera>(iterator->second);
+      	std::shared_ptr<Camera> cam = iterator->second;
 
       	unsigned width = std::stoi(input[3]);
       	unsigned height = std::stoi(input[4]);
 
-      	Renderer bad_voodoo{width, height, input[2], scene, cam};
+      	bad_voodoo = Renderer{width, height, input[2], scene, cam};
 
       } else {
         throw std::logic_error("cannot parse line " + lineCountStr);
