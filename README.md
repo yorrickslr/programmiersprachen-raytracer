@@ -21,9 +21,9 @@ Please note, that we don’t take this Readme very seriously. It’s a kind of t
 - Egal weiter im Text :heavy_check_mark:
 - Die Mucke zum Updates schreiben -> [GEIL](https://www.youtube.com/watch?v=LBZ-3Ugj1AQ) :heavy_check_mark:
 - Box intersect fixen (Schon wieder?! Das kann doch nicht so schwer sein) :heavy_check_mark: (Finally done!)
-- composite still buggy. runtime errors!
-- reflection and refraction
-- Transformation
+- composite still buggy. runtime errors! :heavy_check_mark: :heavy_check_mark:
+- reflection and refraction :heavy_check_mark:
+- Transformation...
 
 ## To Do (theoretisch obsolet, aus Gründen der Nachvollziehung bleibts drin und weil ich das schön finde):
 
