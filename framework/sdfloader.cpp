@@ -89,16 +89,13 @@ Scene& nsdf_loadScene(std::ifstream& file) {
 
           for(int i = 4; i < input.size()-1; ++i) {
             auto iterator = scene->composite->get_children().find(input[i]);
-            /*if(iterator == scene->composite->get_children().end()) {
+            if(iterator == scene->composite->get_children().end()) {
                 throw std::logic_error("Shape not found. cannot parse composite at line " + lineCountStr);
-            }*/
+            }
 
-            std::cout << lineCount << ": outside if" << std::endl;
             tmpptr->add(iterator->second);
-            std::cout << "***DEBUG*** got it!" << std::endl;
             scene->composite->remove(input[i]);
-            std::cout << lineCount << ": DEBUG for" << std::endl;
-          }
+        }
         std::cout << lineCount << ": outside for-loop" << std::endl;
 
         std::shared_ptr<Shape> ptr = tmpptr;
