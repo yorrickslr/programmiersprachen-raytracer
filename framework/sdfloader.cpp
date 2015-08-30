@@ -9,10 +9,11 @@
 #include <sphere.hpp>
 #include <triangle.hpp>
 #include <material.hpp>
+#include <renderer.hpp>
 #include <memory>
 #include <vector>
 
-Scene& nsdf_loadScene(std::ifstream& file) {
+Renderer nsdf_loadScene(std::ifstream& file) {
   Scene* scene = new Scene();
   std::string line;
   int lineCount{0};
@@ -89,15 +90,14 @@ Scene& nsdf_loadScene(std::ifstream& file) {
 
           for(int i = 4; i < input.size()-1; ++i) {
             auto tmpMap = scene->composite->get_children();
+
             if(tmpMap.find(input[i])==tmpMap.end()) {
-                std::cout << "haha ihr loozer" << std::endl;
                 throw std::logic_error("Shape not found. cannot parse composite at line " + lineCountStr);
             }
             auto iterator = tmpMap.find(input[i]);
             tmpptr->add(iterator->second);
             scene->composite->remove(input[i]);
         }
-        std::cout << lineCount << ": outside for-loop" << std::endl;
 
         std::shared_ptr<Shape> ptr = tmpptr;
         scene->composite->add(ptr);
@@ -146,13 +146,22 @@ Scene& nsdf_loadScene(std::ifstream& file) {
         auto fov = std::stof(input[2]);
 
         scene->cameras.insert(scene->cameras.end(),std::pair<std::string, Light>(input[1],{input[1], eye, dir, up, fov}));
-      /*} else if(input[0] == "render") {
-      	*/
+
+      } else if(input[0] == "render") {
+      	std::cout << lineCount << ": renderer detected, going to parse..." << std::endl;
+
+      	auto iterator = scene->cameras.find(input[1]);
+      	std::shared_ptr<Camera> cam = make_shared<Camera>(iterator->second);
+
+      	unsigned width = std::stoi(input[3]);
+      	unsigned height = std::stoi(input[4]);
+
+      	Renderer bad_voodoo{width, height, input[2], scene, cam};
 
       } else {
         throw std::logic_error("cannot parse line " + lineCountStr);
       }
     }
   }
-  return *scene;
+  return bad_voodoo;
 }

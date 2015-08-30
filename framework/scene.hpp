@@ -14,7 +14,7 @@ struct Scene{
 		composite{ std::make_shared<Composite>(Composite{}) },
 		lights{},
 		materials{},
-		camera{ Camera{} },
+		cameras{},
 		background{0,0,0}
 		{}
 		/*shape_vec{},
@@ -27,7 +27,7 @@ struct Scene{
 		composite = src.composite;
 		lights = src.lights;
 		materials = src.materials;
-		camera = src.camera;
+		cameras = src.cameras;
 		return *this;
 	};
 
