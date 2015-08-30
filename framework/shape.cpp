@@ -1,14 +1,16 @@
 #include "shape.hpp"
 #include <iostream>
 
-Shape::Shape() :
+Shape::Shape(Bbox const& bbox) :
 	name_{"default"},
-	material_{ Material{} }
+	material_{ Material{} },
+	bbox_{bbox}
 {}
 
-Shape::Shape(Material const& material, std::string const& name) :
+Shape::Shape(Material const& material, std::string const& name, Bbox const& bbox) :
 	name_{name},
-	material_{material}
+	material_{material},
+	bbox_{bbox}
 {}
 
 Shape::~Shape() {
@@ -21,6 +23,10 @@ std::string Shape::name() const {
 
 Material Shape::material() const {
 	return material_;
+}
+
+Bbox* Shape::bbox() {
+	return &bbox_;
 }
 
 std::ostream& Shape::print(std::ostream& os) const {

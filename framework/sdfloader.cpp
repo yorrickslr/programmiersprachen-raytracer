@@ -67,37 +67,38 @@ Scene& nsdf_loadScene(std::ifstream& file) {
         scene->composite->add(ptr);
         
         } else if(input[2]=="triangle" && input.size() == 15) {
-        std::cout << lineCount << ": triangle detected, going to parse..." << std::endl;
+          std::cout << lineCount << ": triangle detected, going to parse..." << std::endl;
 
-        // Triangle components
-        glm::vec3 p1{std::stod(input[4]),std::stod(input[5]),std::stod(input[6])};
-        glm::vec3 p2{std::stod(input[7]),std::stod(input[8]),std::stod(input[9])};
-        glm::vec3 p3{std::stod(input[10]),std::stod(input[11]),std::stod(input[12])};
-        auto iterator = scene->materials.find(input[13]);
+          // Triangle components
+          glm::vec3 p1{std::stod(input[4]),std::stod(input[5]),std::stod(input[6])};
+          glm::vec3 p2{std::stod(input[7]),std::stod(input[8]),std::stod(input[9])};
+          glm::vec3 p3{std::stod(input[10]),std::stod(input[11]),std::stod(input[12])};
+          auto iterator = scene->materials.find(input[13]);
 
-        if(iterator == scene->materials.end()) {
-          throw std::logic_error("No Material found. Cannot parse line " + lineCountStr);
-        }
+          if(iterator == scene->materials.end()) {
+            throw std::logic_error("No Material found. Cannot parse line " + lineCountStr);
+          }
 
-        // Make smart pointer to Triangle and add it to composite
-        std::shared_ptr<Shape> ptr = std::make_shared<Triangle>(input[3], p1, p2, p3, iterator->second);
-        scene->composite->add(ptr);
+          // Make smart pointer to Triangle and add it to composite
+          std::shared_ptr<Shape> ptr = std::make_shared<Triangle>(input[3], p1, p2, p3, iterator->second);
+          scene->composite->add(ptr);
 
         } else if(input[2]=="composite") {
           std::cout << lineCount << ": composite detected, going to parse..." << std::endl;
   		    std::shared_ptr<Composite> tmpptr = std::make_shared<Composite>(Composite{ input[3] });
 
-        for (int i = 4; i < input.size(); ++i)
-        {
-          auto iterator = scene->composite->get_children().find(input[i]);
-          /*if(iterator == scene->composite->get_children().end()) {
-              throw std::logic_error("Shape not found. cannot parse composite at line " + lineCountStr);
-          }*/
-          std::cout << lineCount << ": outside if" << std::endl;
-          tmpptr->add(iterator->second);
-          scene->composite->remove(input[i]);
-          std::cout << lineCount << ": DEBUG for" << std::endl;
-        }
+          for(int i = 4; i < input.size()-1; ++i) {
+            auto iterator = scene->composite->get_children().find(input[i]);
+            /*if(iterator == scene->composite->get_children().end()) {
+                throw std::logic_error("Shape not found. cannot parse composite at line " + lineCountStr);
+            }*/
+
+            std::cout << lineCount << ": outside if" << std::endl;
+            tmpptr->add(iterator->second);
+            std::cout << "***DEBUG*** got it!" << std::endl;
+            scene->composite->remove(input[i]);
+            std::cout << lineCount << ": DEBUG for" << std::endl;
+          }
         std::cout << lineCount << ": outside for-loop" << std::endl;
 
         std::shared_ptr<Shape> ptr = tmpptr;

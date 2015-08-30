@@ -3,24 +3,38 @@
 #include <glm/glm.hpp>
 #include <glm/gtx/intersect.hpp>
 #include <memory>
+#include <algorithm>
+
+Bbox triangle_bbox(glm::vec3 const& p1, glm::vec3 const& p2, glm::vec3 const& p3) {
+	float maxX = std::max(p1.x,std::max(p2.x,p3.x));
+	float maxY = std::max(p1.y,std::max(p2.y,p3.y));
+	float maxZ = std::max(p1.z,std::max(p2.z,p3.z));
+	float minX = std::min(p1.x,std::min(p2.x,p3.x));
+	float minY = std::min(p1.y,std::min(p2.y,p3.y));
+	float minZ = std::min(p1.z,std::min(p2.z,p3.z));
+	return Bbox{{minX, minY, minZ},{maxX, maxY, maxZ}};
+}
 
 Triangle::Triangle() :
-	Shape(),
+	Shape{{{0,0,0},{0,0,0}}},
 	p1_{ glm::vec3{0.0,0.0,0.0} },
 	p2_{ glm::vec3{0.0,0.0,0.0} },
-	p3_{ glm::vec3{0.0,0.0,0.0} }{}
+	p3_{ glm::vec3{0.0,0.0,0.0} }
+{}
 
 Triangle::Triangle(glm::vec3 const& p1, glm::vec3 const& p2, glm::vec3 const& p3) :
-	Shape(),
+	Shape{triangle_bbox(p1,p2,p3)},
 	p1_{p1},
 	p2_{p2},
-	p3_{p3}{}
+	p3_{p3}
+{}
 
 Triangle::Triangle(std::string const& name, glm::vec3 const& p1, glm::vec3 const& p2, glm::vec3 const& p3, Material const& material) :
-	Shape(material, name),
+	Shape(material, name, triangle_bbox(p1,p2,p3)),
 	p1_{p1},
 	p2_{p2},
-	p3_{p3}{}
+	p3_{p3}
+{}
 
 Triangle::~Triangle(){}
 
@@ -64,7 +78,7 @@ float triangle_area(glm::vec3 const& p1, glm::vec3 const& p2, glm::vec3 const& p
 
 Hit Triangle::intersect(Ray const& ray) {
 	Hit hit;
-	hit.object = shared_from_this();
+	hit.object = this;
 	hit.normal = glm::normalize(glm::cross(p1_-p2_, p1_-p3_));
 	if(glm::dot(hit.normal, ray.direction)>0) {
 		hit.normal = -hit.normal;

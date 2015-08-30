@@ -44,19 +44,30 @@ Color Renderer::shade(Ray const& ray, Hit const& hit, Scene const& scene, unsign
     red += mat.get_ka().r * scene.ambient_light.r;
     green += mat.get_ka().g * scene.ambient_light.g;
     blue += mat.get_ka().b * scene.ambient_light.b;
+
+    color = Color{red,green,blue};
+
+    /*if(mat.get_m()==1.0f) {
+      std::cout << "reflection" << std::endl;
+      glm::vec3 tmp = glm::reflect(glm::normalize(ray.direction),hit.normal);
+      color += raytrace({hit.intersection,tmp}, scene, depth-1);
+    }*/
     /*glm::vec3 light{3,-3,1};
     glm::vec3 toLight = light - hit.intersection;
     red = mat.get_ka().r * scene.ambient_light.r + mat.get_kd().r * 0.3 * glm::dot(glm::normalize(hit.normal),glm::normalize(toLight));
     green = mat.get_ka().g * scene.ambient_light.g + mat.get_kd().g * 0.3 * glm::dot(glm::normalize(hit.normal),glm::normalize(toLight));
     blue = mat.get_ka().b * scene.ambient_light.b + mat.get_kd().b * 0.3 * glm::dot(glm::normalize(hit.normal),glm::normalize(toLight));
     */
-    color = Color{red,green,blue};
   }
   return color;
 }
 
 void Renderer::render(Scene& scene, unsigned depth)
 {
+  glm::vec3 dbg_min = scene.composite->bbox()->min;
+  glm::vec3 dbg_max = scene.composite->bbox()->max;
+  std::cout << "Starting..." << dbg_min.x << " | " << dbg_min.y << " | " << dbg_min.z << " | " << std::endl;
+  std::cout << "Starting..." << dbg_max.x << " | " << dbg_max.y << " | " << dbg_max.z << " | " << std::endl;
   for (unsigned y = 0; y < height_; ++y) {
     for (unsigned x = 0; x < width_; ++x) {
       Pixel p(x,y);

@@ -10,24 +10,26 @@
 #include <glm/vec3.hpp>
 #include <memory>
 #include <hit.hpp>
+#include <bbox.hpp>
 
-
-class Shape : public std::enable_shared_from_this<Shape> { //umstellen von shared ptr auf raw ptr
+class Shape { //: public std::enable_shared_from_this<Shape> { //umstellen von shared ptr auf raw ptr
 public:
 	~Shape();
 	/*virtual double area() const = 0;
 	virtual double volume() const = 0;*/
 	std::string name() const;
 	Material material() const;
+	Bbox* bbox();
 	virtual std::ostream& print(std::ostream& os) const;
 	virtual Hit intersect(Ray const& ray) = 0;
 	// virtual void add(std::shared_ptr<Shape> const& composite) = 0;
 protected:
-	Shape();
-	Shape(Material const& material, std::string const& name);
+	Shape(Bbox const& bbox);
+	Shape(Material const& material, std::string const& name, Bbox const& bbox);
 private:
 	Material material_;
 	std::string name_;
+	Bbox bbox_;
 };
 
 std::ostream& operator<<(std::ostream& os, Shape const& s);

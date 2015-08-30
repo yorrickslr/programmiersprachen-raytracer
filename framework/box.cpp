@@ -5,7 +5,7 @@
 #include <algorithm>
 
 Box::Box() :
-  Shape{},
+  Shape{{{0,0,0},{1,1,1}}},
   min_{0,0,0},
   max_{1,1,1}
 {
@@ -13,7 +13,7 @@ Box::Box() :
 }
 
 Box::Box(glm::vec3 const& min, glm::vec3 const& max) :
-  Shape{},
+  Shape{{min, max}},
   min_{
     min.x<max.x ? min.x : max.x,
     min.y<max.y ? min.y : max.y,
@@ -29,7 +29,7 @@ Box::Box(glm::vec3 const& min, glm::vec3 const& max) :
 }
 
 Box::Box(glm::vec3 const& min, glm::vec3 const& max, Material const& material, std::string const& name) :
-  Shape{material,name},
+  Shape{material,name,{min,max}},
   min_{
     min.x<max.x ? min.x : max.x,
     min.y<max.y ? min.y : max.y,
@@ -142,7 +142,7 @@ Hit Box::intersect(Ray const& ray) {
   hit = yHit.hit && yHit.distance < hit.distance ? yHit : hit;
   hit = zHit.hit && zHit.distance < hit.distance ? zHit : hit;
 
-  hit.object = shared_from_this();
+  hit.object = this;
   return hit;
 
 /* ### Second try, no intersection points are correct

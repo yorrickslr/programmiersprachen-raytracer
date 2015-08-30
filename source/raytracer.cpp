@@ -44,7 +44,7 @@ int main(int argc, char* argv[])
   scene.camera.setResolution(width, height); // ist okay, denk nochmal drüber nach
   scene.background = Color{0,0,0};
 
-  std::thread thr([&app,&scene]() { app.render(scene, 1); });
+  std::thread thr([&app,&scene]() { app.render(scene, 2); });
 
 /*  // Debug
   Ray dbg_ray = {{0,0,0},{0,0,-1}};

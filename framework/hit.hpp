@@ -12,7 +12,7 @@ struct Hit {
 	float distance;
 	glm::vec3 intersection;
 	glm::vec3 normal;
-	std::shared_ptr<Shape> object;
+	Shape* object;
 	
 	Hit& operator=(const Hit& src) {
 		if(this==&src) {

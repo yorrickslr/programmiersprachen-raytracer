@@ -3,11 +3,13 @@
 #include <shape.hpp>
 #include <memory>
 #include <map>
+#include <box.hpp>
 
 class Composite : public Shape {
 public:
 	Composite();
 	Composite(std::string const& name);
+	Composite(std::string const& name, Box const& bounds);
 	/*
 	double area() const override;
 	double volume() const override;*/

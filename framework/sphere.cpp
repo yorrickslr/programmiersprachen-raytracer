@@ -8,7 +8,7 @@
 #include <iostream>
 
 Sphere::Sphere(glm::vec3 const& center, double const radius, Material const& material, std::string const& name) :
-	Shape{material, name},
+	Shape{material, name, {center_-float(radius_),center_+float(radius_)}},
 	center_{center},
 	radius_{radius}
 {
@@ -16,7 +16,7 @@ Sphere::Sphere(glm::vec3 const& center, double const radius, Material const& mat
 }
 
 Sphere::Sphere(glm::vec3 const& center, double const radius) :
-	Shape{},
+	Shape{{center_-float(radius_),center_+float(radius_)}},
 	center_{center},
 	radius_{radius}
 {
@@ -24,7 +24,7 @@ Sphere::Sphere(glm::vec3 const& center, double const radius) :
 }
 
 Sphere::Sphere() :
-	Shape{},
+	Shape{{{-1,-1,-1},{1,1,1}}},
 	center_{0.0,0.0,0.0},
 	radius_{1}
 {
@@ -65,7 +65,7 @@ Hit Sphere::intersect(Ray const& ray) {
 	Hit hit;
 	hit.hit = glm::intersectRaySphere(ray.origin, glm::normalize(ray.direction), center_, radius_, hit.intersection, hit.normal);
 	hit.distance = glm::distance(ray.origin,hit.intersection);
-	hit.object = shared_from_this();
+	hit.object = this;
 	return hit;
 }
 
