@@ -15,7 +15,7 @@
 
 Renderer nsdf_loadScene(std::ifstream& file) {
   Scene* scene = new Scene();
-  Renderer bad_voodoo;
+  Renderer* good_voodoo;
   std::string line;
   int lineCount{0};
   while(std::getline(file,line)) {
@@ -157,12 +157,12 @@ Renderer nsdf_loadScene(std::ifstream& file) {
       	unsigned width = std::stoi(input[3]);
       	unsigned height = std::stoi(input[4]);
 
-      	bad_voodoo = Renderer{width, height, input[2], scene, cam};
+      	good_voodoo = new Renderer{width, height, input[2], scene, cam};
 
       } else {
         throw std::logic_error("cannot parse line " + lineCountStr);
       }
     }
   }
-  return bad_voodoo;
+  return *good_voodoo;
 }
