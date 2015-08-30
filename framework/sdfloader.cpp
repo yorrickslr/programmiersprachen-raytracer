@@ -144,8 +144,11 @@ Scene& nsdf_loadScene(std::ifstream& file) {
         glm::vec3 up{std::stod(input[9]), std::stod(input[10]), std::stod(input[11])};
         auto name = input[1];
         auto fov = std::stof(input[2]);
-        Camera tmp{name, eye, dir, up, fov};
-        scene->camera = tmp;
+
+        scene->cameras.insert(scene->cameras.end(),std::pair<std::string, Light>(input[1],{input[1], eye, dir, up, fov}));
+      /*} else if(input[0] == "render") {
+      	*/
+
       } else {
         throw std::logic_error("cannot parse line " + lineCountStr);
       }
