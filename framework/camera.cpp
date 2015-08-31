@@ -1,7 +1,6 @@
 #include <camera.hpp>
 #include <cmath>
 #include <iostream>
-#include <glm/glm.hpp>
 
 Camera::Camera():
 	name_{"Camera_Obscura"},
@@ -81,7 +80,7 @@ unsigned Camera::height() const {
 	return height_;
 }
 
-Ray Camera::eyeRay(int x, int y) const {
+Ray Camera::eyeRay(float x, float y) const {
 	/* yorrick'scher Algorithmus - funst nicht:
 	glm::vec3 origin{0,0,0};
 	glm::vec3 direction{0,0,0};
@@ -106,18 +105,6 @@ Ray Camera::eyeRay(int x, int y) const {
 	float tmpx =(2*x*float(width_)/float(height_))/float(width_) - float(width_)/float(height_);
 	//float tmpx = 2*x/float(width_) - 1;
 	float tmpy = 2*y/float(height_) - 1;
-	float tmpz = (fovX_-180)/fovX_;
-	glm::vec4 rayDir{tmpx, tmpy, tmpz, 1};
-
-	glm::vec3 n = glm::normalize(direction_);
-	glm::vec3 u = glm::normalize(glm::cross(direction_,up_));
-	glm::vec3 v = glm::normalize(glm::cross(u,n));
-	glm::mat4 c{
-		u.x, v.x, -n.x, eye_.x,
-		u.y, v.y, -n.y, eye_.y,
-		u.z, v.z, -n.z, eye_.z,
-		0.f, 0.f, 0.f, 1.f
-	};
-	glm::vec4 translatedRay{c * rayDir};
-	return Ray{eye_, {translatedRay[0],translatedRay[1],translatedRay[2]}};
+	float tmpz = (fovX_-90)/fovX_;
+	return Ray{eye_, {tmpx, tmpy, tmpz}};
 }

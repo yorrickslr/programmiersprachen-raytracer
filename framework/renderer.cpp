@@ -31,7 +31,7 @@ Color Renderer::shade(Ray const& ray, Hit const& hit, Scene const& scene, unsign
       float dot = glm::dot(glm::normalize(hit.normal),toLight);
       /*dot = dot>0 ? dot : glm::dot(glm::normalize(-1.0f * hit.normal),toLight);*/
       Hit shadowHit = scene.composite->intersect(Ray{epsIntersect, toLight});
-      if(!shadowHit.hit || (shadowHit.hit && glm::distance(light.second.get_position(),shadowHit.intersection))) {
+      if(!shadowHit.hit) {
         float tmpRed = mat.get_kd().r * light.second.get_ld().r * dot;
         float tmpGreen = mat.get_kd().g * light.second.get_ld().g * dot;
         float tmpBlue = mat.get_kd().b * light.second.get_ld().b * dot;
@@ -71,8 +71,15 @@ void Renderer::render(Scene& scene, unsigned depth)
   std::cout << "Starting..." << dbg_max.x << " | " << dbg_max.y << " | " << dbg_max.z << " | " << std::endl;
   for (unsigned y = 0; y < height_; ++y) {
     for (unsigned x = 0; x < width_; ++x) {
-      Pixel p(x,y);
-      p.color = raytrace(scene.camera->eyeRay(x,y), scene, depth);
+      Pixel p{x,y};
+      Color c1, c2, c3, c4;
+      c1 = raytrace(scene.camera->eyeRay(x,y), scene, depth);
+      c2 = raytrace(scene.camera->eyeRay(x,y+.5), scene, depth);
+      c3 = raytrace(scene.camera->eyeRay(x+.5,y), scene, depth);
+      c4 = raytrace(scene.camera->eyeRay(x+.5,y+.5), scene, depth);
+      p.color.r = (c1.r + c2.r + c3.r + c4.r) / 4;
+      p.color.g = (c1.g + c2.g + c3.g + c4.g) / 4;
+      p.color.b = (c1.b + c2.b + c3.b + c4.b) / 4;
       write(p);
     }
   }

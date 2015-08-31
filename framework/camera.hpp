@@ -19,7 +19,7 @@ public:
   glm::vec3 get_direction() const;
   float get_fov_x() const;
   glm::vec3 get_up() const;
-  Ray eyeRay(int x, int y) const;
+  Ray eyeRay(float x, float y) const;
   void setResolution(int width, int height);
   unsigned width() const;
   unsigned height() const;
