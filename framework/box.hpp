@@ -18,9 +18,9 @@ public:
 	double volume() const override;*/
 	std::ostream& print(std::ostream& os) const override;
 	Hit intersect(Ray const& ray) override;
-	void translate(glm::vec3 const& trans_dir);
-	void rotate(float& radiant, glm::vec3 const& axis);
-	void scale(double& scale);
+	void translate(glm::vec3 const& trans_dir) override;
+	void rotate(float& radiant, glm::vec3 const& axis) override;
+	void scale(double& scale) override;
 private:
 	glm::vec3 min_;
 	glm::vec3 max_;

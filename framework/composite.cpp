@@ -75,3 +75,24 @@ void Composite::remove(std::string const& name) {
 std::map<std::string, std::shared_ptr<Shape>> Composite::get_children() {
 	return shapes_;
 }
+
+
+void Composite::translate(glm::vec3 const& trans_dir) {
+	for(auto element : shapes_) {
+		element.second->translate(trans_dir);
+	}
+
+}
+
+void Composite::rotate(float& radiant, glm::vec3 const& axis) {
+	for(auto element : shapes_) {
+		element.second->rotate(radiant, axis);
+	}
+}
+
+void Composite::scale(double& scale) {
+	for(auto element : shapes_) {
+		element.second->scale(scale);
+	}
+}
+

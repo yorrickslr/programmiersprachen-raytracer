@@ -24,7 +24,9 @@ public:
 	virtual std::ostream& print(std::ostream& os) const;
 	virtual Hit intersect(Ray const& ray) = 0;
 	// virtual void add(std::shared_ptr<Shape> const& composite) = 0;
-	// virtual void translate(glm::vec3 const& trans_dir);
+	virtual void translate(glm::vec3 const& trans_dir) = 0;
+	virtual void rotate(float& radiant, glm::vec3 const& axis) = 0;
+	virtual void scale(double& scale) = 0;
 protected:
 	Shape(Bbox const& bbox);
 	Shape(Material const& material, std::string const& name, Bbox const& bbox);
