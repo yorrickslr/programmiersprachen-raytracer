@@ -1,3 +1,4 @@
+#define _USE_MATH_DEFINES
 #include <triangle.hpp>
 #include <math.h>
 #include <glm/glm.hpp>
@@ -119,3 +120,113 @@ Hit Triangle::intersect(Ray const& ray) {
 
 	return a;*/
 }
+
+
+//Transformation
+void Triangle::translate(glm::vec3 const& trans_dir) {
+	glm::vec4 p1_4{p1_, 1.0f};
+	glm::vec4 p2_4{p2_, 1.0f};
+	glm::vec4 p3_4{p3_, 1.0f};
+
+	world_transformation = glm::translate(glm::mat4(1.0f), trans_dir);
+
+	p1_4 = world_transformation * p1_4;
+	p2_4 = world_transformation * p2_4;
+	p3_4 = world_transformation * p3_4;
+
+	glm::vec3 p1_trans{p1_4};
+	glm::vec3 p2_trans{p2_4};
+	glm::vec3 p3_trans{p3_4};
+
+	p1_ = p1_trans;
+	p2_ = p2_trans;
+	p3_ = p3_trans;
+}
+
+
+void Triangle::rotate(float& radiant, glm::vec3 const& axis) {
+	//Preparations
+	glm::vec4 p1_4{p1_, 1.0f};
+	glm::vec4 p2_4{p2_, 1.0f};
+	glm::vec4 p3_4{p3_, 1.0f};
+ 
+    if(2*M_PI < radiant) {
+        radiant = (radiant * M_PI)/ 180;
+    }
+
+    glm::vec3 axis_normed = glm::normalize(axis);
+
+    //Dat Matrix O____________O
+    //HOLY FUCKIN SHIT!!! WENN DAS NICHT FUNZT, RASTE ICH ABER AUS!
+    //First row
+    world_transformation[0][0] = pow(axis_normed.x,2)*(1 - cos(radiant))+cos(radiant);
+    world_transformation[0][1] = axis_normed.x*axis_normed.y*(1 - cos(radiant))-axis_normed.z*sin(radiant);
+    world_transformation[0][2] = axis_normed.x*axis_normed.z*(1 - cos(radiant))-axis_normed.y*sin(radiant);
+    world_transformation[0][3] = 0;
+    //Second row
+    world_transformation[1][0] = axis_normed.y*axis_normed.x*(1 - cos(radiant))-axis_normed.z*sin(radiant);
+    world_transformation[1][1] = pow(axis_normed.y,2)*(1 - cos(radiant))+cos(radiant);
+    world_transformation[1][2] = axis_normed.y*axis_normed.z*(1 - cos(radiant))-axis_normed.x*sin(radiant);
+    world_transformation[1][3] = 0;
+    //Third row
+    world_transformation[2][0] = axis_normed.z*axis_normed.x*(1 - cos(radiant))-axis_normed.y*sin(radiant);
+    world_transformation[2][1] = axis_normed.z*axis_normed.y*(1 - cos(radiant))-axis_normed.x*sin(radiant);
+    world_transformation[2][2] = pow(axis_normed.z,2)*(1 - cos(radiant))+cos(radiant);
+    world_transformation[2][3] = 0;
+    //Fourth row
+    world_transformation[3][0] = 0;
+    world_transformation[3][1] = 0;
+    world_transformation[3][2] = 0;
+    world_transformation[3][3] = 1;
+
+	p1_4 = world_transformation * p1_4;
+	p2_4 = world_transformation * p2_4;
+	p3_4 = world_transformation * p3_4;
+
+	glm::vec3 p1_rotate{p1_4};
+	glm::vec3 p2_rotate{p2_4};
+	glm::vec3 p3_rotate{p3_4};
+
+	p1_ = p1_rotate;
+	p2_ = p2_rotate;
+	p3_ = p3_rotate;
+
+}
+
+void Triangle::scale(double& scale) {
+	glm::vec4 p1_4{p1_, 1.0f};
+	glm::vec4 p2_4{p2_, 1.0f};
+	glm::vec4 p3_4{p3_, 1.0f};
+
+	glm::vec3 scalierer{ scale, scale, scale };
+
+	world_transformation = glm::scale(glm::mat4(1.0f), scalierer);
+
+	p1_4 = world_transformation * p1_4;
+	p2_4 = world_transformation * p2_4;
+	p3_4 = world_transformation * p3_4;
+	glm::vec3 p1_trans{p1_4};
+	glm::vec3 p2_trans{p2_4};
+	glm::vec3 p3_trans{p3_4};
+
+	p1_ = p1_trans;
+	p2_ = p2_trans;
+	p3_ = p3_trans;
+
+}
+
+// Rotationsmatrix aus einer beliebigen Ursprungsgeraden
+/*
+    normaler vector n = {n.x, n.y, n.z}
+    Winkel alpha = a* pi
+
+    Matrix:
+    n.x^2*(1 - cos{alpha}) + cos{alpha}   |   n.x*n.y*(1 - cos{alpha})-n.z sin{alpha} |   n.x*n.z*(1 - cos{alpha})+n.y*sin{alpha}
+    
+    n.y*n.x*(1 - cos{alpha})+n.z*sin{alpha} |   n.y^2*(1 - cos{alpha})+cos{alpha}   |   n.y*n.z*(1 - cos{alpha})-n.x*sin{alpha}
+    
+    n.z*n.x*(1 - cos{alpha})-n.y*sin{alpha} |   n.z*n.y*(1 - cos{alpha})+n.xcos{alpha}   |   n.z^2*(1 - cos{alpha})+cos{alpha}
+
+
+
+*/
