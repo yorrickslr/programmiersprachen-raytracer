@@ -13,7 +13,7 @@
 #include <memory>
 #include <vector>
 
-Renderer nsdf_loadScene(std::ifstream& file) {
+Scene& loadScene(std::ifstream& file) {
   Scene* scene = new Scene();
   Renderer* good_voodoo;
   std::string line;
@@ -146,23 +146,26 @@ Renderer nsdf_loadScene(std::ifstream& file) {
         auto name = input[1];
         auto fov = std::stof(input[2]);
 
-        scene->cameras.insert(scene->cameras.end(),std::pair<std::string, Camera>(input[1],{input[1], eye, dir, up, fov}));
+        std::shared_ptr<Camera> camera = std::make_shared<Camera>(input[1], eye, dir, up, fov);
+        scene->cameras.insert(scene->cameras.end(),std::pair<std::string, std::shared_ptr<Camera>>(input[1],camera));
 
-      } else if(input[0] == "render") {
+      } else if(input[0] == "render" && input.size() == 6) {
       	std::cout << lineCount << ": renderer detected, going to parse..." << std::endl;
-
-      	auto iterator = scene->cameras.find(input[1]);
-      	std::shared_ptr<Camera> cam = iterator->second;
-
-      	unsigned width = std::stoi(input[3]);
-      	unsigned height = std::stoi(input[4]);
-
-      	good_voodoo = new Renderer{width, height, input[2], scene, cam};
+        auto iterator = scene->cameras.find(input[1]);
+        if(iterator == scene->cameras.end()) {
+          throw std::logic_error("cannot find camera for rendering at line " + lineCountStr);
+        }
+        scene->filename = input[2];
+      	scene->camera = (*iterator).second;
+      	scene->camera->setResolution(std::stoul(input[3]), std::stoul(input[4]));
 
       } else {
         throw std::logic_error("cannot parse line " + lineCountStr);
       }
     }
   }
-  return *good_voodoo;
+  if(scene->camera == nullptr) {
+    throw std::logic_error("no camera defined");
+  }
+  return *scene;
 }

@@ -72,6 +72,14 @@ void Camera::setResolution(int width, int height) {
 	height_ = height;
 }
 
+unsigned Camera::width() const {
+	return width_;
+}
+
+unsigned Camera::height() const {
+	return height_;
+}
+
 Ray Camera::eyeRay(int x, int y) const {
 	/* yorrick'scher Algorithmus - funst nicht:
 	glm::vec3 origin{0,0,0};
@@ -94,8 +102,8 @@ Ray Camera::eyeRay(int x, int y) const {
 	eyeRay.origin = eye_;
 	return eyeRay;*/
 
-	//float tmpx = width_/height_ - (2*x*width_/height_)/float(width_);
-	float tmpx = 2*x/float(width_) - 1;
+	float tmpx =(2*x*float(width_)/float(height_))/float(width_) - float(width_)/float(height_);
+	//float tmpx = 2*x/float(width_) - 1;
 	float tmpy = 2*y/float(height_) - 1;
 	float tmpz = (fovX_-90)/fovX_;
 	return Ray{eye_, {tmpx, tmpy, tmpz}};

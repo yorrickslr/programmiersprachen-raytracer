@@ -21,6 +21,8 @@ public:
   glm::vec3 get_up() const;
   Ray eyeRay(int x, int y) const;
   void setResolution(int width, int height);
+  unsigned width() const;
+  unsigned height() const;
 
 private:
   std::string name_;

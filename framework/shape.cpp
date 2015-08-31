@@ -5,13 +5,25 @@ Shape::Shape(Bbox const& bbox) :
 	name_{"default"},
 	material_{ Material{} },
 	bbox_{bbox}
-{}
+{
+	std::cout << "***DEBUG*** set bbox of shape to:" << std::endl;
+	glm::vec3 tmp = bbox.min;
+	std::cout << "***DEBUG*** min=[" << tmp.x << "," << tmp.y << "," << tmp.z << "]" << std::endl;
+	tmp = bbox.max;
+	std::cout << "***DEBUG*** max=[" << tmp.x << "," << tmp.y << "," << tmp.z << "]" << std::endl;
+}
 
 Shape::Shape(Material const& material, std::string const& name, Bbox const& bbox) :
 	name_{name},
 	material_{material},
 	bbox_{bbox}
-{}
+{
+	std::cout << "***DEBUG*** set bbox of shape to:" << std::endl;
+	glm::vec3 tmp = bbox.min;
+	std::cout << "***DEBUG*** min=[" << tmp.x << "," << tmp.y << "," << tmp.z << "]" << std::endl;
+	tmp = bbox.max;
+	std::cout << "***DEBUG*** max=[" << tmp.x << "," << tmp.y << "," << tmp.z << "]" << std::endl;
+}
 
 Shape::~Shape() {
 	// std::cout << "Destruction of shape" << std::endl;

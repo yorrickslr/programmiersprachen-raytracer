@@ -13,7 +13,6 @@ Box::Box() :
 }
 
 Box::Box(glm::vec3 const& min, glm::vec3 const& max) :
-  Shape{{min, max}},
   min_{
     min.x<max.x ? min.x : max.x,
     min.y<max.y ? min.y : max.y,
@@ -23,10 +22,9 @@ Box::Box(glm::vec3 const& min, glm::vec3 const& max) :
     max.x>min.x ? max.x : min.x,
     max.y>min.y ? max.y : min.y,
     max.z>min.z ? max.z : min.z
-  }
-{
-  // std::cout << "Construction of box" << std::endl;
-}
+  },
+  Shape{{min_,max_}}
+{}
 
 Box::Box(glm::vec3 const& min, glm::vec3 const& max, Material const& material, std::string const& name) :
   Shape{material,name,{min,max}},

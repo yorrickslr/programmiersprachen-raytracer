@@ -37,6 +37,9 @@ struct Bbox {
     return false;
   }
   void add(Bbox const& bbox) {
+    std::cout << std::endl;
+    std::cout << "current = [" << min.x << "," << min.y << "," << min.z << "] , [" << max.x << "," << max.y << "," << max.z << "]" << std::endl;
+    std::cout << "toAdd = [" << bbox.min.x << "," << bbox.min.y << "," << bbox.min.z << "] , [" << bbox.max.x << "," << bbox.max.y << "," << bbox.max.z << "]" << std::endl;
     min.x = std::min(min.x,bbox.min.x);
     min.y = std::min(min.y,bbox.min.y);
     min.z = std::min(min.z,bbox.min.z);

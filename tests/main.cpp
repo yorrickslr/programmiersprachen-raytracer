@@ -22,7 +22,7 @@ TEST_CASE("new sdfloader","[nsdfloader]") {
 	file.open("input.sdf");
 	REQUIRE(file.is_open());
 	try {
-		scene = nsdf_loadScene(file);
+		scene = loadScene(file);
 	} catch(std::exception& e) {
 		std::cerr << "---ERROR--- SDF-loader: " << e.what() << std::endl;
 	}

@@ -5,11 +5,11 @@
 
 int main(int argc, char* argv[])
 {
-  unsigned const width = 600;
-  unsigned const height = 600;
+  unsigned const width = 1920;
+  unsigned const height = 1080;
   std::string const filename = "./checkerboard.ppm";
 
-  Renderer app(width, height, filename);
+  //Renderer app(width, height, filename);
   //Renderer app(scene) BS
 
 /*
@@ -37,12 +37,14 @@ int main(int argc, char* argv[])
   }
 
   try {
-    scene = nsdf_loadScene(file);
+    scene = loadScene(file);
   } catch(std::exception& e) {
     std::cerr << "---ERROR--- SDF-loader: " << e.what() << std::endl;
+    return 0;
   }
-  scene.camera.setResolution(width, height); // ist okay, denk nochmal drüber nach
-  scene.background = Color{0,0,0};
+  scene.background = Color{0,0,0}; //muss noch ins SDF
+
+  Renderer app{scene};
 
   std::thread thr([&app,&scene]() { app.render(scene, 2); });
 
@@ -53,14 +55,14 @@ int main(int argc, char* argv[])
   std::cout << dbg_hit.normal.x << " | " << dbg_hit.normal.y << " | " << dbg_hit.normal.z << std::endl;
   std::cout << glm::dot(dbg_hit.normal, dbg_ray.direction) << std::endl;
 */
-  Window win(glm::ivec2(width,height));
+  Window win(glm::ivec2(scene.camera->width(),scene.camera->height()));
 
   while (!win.shouldClose()) {
     if (win.isKeyPressed(GLFW_KEY_ESCAPE)) {
       win.stop();
     }
 
-    glDrawPixels( width, height, GL_RGB, GL_FLOAT
+    glDrawPixels( scene.camera->width(), scene.camera->height(), GL_RGB, GL_FLOAT
                 , app.colorbuffer().data());
 
     win.update();

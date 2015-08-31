@@ -13,6 +13,10 @@ Sphere::Sphere(glm::vec3 const& center, double const radius, Material const& mat
 	radius_{radius}
 {
 	// std::cout << "Construction of sphere" << std::endl;
+	glm::vec3 min = center_-float(radius);
+	std::cout << "***DEBUG*** Sphere constructor: min=[" << min.x << "," << min.y << "," << min.z << "]" << std::endl;
+	glm::vec3 max = center_+float(radius);
+	std::cout << "***DEBUG*** Sphere constructor: max=[" << max.x << "," << max.y << "," << max.z << "]" << std::endl;
 }
 
 Sphere::Sphere(glm::vec3 const& center, double const radius) :

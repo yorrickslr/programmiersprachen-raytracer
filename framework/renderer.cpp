@@ -13,12 +13,11 @@
 #include <glm/glm.hpp>
 #include <cmath>
 
-Renderer::Renderer(unsigned w, unsigned h, std::string const& file)
-  : width_(w)
-  , height_(h)
-  , colorbuffer_(w*h, Color(0.0, 0.0, 0.0))
-  , filename_(file)
-  , ppm_(width_, height_)
+Renderer::Renderer(Scene const& scene) :
+  width_{0},
+  height_{0},
+  colorbuffer_{scene.camera->width()*scene.camera->height(), Color(0.0, 0.0, 0.0)},
+  ppm_{scene.camera->width(),scene.camera->height(),scene.filename}
 {}
 
 Color Renderer::shade(Ray const& ray, Hit const& hit, Scene const& scene, unsigned depth) const {
@@ -64,6 +63,8 @@ Color Renderer::shade(Ray const& ray, Hit const& hit, Scene const& scene, unsign
 
 void Renderer::render(Scene& scene, unsigned depth)
 {
+  height_ = scene.camera->height();
+  width_ = scene.camera->width();
   glm::vec3 dbg_min = scene.composite->bbox()->min;
   glm::vec3 dbg_max = scene.composite->bbox()->max;
   std::cout << "Starting..." << dbg_min.x << " | " << dbg_min.y << " | " << dbg_min.z << " | " << std::endl;
@@ -71,11 +72,11 @@ void Renderer::render(Scene& scene, unsigned depth)
   for (unsigned y = 0; y < height_; ++y) {
     for (unsigned x = 0; x < width_; ++x) {
       Pixel p(x,y);
-      p.color = raytrace(scene.camera.eyeRay(x,y), scene, depth);
+      p.color = raytrace(scene.camera->eyeRay(x,y), scene, depth);
       write(p);
     }
   }
-  ppm_.save(filename_);
+  ppm_.save(scene.filename);
   std::cout << "Finished!" << std::endl;
 }
 

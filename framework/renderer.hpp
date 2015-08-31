@@ -18,12 +18,12 @@
 #include <ray.hpp>
 #include <scene.hpp>
 #include <fstream>
+#include <memory>
 
 class Renderer
 {
 public:
-  Renderer(unsigned w, unsigned h, std::string const& file);
-
+  Renderer(Scene const& scene);
   void render(Scene& scene, unsigned depth);
   void write(Pixel const& p);
   Color raytrace(Ray const& ray, Scene const& scene, unsigned depth) const;
@@ -38,7 +38,7 @@ private:
   unsigned width_;
   unsigned height_;
   std::vector<Color> colorbuffer_;
-  std::string filename_;
+  //std::string filename_;
   PpmWriter ppm_;
 };
 
