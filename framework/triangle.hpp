@@ -18,10 +18,17 @@ public:
 	/*double area() const override;
 	double volume() const override;*/
 	Hit intersect(Ray const& ray) override;
+
+	void translate(glm::vec3 const& trans_dir) override;
+	void rotate(float& radiant, glm::vec3 const& axis) override;
+	void scale(double& scale) override;
 private:
 	glm::vec3 p1_;
 	glm::vec3 p2_;
 	glm::vec3 p3_;
+
+	glm::mat4 world_transformation;
+	glm::mat4 world_transformation_inv;
 };
 
 #endif

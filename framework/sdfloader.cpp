@@ -159,6 +159,8 @@ Scene& loadScene(std::ifstream& file) {
       	scene->camera = (*iterator).second;
       	scene->camera->setResolution(std::stoul(input[3]), std::stoul(input[4]));
 
+      /*} else if {*/
+      	
       } else {
         throw std::logic_error("cannot parse line " + lineCountStr);
       }

@@ -39,7 +39,7 @@ struct Scene{
 
   Color ambient_light;
    // shared_ptr instead of objects works! legal?
-  std::shared_ptr<Composite> composite = std::make_shared<Composite>(Composite{});
+  std::shared_ptr<Composite> composite /*= std::make_shared<Composite>(Composite{})*/;
   std::map<std::string, Light> lights;
   std::map<std::string, Material> materials;
   std::map<std::string, std::shared_ptr<Camera>> cameras;
