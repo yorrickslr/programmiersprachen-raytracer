@@ -7,6 +7,7 @@
 #include <material.hpp>
 #include <glm/glm.hpp>
 #include <glm/gtx/intersect.hpp>
+#include <glm/gtc/matrix_transform.hpp>
 #include <glm/vec3.hpp>
 #include <memory>
 #include <hit.hpp>
@@ -23,6 +24,7 @@ public:
 	virtual std::ostream& print(std::ostream& os) const;
 	virtual Hit intersect(Ray const& ray) = 0;
 	// virtual void add(std::shared_ptr<Shape> const& composite) = 0;
+	// virtual void translate(glm::vec3 const& trans_dir);
 protected:
 	Shape(Bbox const& bbox);
 	Shape(Material const& material, std::string const& name, Bbox const& bbox);
@@ -30,6 +32,8 @@ private:
 	Material material_;
 	std::string name_;
 	Bbox bbox_;
+	glm::mat4 world_transformation;
+	glm::mat4 world_transformation_inv;
 };
 
 std::ostream& operator<<(std::ostream& os, Shape const& s);

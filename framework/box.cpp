@@ -208,3 +208,19 @@ Hit Box::intersect(Ray const& ray) {
   }
   return false;*/
 }
+
+void Box::translate(glm::vec3 const& trans_dir) {
+	glm::vec4 min_4{min_, 1.0f};
+	glm::vec4 max_4{max_, 1.0f};
+
+	world_transformation = glm::translate(glm::mat4(1.0f), trans_dir);
+
+	min_4 = world_transformation * min_4;
+	max_4 = world_transformation * max_4;
+
+	glm::vec3 min_trans{min_4};
+	glm::vec3 max_trans{max_4};
+
+	min_ = min_trans;
+	max_ = max_trans;
+}

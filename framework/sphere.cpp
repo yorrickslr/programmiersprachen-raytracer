@@ -73,5 +73,16 @@ Hit Sphere::intersect(Ray const& ray) {
 	return hit;
 }
 
+void Sphere::translate(glm::vec3 const& trans_dir) {
+	glm::vec4 center_4{center_, 1.0f};
+
+	world_transformation = glm::translate(glm::mat4(1.0f), trans_dir);
+
+	center_4 = world_transformation * center_4;
+
+	glm::vec3 center_trans{center_4};
+	center_ = center_trans;
+}
+
 // MinGW does not support M_PI, 
 // so I replaced it with 3.14159 and reduced the equations

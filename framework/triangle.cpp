@@ -39,6 +39,27 @@ Triangle::Triangle(std::string const& name, glm::vec3 const& p1, glm::vec3 const
 Triangle::~Triangle(){}
 
 
+void Triangle::translate(glm::vec3 const& trans_dir) {
+	glm::vec4 p1_4{p1_, 1.0f};
+	glm::vec4 p2_4{p2_, 1.0f};
+	glm::vec4 p3_4{p3_, 1.0f};
+
+	world_transformation = glm::translate(glm::mat4(1.0f), trans_dir);
+
+	p1_4 = world_transformation * p1_4;
+	p2_4 = world_transformation * p2_4;
+	p3_4 = world_transformation * p3_4;
+
+	glm::vec3 p1_trans{p1_4};
+	glm::vec3 p2_trans{p2_4};
+	glm::vec3 p3_trans{p3_4};
+
+	p1_ = p1_trans;
+	p2_ = p2_trans;
+	p3_ = p3_trans;
+}
+
+
 glm::vec3 Triangle::get_p1() const {
 	return p1_;
 }
