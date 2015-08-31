@@ -8,19 +8,19 @@
 #include <iostream>
 
 Sphere::Sphere(glm::vec3 const& center, double const radius, Material const& material, std::string const& name) :
-	Shape{material, name, {center_-float(radius_),center_+float(radius_)}},
+	Shape{material, name, {center-float(radius),center+float(radius)}},
 	center_{center},
 	radius_{radius}
 {
 	// std::cout << "Construction of sphere" << std::endl;
-	glm::vec3 min = center_-float(radius);
+	/*glm::vec3 min = center_-float(radius);
 	std::cout << "***DEBUG*** Sphere constructor: min=[" << min.x << "," << min.y << "," << min.z << "]" << std::endl;
 	glm::vec3 max = center_+float(radius);
-	std::cout << "***DEBUG*** Sphere constructor: max=[" << max.x << "," << max.y << "," << max.z << "]" << std::endl;
+	std::cout << "***DEBUG*** Sphere constructor: max=[" << max.x << "," << max.y << "," << max.z << "]" << std::endl;*/
 }
 
 Sphere::Sphere(glm::vec3 const& center, double const radius) :
-	Shape{{center_-float(radius_),center_+float(radius_)}},
+	Shape{{center-float(radius),center+float(radius)}},
 	center_{center},
 	radius_{radius}
 {

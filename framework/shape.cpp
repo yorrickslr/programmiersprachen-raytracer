@@ -6,11 +6,11 @@ Shape::Shape(Bbox const& bbox) :
 	material_{ Material{} },
 	bbox_{bbox}
 {
-	std::cout << "***DEBUG*** set bbox of shape to:" << std::endl;
+	/*std::cout << "***DEBUG*** set bbox of shape to:" << std::endl;
 	glm::vec3 tmp = bbox.min;
 	std::cout << "***DEBUG*** min=[" << tmp.x << "," << tmp.y << "," << tmp.z << "]" << std::endl;
 	tmp = bbox.max;
-	std::cout << "***DEBUG*** max=[" << tmp.x << "," << tmp.y << "," << tmp.z << "]" << std::endl;
+	std::cout << "***DEBUG*** max=[" << tmp.x << "," << tmp.y << "," << tmp.z << "]" << std::endl;*/
 }
 
 Shape::Shape(Material const& material, std::string const& name, Bbox const& bbox) :
@@ -18,11 +18,11 @@ Shape::Shape(Material const& material, std::string const& name, Bbox const& bbox
 	material_{material},
 	bbox_{bbox}
 {
-	std::cout << "***DEBUG*** set bbox of shape to:" << std::endl;
+	/*std::cout << "***DEBUG*** set bbox of shape to:" << std::endl;
 	glm::vec3 tmp = bbox.min;
 	std::cout << "***DEBUG*** min=[" << tmp.x << "," << tmp.y << "," << tmp.z << "]" << std::endl;
 	tmp = bbox.max;
-	std::cout << "***DEBUG*** max=[" << tmp.x << "," << tmp.y << "," << tmp.z << "]" << std::endl;
+	std::cout << "***DEBUG*** max=[" << tmp.x << "," << tmp.y << "," << tmp.z << "]" << std::endl;*/
 }
 
 Shape::~Shape() {
