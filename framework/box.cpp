@@ -1,3 +1,5 @@
+#define _USE_MATH_DEFINES
+#include <math.h>
 #include "box.hpp"
 #include <glm/vec3.hpp>
 #include <iostream>
@@ -214,6 +216,87 @@ void Box::translate(glm::vec3 const& trans_dir) {
 	glm::vec4 max_4{max_, 1.0f};
 
 	world_transformation = glm::translate(glm::mat4(1.0f), trans_dir);
+
+	min_4 = world_transformation * min_4;
+	max_4 = world_transformation * max_4;
+
+	glm::vec3 min_trans{min_4};
+	glm::vec3 max_trans{max_4};
+
+	min_ = min_trans;
+	max_ = max_trans;
+}
+
+void Box::rotate(float& radiant, glm::vec3 const& axis) {
+	//Preparations
+	glm::vec4 min_4{min_, 1.0f};
+	glm::vec4 max_4{max_, 1.0f};
+ 
+    if(2*M_PI < radiant) {
+        radiant = (radiant * M_PI)/ 180;
+    }
+
+    glm::vec3 axis_normed = glm::normalize(axis);
+
+	world_transformation = glm::rotate(glm::mat4(1.f), radiant, axis);
+
+	min_4 = world_transformation * min_4;
+	max_4 = world_transformation * max_4;
+
+	glm::vec3 min_rotate{min_4};
+	glm::vec3 max_rotate{max_4};
+
+    //Dat Matrix O____________O
+    //HOLY FUCKIN SHIT!!! WENN DAS NICHT FUNZT, RASTE ICH ABER AUS!
+    //First row
+    /*world_transformation[0][0] = pow(axis_normed.x,2)*(1 - cos(radiant))+cos(radiant);
+    world_transformation[0][1] = axis_normed.x*axis_normed.y*(1 - cos(radiant))-axis_normed.z*sin(radiant);
+    world_transformation[0][2] = axis_normed.x*axis_normed.z*(1 - cos(radiant))-axis_normed.y*sin(radiant);
+    world_transformation[0][3] = 0;
+    //Second row
+    world_transformation[1][0] = axis_normed.y*axis_normed.x*(1 - cos(radiant))-axis_normed.z*sin(radiant);
+    world_transformation[1][1] = pow(axis_normed.y,2)*(1 - cos(radiant))+cos(radiant);
+    world_transformation[1][2] = axis_normed.y*axis_normed.z*(1 - cos(radiant))-axis_normed.x*sin(radiant);
+    world_transformation[1][3] = 0;
+    //Third row
+    world_transformation[2][0] = axis_normed.z*axis_normed.x*(1 - cos(radiant))-axis_normed.y*sin(radiant);
+    world_transformation[2][1] = axis_normed.z*axis_normed.y*(1 - cos(radiant))-axis_normed.x*sin(radiant);
+    world_transformation[2][2] = pow(axis_normed.z,2)*(1 - cos(radiant))+cos(radiant);
+    world_transformation[2][3] = 0;
+    //Fourth row
+    world_transformation[3][0] = 0;
+    world_transformation[3][1] = 0;
+    world_transformation[3][2] = 0;
+    world_transformation[3][3] = 1;
+
+    std::cout << "***DEBUG*** Min before rotation: " << std::endl;
+	std::cout << min_4.x << " | " << min_4.y << " | " << min_4.z << std::endl;
+	std::cout << "***DEBUG*** Max before rotation: " << std::endl;
+	std::cout << max_4.x << " | " << max_4.y << " | " << max_4.z << std::endl;
+
+	min_4 = world_transformation * min_4;
+	max_4 = world_transformation * max_4;
+
+	std::cout << "***DEBUG*** Min after rotation: " << std::endl;
+	std::cout << min_4.x << " | " << min_4.y << " | " << min_4.z << std::endl;
+	std::cout << "***DEBUG*** Max after rotation: " << std::endl;
+	std::cout << max_4.x << " | " << max_4.y << " | " << max_4.z << std::endl;
+
+	glm::vec3 min_rotate{min_4};
+	glm::vec3 max_rotate{max_4};*/
+
+	min_ = min_rotate;
+	max_ = max_rotate;
+
+}
+
+void Box::scale(double& scale) {
+	glm::vec4 min_4{min_, 1.0f};
+	glm::vec4 max_4{max_, 1.0f};
+
+	glm::vec3 scalierer{scale, scale, scale};
+
+	world_transformation = glm::scale(glm::mat4(1.f), scalierer);
 
 	min_4 = world_transformation * min_4;
 	max_4 = world_transformation * max_4;

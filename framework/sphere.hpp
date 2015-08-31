@@ -21,6 +21,8 @@ public:
 	std::ostream& print(std::ostream& os) const override;
 	Hit intersect(Ray const& ray) override;
 	void translate(glm::vec3 const& trans_dir);
+	void rotate(float& radiant, glm::vec3 const& axis);
+	void scale(double& scale);
 private:
 	glm::vec3 center_;
 	double radius_;
