@@ -123,6 +123,7 @@ Hit Box::intersect(Ray const& ray) {
 
   hit.object = this;
   return hit;
+}
 
 void Box::translate(glm::vec3 const& trans_dir) {
 	glm::vec4 min_4{min_, 1.0f};
