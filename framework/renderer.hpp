@@ -38,7 +38,6 @@ private:
   unsigned width_;
   unsigned height_;
   std::vector<Color> colorbuffer_;
-  //std::string filename_;
   PpmWriter ppm_;
 };
 

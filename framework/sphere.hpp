@@ -16,8 +16,6 @@ public:
 	~Sphere();
 	glm::vec3 center() const;
 	double radius() const;
-	/*double area() const override;
-	double volume() const override;*/
 	std::ostream& print(std::ostream& os) const override;
 	Hit intersect(Ray const& ray) override;
 	void translate(glm::vec3 const& trans_dir) override;

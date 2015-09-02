@@ -82,27 +82,6 @@ unsigned Camera::height() const {
 }
 
 Ray Camera::eyeRay(float x, float y) const {
-	/* yorrick'scher Algorithmus - funst nicht:
-	glm::vec3 origin{0,0,0};
-	glm::vec3 direction{0,0,0};
-	float fovY = fovX_ * width_ / height_;
-	direction.x = 0.5 - float(x) / width_;
-	direction.y = 0.5 - float(y) / height_;//(fovY * (90 - fovY)) / (direction.z * ;
-	direction.z = -((90 - fovX_) * width_) / (2 * fovX_);
-	std::cout << "***DEBUG*** " << "x=" << direction.x << " y=" << direction.y << " z=" << direction.z << std::endl;
-	return Ray{origin, direction};
-	*/
-
-	/* Algorithm powered by internet
-	Ray eyeRay;
-	float fovX = fovX_;
-	float fovY = (width_ / height_) * fovX;
-	float dirX = ((2 * float(x) - width_) / (width_)) * std::tan(fovX);
-	float dirY = ((2 * float(y) - height_) / (height_)) * std::tan(fovY);
-	eyeRay.direction = glm::vec3{dirX, -1.0, dirY};
-	eyeRay.origin = eye_;
-	return eyeRay;*/
-	
 	float tmpx =(2*x*float(width_)/float(height_))/float(width_) - float(width_)/float(height_);
  	//float tmpx = 2*x/float(width_) - 1;
  	float tmpy = 2*y/float(height_) - 1;
@@ -120,10 +99,4 @@ Ray Camera::eyeRay(float x, float y) const {
 	};
 	glm::vec4 translatedRay{c * rayDir};
 	return Ray{eye_, {translatedRay[0],translatedRay[1],translatedRay[2]}};
-
-	/*float tmpx =(2*x*float(width_)/float(height_))/float(width_) - float(width_)/float(height_);
-	//float tmpx = 2*x/float(width_) - 1;
-	float tmpy = 2*y/float(height_) - 1;
-	float tmpz = (fovX_-90)/fovX_;
-	return Ray{eye_, {tmpx, tmpy, tmpz}};*/
 }

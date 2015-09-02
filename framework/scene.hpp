@@ -19,9 +19,6 @@ struct Scene{
     camera{},
     filename{}
   {}
-    /*shape_vec{},
-    light_vec{},
-    cam_vec{} {}*/
 
   ~Scene() {}
 
@@ -38,7 +35,6 @@ struct Scene{
   };
 
   Color ambient_light;
-   // shared_ptr instead of objects works! legal?
   std::shared_ptr<Composite> composite /*= std::make_shared<Composite>(Composite{})*/;
   std::map<std::string, Light> lights;
   std::map<std::string, Material> materials;
@@ -46,11 +42,6 @@ struct Scene{
   Color background;
   std::shared_ptr<Camera> camera;
   std::string filename;
-/*  std::vector<Shape> shape_vec;
-  std::vector<Light> light_vec;
-  std::vector<Camera> cam_vec;*/
 };
 
 #endif
-
-//move operator to a new file scene.cpp:

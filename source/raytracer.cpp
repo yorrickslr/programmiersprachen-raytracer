@@ -5,25 +5,6 @@
 
 int main(int argc, char* argv[])
 {
-  unsigned const width = 1920;
-  unsigned const height = 1080;
-  std::string const filename = "./checkerboard.ppm";
-
-  //Renderer app(width, height, filename);
-  //Renderer app(scene) BS
-
-/*
-  Scene scene;
-  scene.ambient_light = {100,100,100}; // muss aus dem SDF-FIle gelesen werden!
-  std::ifstream file;
-  file.open("input.sdf");
-  if(!file.is_open()) {
-    std::cout << "---ERROR--- file could not be found" << std::endl;
-  }
-  sdf_loadScene(file, scene); // Lieber mit Rückgabe, operator ist in scene schon drin
-  scene.camera.setResolution(width, height); // ist okay, denk nochmal drüber nach
-*/
-
   if(argc!=2) {
     std::cerr << "---ERROR--- no path to SDF-file given" << std::endl;
     return 0;
@@ -42,19 +23,12 @@ int main(int argc, char* argv[])
     std::cerr << "---ERROR--- SDF-loader: " << e.what() << std::endl;
     return 0;
   }
-  scene.background = Color{0,0,0}; //muss noch ins SDF
+  scene.background = Color{0,0,0};
 
   Renderer app{scene};
 
   std::thread thr([&app,&scene]() { app.render(scene, 2); });
 
-/*  // Debug
-  Ray dbg_ray = {{0,0,0},{0,0,-1}};
-  Hit dbg_hit = scene.composite->intersect(dbg_ray);
-  std::cout << dbg_hit.intersection.x << " | " << dbg_hit.intersection.y << " | " << dbg_hit.intersection.z << std::endl;
-  std::cout << dbg_hit.normal.x << " | " << dbg_hit.normal.y << " | " << dbg_hit.normal.z << std::endl;
-  std::cout << glm::dot(dbg_hit.normal, dbg_ray.direction) << std::endl;
-*/
   Window win(glm::ivec2(scene.camera->width(),scene.camera->height()));
 
   while (!win.shouldClose()) {

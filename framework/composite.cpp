@@ -20,23 +20,6 @@ Composite::Composite(std::string const& name, Box const& bounds) :
 	shapes_{}
 {}
 
-
-/*double Composite::area() const {
-	float sum = 0;
-	for(auto element : shapes_) {
-		sum += element.second->area();
-	}
-	return sum;
-}
-
-double Composite::volume() const {
-	float sum = 0;
-	for(auto element : shapes_) {
-		sum += element.second->volume();
-	}
-	return sum;
-}*/
-
 std::ostream& Composite::print(std::ostream& os) const {
 	for(auto element : shapes_) {
 		element.second->print(os);

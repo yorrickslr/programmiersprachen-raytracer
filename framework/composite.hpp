@@ -10,9 +10,6 @@ public:
 	Composite();
 	Composite(std::string const& name);
 	Composite(std::string const& name, Box const& bounds);
-	/*
-	double area() const override;
-	double volume() const override;*/
 	std::ostream& print(std::ostream& os) const override;
 	Hit intersect(Ray const& ray) override;
 

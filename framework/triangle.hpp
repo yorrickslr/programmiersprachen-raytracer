@@ -15,8 +15,6 @@ public:
 	glm::vec3 get_p2() const;
 	glm::vec3 get_p3() const;
 
-	/*double area() const override;
-	double volume() const override;*/
 	Hit intersect(Ray const& ray) override;
 
 	void translate(glm::vec3 const& trans_dir) override;

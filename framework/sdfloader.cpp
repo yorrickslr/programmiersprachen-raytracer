@@ -30,13 +30,12 @@ Scene& loadScene(std::ifstream& file) {
     } while(stream);
     // Parsing
     if(line.empty() || input.size()==0 || input[0].length()==0) {
-        std::cout << lineCount << ": empty line detected, nothing to do...." << std::endl;
+        //empty line
     } else if(input[0].length()>0) {
       if(input[0].at(0) == '#') {
-        std::cout << lineCount << ": comment detected, nothing to do...." << std::endl;
+        //Comment
       } else if(input[0]=="define" && input[1]=="shape") {
         if(input[2]=="box" && input.size() == 12) {
-        std::cout << lineCount << ": box detected, going to parse..." << std::endl;
 
         // Box components
         glm::vec3 min{std::stod(input[4]),std::stod(input[5]),std::stod(input[6])};
@@ -54,7 +53,6 @@ Scene& loadScene(std::ifstream& file) {
 
 
         } else if(input[2]=="sphere" && input.size() == 10) {
-        std::cout << lineCount << ": sphere detected, going to parse..." << std::endl;
 
         // Sphere components
         glm::vec3 center{std::stod(input[4]), std::stod(input[5]), std::stod(input[6])};
@@ -69,7 +67,6 @@ Scene& loadScene(std::ifstream& file) {
         scene->composite->add(ptr);
         
         } else if(input[2]=="triangle" && input.size() == 15) {
-          std::cout << lineCount << ": triangle detected, going to parse..." << std::endl;
 
           // Triangle components
           glm::vec3 p1{std::stod(input[4]),std::stod(input[5]),std::stod(input[6])};
@@ -86,7 +83,6 @@ Scene& loadScene(std::ifstream& file) {
           scene->composite->add(ptr);
 
         } else if(input[2]=="composite") {
-          std::cout << lineCount << ": composite detected, going to parse..." << std::endl;
   		    std::shared_ptr<Composite> tmpptr = std::make_shared<Composite>(Composite{ input[3] });
 
           for(int i = 4; i < input.size()-1; ++i) {
@@ -109,7 +105,6 @@ Scene& loadScene(std::ifstream& file) {
 
 
       } else if(input[0]=="define" && input[1]=="material"  && input.size() == 14) {
-        std::cout << lineCount << ": material detected, going to parse..." << std::endl;
 
         // Material components
         Color ka = {std::stof(input[3]),std::stof(input[4]),std::stof(input[5])};
@@ -121,12 +116,10 @@ Scene& loadScene(std::ifstream& file) {
 
       } else if(input[0]=="define" && input[1]=="light") {
         if (input[2] == "ambient" && input.size() == 8) {
-          std::cout << lineCount << ": ambient light detected, going to parse..." << std::endl;
 
           Color abs{std::stof(input[4]), std::stof(input[5]), std::stof(input[6])};
           scene->ambient_light = abs;
         } else if (input[2] == "diffuse" && input.size() == 11) {
-          std::cout << lineCount << ": light detected, going to parse..." << std::endl;
 
           // Light components
           glm::vec3 pos{std::stof(input[4]), std::stof(input[5]), std::stof(input[6])};
@@ -137,7 +130,6 @@ Scene& loadScene(std::ifstream& file) {
           throw std::logic_error("cannot parse light at line " + lineCountStr);
         }
       } else if(input[0]=="camera" && input.size() == 13) {
-        std::cout << lineCount << ": camera detected, going to parse..." << std::endl;
 
         // Camera components
         glm::vec3 eye{std::stod(input[3]), std::stod(input[4]), std::stod(input[5])};
@@ -150,7 +142,6 @@ Scene& loadScene(std::ifstream& file) {
         scene->cameras.insert(scene->cameras.end(),std::pair<std::string, std::shared_ptr<Camera>>(input[1],camera));
 
       } else if(input[0] == "render" && input.size() == 6) {
-      	std::cout << lineCount << ": renderer detected, going to parse..." << std::endl;
         auto iterator = scene->cameras.find(input[1]);
         if(iterator == scene->cameras.end()) {
           throw std::logic_error("cannot find camera for rendering at line " + lineCountStr);
@@ -158,9 +149,7 @@ Scene& loadScene(std::ifstream& file) {
         scene->filename = input[2];
       	scene->camera = (*iterator).second;
       	scene->camera->setResolution(std::stoul(input[3]), std::stoul(input[4]));
-
-      /*} else if {*/
-      	
+              	
       } else {
         throw std::logic_error("cannot parse line " + lineCountStr);
       }

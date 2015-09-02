@@ -13,17 +13,14 @@
 #include <hit.hpp>
 #include <bbox.hpp>
 
-class Shape { //: public std::enable_shared_from_this<Shape> { //umstellen von shared ptr auf raw ptr
+class Shape {
 public:
 	~Shape();
-	/*virtual double area() const = 0;
-	virtual double volume() const = 0;*/
 	std::string name() const;
 	Material material() const;
 	Bbox* bbox();
 	virtual std::ostream& print(std::ostream& os) const;
 	virtual Hit intersect(Ray const& ray) = 0;
-	// virtual void add(std::shared_ptr<Shape> const& composite) = 0;
 	virtual void translate(glm::vec3 const& trans_dir) = 0;
 	virtual void rotate(float& radiant, glm::vec3 const& axis) = 0;
 	virtual void scale(double& scale) = 0;
